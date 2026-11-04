@@ -16,9 +16,15 @@ export function useRuleMessage() {
               ? t(`enums:evidence.${x}`)
               : k === 'conditions'
                 ? t(`enums:condition.${x}`)
-                : k === 'fields' || k === 'missing'
-                  ? t(`pr.${x}`, { defaultValue: t(`qual.${x}`, { defaultValue: String(x) }) })
-                  : String(x),
+                : k === 'items'
+                  ? t(`p2:complianceItem.${x}`, { defaultValue: String(x) })
+                  : k === 'fields' || k === 'missing'
+                    ? t(`pr.${x}`, {
+                        defaultValue: t(`qual.${x}`, {
+                          defaultValue: t(`p2:handoff.items.${x}`, { defaultValue: String(x) }),
+                        }),
+                      })
+                    : String(x),
           )
           .join(', ');
       } else params[k] = v;

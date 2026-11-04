@@ -1,0 +1,385 @@
+{
+  "nav": {
+    "handoffs": "交付移交",
+    "renewals": "续约",
+    "crs": "变更请求",
+    "forecast": "预测",
+    "distributors": "分销商",
+    "onboarding": "入职",
+    "capacity": "驻场产能",
+    "admin": "系统管理"
+  },
+  "export": {
+    "csv": "CSV",
+    "xlsx": "Excel"
+  },
+  "notifications": {
+    "title": "通知",
+    "readAll": "全部标为已读",
+    "titles": {
+      "auditBroken": "审计日志：哈希链断裂（记录 {{id}}）",
+      "complianceReview": "合规清单待法务审核",
+      "forecastStale": "预测未更新：{{name}}",
+      "onboardingOverdue": "入职逾期：{{name}}",
+      "renewalCreated": "已创建续约：{{contract}}（{{endDate}} 到期）",
+      "renewalQuoteOverdue": "T−60 未报价续约：{{contract}}（须于 {{quoteBy}} 前报价）",
+      "slaAcceptanceOverdue": "验收单逾期：{{name}}（{{due}}）",
+      "slaApprovalOverdue": "审批逾期（{{due}}）",
+      "slaHandoffOverdue": "交付移交逾期：{{name}}（{{due}}）",
+      "slaInvoiceOverdue": "发票未开具：{{name}}（{{due}}）",
+      "slaPriceOverdue": "报价申请逾期：{{name}}（{{due}}）",
+      "slaPriceDueSoon": "报价申请即将到期：{{name}}（{{due}}）",
+      "poCapacityWarn": "订单 {{poNumber}} 已消耗 {{pct}} %：考虑变更请求或续约",
+      "poCapacityCritical": "订单 {{poNumber}} 已耗尽（{{pct}} %）：存在无订单工时",
+      "channelConflict": "{{account}} 的报备存在渠道冲突",
+      "dealRegistration": "新的商机报备：{{account}}",
+      "collection": {
+        "D_MINUS_10": "催收 D−10：{{invoice}}",
+        "D_PLUS_1": "催收 D+1：{{invoice}}（余额 {{balance}}）",
+        "D_PLUS_7": "催收 D+7：{{invoice}}（余额 {{balance}}）",
+        "D_PLUS_15": "催收 D+15：{{invoice}}（余额 {{balance}}）",
+        "D_PLUS_30": "催收 D+30：{{invoice}}（余额 {{balance}}）"
+      }
+    }
+  },
+  "handoff": {
+    "title": "交付移交",
+    "hint": "签约后 5 个工作日内召开移交会议；开始执行前须完成清单并填写 ZMP 编号。",
+    "dueOn": "截止",
+    "meeting": "会议",
+    "checklist": "会议清单",
+    "actualStart": "实际开始",
+    "plannedStart": "计划开始",
+    "acceptanceCriteria": "验收标准",
+    "sowUrl": "SOW 链接（https）",
+    "onTime": "按时",
+    "late": "超期",
+    "overdue": "已逾期",
+    "pending": "待处理",
+    "items": {
+      "commercialSheetReviewed": "已审阅商务表",
+      "sowReviewed": "已审阅 SOW",
+      "milestonesReviewed": "已审阅里程碑",
+      "acceptanceCriteriaReviewed": "已商定验收标准"
+    }
+  },
+  "plan": {
+    "title": "客户计划",
+    "objectives": "目标",
+    "growth": "增长机会",
+    "risks": "风险",
+    "target": "年度目标",
+    "none": "本年度暂无计划"
+  },
+  "review": {
+    "title": "客户回顾",
+    "periodStart": "期间开始",
+    "heldOn": "召开日期",
+    "findings": "发现",
+    "actions": "行动",
+    "edoStats": "eDo：{{open}} 个未关闭 · {{critical}} 个严重 · {{slaOverdue}} 个 SLA 逾期 · 待 Whale {{ballInWhale}} / 待客户 {{ballInClient}}",
+    "overdueTitle": "待完成的季度回顾",
+    "quarterOf": "自 {{date}} 起的季度"
+  },
+  "reviewKind": {
+    "QUARTERLY": "季度",
+    "EDO_MONTHLY": "eDo 月度"
+  },
+  "renewal": {
+    "title": "L2/L3 续约日历",
+    "hint": "合同到期前 T−90 创建续约商机，最迟 T−60 报价。",
+    "contract": "合同",
+    "endDate": "到期",
+    "createOn": "创建商机（T−90）",
+    "quoteBy": "报价截止（T−60）",
+    "alert": "提醒",
+    "createOpp": "创建商机"
+  },
+  "renewalStatus": {
+    "SCHEDULED": "已排期",
+    "OPPORTUNITY_CREATED": "已创建商机",
+    "QUOTED": "已报价",
+    "RENEWED": "已续约",
+    "NOT_RENEWED": "未续约"
+  },
+  "renewalAlert": {
+    "NONE": "正常",
+    "CREATE_OPPORTUNITY": "需创建商机",
+    "QUOTE_OVERDUE": "报价逾期"
+  },
+  "cr": {
+    "title": "变更请求",
+    "new": "新建变更请求",
+    "list": "变更请求",
+    "rateCards": "按角色费率表",
+    "lines": "明细（角色 × 工时）",
+    "profile": "角色",
+    "hours": "工时",
+    "rate": "费率",
+    "quote": "按费率表报价",
+    "rateHint": "费率依次取合同费率表、客户费率表、全局费率表。",
+    "po": "客户订单",
+    "poNumber": "订单号",
+    "registerPo": "登记订单",
+    "exception": "国家经理例外",
+    "exceptionActive": "无订单已授权开工（例外）",
+    "exceptionShort": "例外",
+    "expiresOn": "到期",
+    "grantException": "授权例外",
+    "startWork": "开始工作",
+    "reception": "客户验收",
+    "registerReception": "登记验收",
+    "opportunity": "查看商机（引擎 B）",
+    "parentContract": "主合同",
+    "description": "描述",
+    "workWithoutPo": "无订单进行中的工作",
+    "withException": "例外有效至 {{date}}",
+    "noException": "无例外",
+    "scope": "范围",
+    "global": "全局",
+    "validity": "有效期",
+    "validFrom": "生效日期"
+  },
+  "crStatus": {
+    "DRAFT": "草稿",
+    "QUOTED": "已报价",
+    "PO_RECEIVED": "已收订单",
+    "IN_PROGRESS": "执行中",
+    "RECEIVED": "已验收",
+    "INVOICED": "已开票",
+    "CANCELLED": "已取消"
+  },
+  "forecast": {
+    "title": "周预测",
+    "takeSnapshot": "生成周快照",
+    "current": "本周",
+    "report": "周报",
+    "history": "历史与准确率",
+    "stale": "自上周五未更新",
+    "noSnapshot": "暂无快照",
+    "week": "{{year}} 年第 {{week}} 周",
+    "quarter": "本季度",
+    "topDeals": "重点商机",
+    "changes": "与上周相比的变化",
+    "noChanges": "与上周相比无变化",
+    "accuracy": "预测准确率",
+    "accuracyHint": "预测（季度首个快照的承诺 + 可能）对比已签约 S&S；目标 ±10 %。",
+    "forecastAmount": "预测",
+    "actual": "实际",
+    "weekCol": "周",
+    "takenAt": "生成时间",
+    "cadence": {
+      "UPDATE": "周一：更新商机的类别和金额。",
+      "REVIEW": "周二：与国家经理复核预测。",
+      "REPORT": "周三：生成快照并发送周报。",
+      "NONE": "每周节奏：周一更新 · 周二复核 · 周三周报。"
+    },
+    "totals": {
+      "commit": "承诺",
+      "probable": "可能",
+      "pipeline": "管道",
+      "weighted": "加权",
+      "commitPlusProbable": "承诺 + 可能"
+    },
+    "change": {
+      "NEW": "新增",
+      "ADVANCED": "推进",
+      "REGRESSED": "回退",
+      "SLIPPED": "关闭日期推迟",
+      "CATEGORY": "类别变更",
+      "WON": "赢单",
+      "LOST": "丢单",
+      "REMOVED": "移除"
+    }
+  },
+  "distributor": {
+    "title": "分销商",
+    "new": "新建分销商",
+    "newRegistration": "商机报备",
+    "register": "报备",
+    "agreements": "协议",
+    "agreement": "协议",
+    "territories": "区域",
+    "margin": "毛利（小数）",
+    "products": "产品",
+    "startsOn": "开始",
+    "endsOn": "结束",
+    "addAgreement": "添加协议",
+    "trainings": "培训与演示",
+    "product": "产品",
+    "attendees": "参与人",
+    "distributor": "分销商",
+    "registrations": "商机报备",
+    "conflicts": "{{count}} 个冲突商机",
+    "valid": "有效",
+    "expired": "已过期",
+    "none": "无协议",
+    "pipeline": "管道 USD",
+    "won": "赢单 USD"
+  },
+  "distributorStatus": {
+    "PROSPECT": "潜在",
+    "ACTIVE": "活跃",
+    "INACTIVE": "停用"
+  },
+  "registrationStatus": {
+    "SUBMITTED": "已提交",
+    "CONFLICT_REVIEW": "冲突审核中",
+    "APPROVED": "已批准",
+    "REJECTED": "已拒绝",
+    "EXPIRED": "已过期"
+  },
+  "trainingKind": {
+    "TRAINING": "培训",
+    "DEMO": "演示"
+  },
+  "compliance": {
+    "tab": "合规",
+    "title": "合规清单",
+    "hint": "发送方案前必须完成（阶段 4→5）：第 21.719 号法律、反腐败、公开招标及硬件出口管制。由中国法务审核、国家经理批准。",
+    "start": "开始清单",
+    "newVersion": "新版本",
+    "required": "必填",
+    "optional": "可选",
+    "na": "不适用",
+    "submit": "提交法务",
+    "markReviewed": "标记已审核",
+    "legalComment": "法务意见"
+  },
+  "complianceSection": {
+    "DATA_PROTECTION": "数据保护（第 21.719 号法律）",
+    "ANTI_CORRUPTION": "反腐败",
+    "PUBLIC_TENDER": "公开招标",
+    "EXPORT_CONTROL": "出口管制"
+  },
+  "complianceItem": {
+    "DP_PERSONAL_DATA_PROCESSED": "是否处理客户或其用户的个人数据？",
+    "DP_DPA_SIGNED": "是否有数据处理协议（DPA）或同等条款？",
+    "DP_INTERNATIONAL_TRANSFER": "是否存在跨境数据传输（如由中国提供支持）？",
+    "DP_SECURITY_MEASURES": "是否已明确安全措施和泄露通知？",
+    "AC_PUBLIC_OFFICIALS": "是否涉及公职人员或国有企业？",
+    "AC_GIFTS_HOSPITALITY": "是否涉及礼品、差旅或招待？",
+    "AC_INTERMEDIARIES": "是否有中间人、代理或分销商参与？",
+    "PT_PUBLIC_ENTITY": "客户是否为公共机构（Mercado Público / ChileCompra）？",
+    "PT_BASES_REVIEWED": "是否已审阅招标文件？",
+    "PT_GUARANTEE_REQUIRED": "是否要求保函？",
+    "EC_DUAL_USE_HW": "是否包含两用或受管制硬件？",
+    "EC_LICENSE_REQUIRED": "是否需要出口许可？",
+    "EC_END_USER_DECLARATION": "是否已取得最终用户声明？"
+  },
+  "checklistStatus": {
+    "DRAFT": "草稿",
+    "IN_REVIEW": "法务审核中",
+    "REVIEWED": "法务已审核",
+    "APPROVED": "已批准",
+    "REJECTED": "已拒绝"
+  },
+  "onboarding": {
+    "title": "入职",
+    "new": "新建入职",
+    "kits": "国家入职包",
+    "items": "项目",
+    "days": "达到产出所需天数",
+    "productiveDays": "{{count}} 天",
+    "person": "人员",
+    "startDate": "入职日期",
+    "target": "产出目标",
+    "progress": "进度",
+    "checklist": "清单",
+    "firstOpp": "首个商机",
+    "daysCount": "入职后 {{count}} 天",
+    "overdue": "逾期",
+    "productive": "已产出"
+  },
+  "onboardingItem": {
+    "MANUAL": "销售手册",
+    "TEMPLATES": "模板",
+    "STANDARD_DEMO": "标准演示",
+    "ACCESS_CRM": "CRM 权限",
+    "ACCESS_EDO": "eDo 权限",
+    "ACCESS_ZMP": "ZMP 权限",
+    "ACCESS_FOL": "FOL 权限"
+  },
+  "capacity": {
+    "title": "驻场产能",
+    "newPo": "新建驻场订单",
+    "contract": "合同（订单）",
+    "totalHours": "订单工时",
+    "remaining": "余额",
+    "excess": "超出订单的工时",
+    "exhaustion": "按当前速度将在 {{months}} 个月后耗尽",
+    "suggestion": "消耗超过阈值：创建变更请求或提前续约。",
+    "withoutPo": "无订单的已报工时",
+    "import": "导入工时（ZMP/FOL 导出）",
+    "importHint": "CSV 列：poNumber、resident、hours（分隔符 ; 或 ,）。",
+    "importBtn": "导入",
+    "month": "月份"
+  },
+  "capacityAlert": {
+    "NONE": "正常",
+    "WARN_80": "已消耗 80 %",
+    "CRITICAL_100": "已耗尽"
+  },
+  "admin": {
+    "title": "系统管理",
+    "tabs": {
+      "users": "用户与角色",
+      "raci": "RACI",
+      "settings": "参数",
+      "fx": "汇率",
+      "calendars": "节假日",
+      "import": "导入",
+      "jobs": "定时任务"
+    },
+    "newUser": "新建用户",
+    "roles": "角色",
+    "lastLogin": "最近登录",
+    "active": "启用",
+    "newPassword": "密码（至少 12 位）",
+    "publishRaci": "发布新版本（{{count}} 项变更）",
+    "raciHint": "每次发布都会生成新的 RACI 版本，权限立即生效。",
+    "invalidJson": "JSON 无效",
+    "history": "历史",
+    "unitsPerUsd": "每美元单位",
+    "source": "来源",
+    "calendar": "日历",
+    "workday": "工作日",
+    "jobsHint": "后台任务按 cron 运行；可在此手动触发。",
+    "run": "运行"
+  },
+  "jobs": {
+    "sla_scan": "即将到期和逾期的 SLA",
+    "collections_daily": "催收升级",
+    "renewals_daily": "续约 T−90 / T−60",
+    "capacity_daily": "驻场订单消耗（80 %）",
+    "audit_verify": "审计日志链校验",
+    "forecast_monday": "未更新的商机（周一）",
+    "forecast_snapshot": "周快照（周三）",
+    "onboarding_daily": "逾期入职"
+  },
+  "import": {
+    "kinds": {
+      "legacy-tracker": "旧版跟踪表（tracker_data.json）",
+      "accounts": "客户（CSV）",
+      "opportunities": "商机（CSV）",
+      "invoices": "发票（CSV）"
+    },
+    "file": "文件",
+    "dryRun": "试运行",
+    "run": "导入",
+    "template": "下载 CSV 模板",
+    "legacyHint": "旧跟踪表 JSON，含 wom[]、new_clients[] 和 billing[]；状态按旧版映射表转换为阶段。",
+    "csvHint": "带表头的 CSV（分隔符 ; 或 ,），逐行校验规则。",
+    "simulated": "试运行（未做更改）",
+    "applied": "已导入",
+    "summary": "{{total}} 行中 {{ok}} 行有效 · 跳过 {{skipped}} 行",
+    "created": {
+      "accounts": "客户",
+      "opportunities": "商机",
+      "contracts": "合同",
+      "milestones": "里程碑",
+      "invoices": "发票",
+      "payments": "付款"
+    }
+  }
+}

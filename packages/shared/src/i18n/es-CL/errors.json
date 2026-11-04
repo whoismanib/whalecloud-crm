@@ -82,7 +82,29 @@
     "PAYMENT_CURRENCY_MISMATCH": "El pago debe estar en la moneda de la factura ({{invoiceCurrency}}).",
     "PAYMENT_EXCEEDS_BALANCE": "El pago supera el saldo ({{balance}}).",
     "COLLECTION_NOT_DUE": "Esta acción de cobranza aún no corresponde (programada {{scheduledOn}}).",
-    "ACCOUNT_POSSIBLE_DUPLICATE": "Posible duplicado: ya existe «{{name}}»."
+    "ACCOUNT_POSSIBLE_DUPLICATE": "Posible duplicado: ya existe «{{name}}».",
+    "ACCOUNT_NOT_FOUND": "No existe la cuenta «{{name}}».",
+    "OPPORTUNITY_NOT_FOUND": "No se encontró la oportunidad.",
+    "CANNOT_DEACTIVATE_SELF": "No puedes desactivar tu propio usuario.",
+    "COMPLIANCE_ITEMS_UNANSWERED": "Faltan respuestas en el checklist de cumplimiento: {{items}}.",
+    "COMPLIANCE_NOT_REVIEWED": "El checklist debe estar revisado por Legal antes de aprobarse (estado actual: {{status}}).",
+    "CONTRACT_NOT_PO": "El contrato debe ser una OC.",
+    "CR_EXCEPTION_EXPIRED": "La excepción del Country Manager está vencida ({{expiresOn}}).",
+    "CR_LINES_REQUIRED": "El CR necesita al menos una línea perfil × horas.",
+    "DATE_RANGE_INVALID": "La fecha de término debe ser posterior a la de inicio.",
+    "DISTRIBUTOR_AGREEMENT_MISSING": "El distribuidor no tiene un acuerdo vigente.",
+    "DISTRIBUTOR_AGREEMENT_EXPIRED": "El acuerdo del distribuidor está vencido.",
+    "DISTRIBUTOR_OUT_OF_TERRITORY": "El acuerdo del distribuidor no cubre el territorio {{country}}.",
+    "HANDOFF_CHECKLIST_INCOMPLETE": "Checklist de traspaso incompleto: {{missing}}.",
+    "PO_NOT_FOUND": "No existe la OC indicada.",
+    "PO_REQUIRED": "No se puede iniciar trabajo sin OC del cliente ni excepción del Country Manager.",
+    "RACI_ADMIN_LOCKOUT": "El cambio dejaría al rol Administrador sin acceso a ADM.",
+    "RATE_CARD_MISSING": "No hay tarifa vigente para el perfil «{{profile}}».",
+    "RATE_CARD_CURRENCY_MIX": "Las tarifas del CR están en monedas distintas ({{profile}}).",
+    "ROW_INVALID": "Fila inválida.",
+    "SNAPSHOT_EXISTS": "Ya existe el snapshot de la semana {{week}}.",
+    "CATEGORY_REQUIRED": "Falta la categoría de pronóstico.",
+    "CATEGORY_INCONSISTENT": "Commit solo desde la etapa de propuesta en adelante."
   },
   "validation": {
     "REQUIRED": "Obligatorio",
@@ -98,6 +120,9 @@
     "INVALID_ENUM_VALUE": "Selecciona una opción",
     "TOO_SMALL": "Muy corto",
     "TOO_BIG": "Muy largo",
-    "ENGINE_REQUIRED": "Motor obligatorio"
+    "ENGINE_REQUIRED": "Motor obligatorio",
+    "PASSWORD_TOO_SHORT": "La contraseña debe tener al menos 12 caracteres.",
+    "MONTH_FIRST_DAY": "Debe ser el primer día del mes.",
+    "RATE_POSITIVE": "La tasa debe ser mayor que cero."
   }
 }

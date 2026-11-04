@@ -9,6 +9,9 @@ import enErrors from '@wcrm/shared/i18n/en/errors.json';
 import zhCommon from '@wcrm/shared/i18n/zh-CN/common.json';
 import zhEnums from '@wcrm/shared/i18n/zh-CN/enums.json';
 import zhErrors from '@wcrm/shared/i18n/zh-CN/errors.json';
+import esP2 from '@wcrm/shared/i18n/es-CL/p2.json';
+import enP2 from '@wcrm/shared/i18n/en/p2.json';
+import zhP2 from '@wcrm/shared/i18n/zh-CN/p2.json';
 
 export const LANGS = [
   { value: 'es-CL', label: 'Español (Chile)' },
@@ -29,13 +32,13 @@ function initialLng(): string {
 
 void i18n.use(initReactI18next).init({
   resources: {
-    'es-CL': { common: esCommon, enums: esEnums, errors: esErrors },
-    en: { common: enCommon, enums: enEnums, errors: enErrors },
-    'zh-CN': { common: zhCommon, enums: zhEnums, errors: zhErrors },
+    'es-CL': { common: esCommon, enums: esEnums, errors: esErrors, p2: esP2 },
+    en: { common: enCommon, enums: enEnums, errors: enErrors, p2: enP2 },
+    'zh-CN': { common: zhCommon, enums: zhEnums, errors: zhErrors, p2: zhP2 },
   },
   lng: initialLng(),
   fallbackLng: 'es-CL',
-  ns: ['common', 'enums', 'errors'],
+  ns: ['common', 'enums', 'errors', 'p2'],
   defaultNS: 'common',
   interpolation: { escapeValue: false },
 });

@@ -82,7 +82,29 @@
     "PAYMENT_CURRENCY_MISMATCH": "The payment must be in the invoice currency ({{invoiceCurrency}}).",
     "PAYMENT_EXCEEDS_BALANCE": "The payment exceeds the balance ({{balance}}).",
     "COLLECTION_NOT_DUE": "This collection action is not due yet (scheduled {{scheduledOn}}).",
-    "ACCOUNT_POSSIBLE_DUPLICATE": "Possible duplicate: “{{name}}” already exists."
+    "ACCOUNT_POSSIBLE_DUPLICATE": "Possible duplicate: “{{name}}” already exists.",
+    "ACCOUNT_NOT_FOUND": "Account “{{name}}” does not exist.",
+    "OPPORTUNITY_NOT_FOUND": "Opportunity not found.",
+    "CANNOT_DEACTIVATE_SELF": "You cannot deactivate your own user.",
+    "COMPLIANCE_ITEMS_UNANSWERED": "Compliance checklist has unanswered items: {{items}}.",
+    "COMPLIANCE_NOT_REVIEWED": "The checklist must be reviewed by Legal before approval (current status: {{status}}).",
+    "CONTRACT_NOT_PO": "The contract must be a PO.",
+    "CR_EXCEPTION_EXPIRED": "The Country Manager exception has expired ({{expiresOn}}).",
+    "CR_LINES_REQUIRED": "The CR needs at least one profile × hours line.",
+    "DATE_RANGE_INVALID": "End date must be after start date.",
+    "DISTRIBUTOR_AGREEMENT_MISSING": "The distributor has no active agreement.",
+    "DISTRIBUTOR_AGREEMENT_EXPIRED": "The distributor agreement has expired.",
+    "DISTRIBUTOR_OUT_OF_TERRITORY": "The distributor agreement does not cover territory {{country}}.",
+    "HANDOFF_CHECKLIST_INCOMPLETE": "Hand-off checklist incomplete: {{missing}}.",
+    "PO_NOT_FOUND": "The PO does not exist.",
+    "PO_REQUIRED": "Work cannot start without a client PO or a Country Manager exception.",
+    "RACI_ADMIN_LOCKOUT": "The change would leave the Administrator role without ADM access.",
+    "RATE_CARD_MISSING": "No valid rate for profile “{{profile}}”.",
+    "RATE_CARD_CURRENCY_MIX": "CR rates are in different currencies ({{profile}}).",
+    "ROW_INVALID": "Invalid row.",
+    "SNAPSHOT_EXISTS": "The snapshot for week {{week}} already exists.",
+    "CATEGORY_REQUIRED": "Forecast category missing.",
+    "CATEGORY_INCONSISTENT": "Commit is only allowed from the proposal stage onwards."
   },
   "validation": {
     "REQUIRED": "Required",
@@ -98,6 +120,9 @@
     "INVALID_ENUM_VALUE": "Select an option",
     "TOO_SMALL": "Too short",
     "TOO_BIG": "Too long",
-    "ENGINE_REQUIRED": "Engine required"
+    "ENGINE_REQUIRED": "Engine required",
+    "PASSWORD_TOO_SHORT": "Password must have at least 12 characters.",
+    "MONTH_FIRST_DAY": "Must be the first day of the month.",
+    "RATE_POSITIVE": "Rate must be greater than zero."
   }
 }

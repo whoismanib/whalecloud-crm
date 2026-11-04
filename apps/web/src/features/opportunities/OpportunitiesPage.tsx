@@ -32,6 +32,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
+import { ExportButtons } from '../../components/ExportButtons';
 import { EnumBadge, EnumSelect, PageHeader, StageBadge, useFieldError } from '../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
@@ -269,6 +270,7 @@ export default function OpportunitiesPage() {
         title={t('opps.title')}
         right={
           <>
+            <ExportButtons entity="opportunities" />
             <TextInput
               size="xs"
               placeholder={t('actions.search')}

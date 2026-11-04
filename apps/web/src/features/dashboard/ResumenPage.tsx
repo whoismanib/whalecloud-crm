@@ -26,6 +26,7 @@ import {
 } from 'recharts';
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
+import { ExportButtons } from '../../components/ExportButtons';
 import { EnumBadge, PageHeader } from '../../components/ui';
 import { fmtMoney, fmtNumber, fmtPct } from '../../lib/format';
 
@@ -182,13 +183,16 @@ export default function ResumenPage() {
       <PageHeader
         title={t('dashboard.title')}
         right={
-          <SegmentedControl
-            size="xs"
-            value={currency}
-            onChange={setCurrency}
-            data={['CNY', 'USD', 'CLP']}
-            aria-label={t('ui.currency')}
-          />
+          <>
+            <ExportButtons entity="dashboard" query={`currency=${currency}`} />
+            <SegmentedControl
+              size="xs"
+              value={currency}
+              onChange={setCurrency}
+              data={['CNY', 'USD', 'CLP']}
+              aria-label={t('ui.currency')}
+            />
+          </>
         }
       />
       <RuleErrors error={q.error} />

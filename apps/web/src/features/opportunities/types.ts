@@ -75,6 +75,12 @@ export interface OppDetail {
     zmpProjectId: string | null;
     attendeeUserIds: string[];
     meetingAt: string | null;
+    dueOn?: string | null;
+    acceptanceCriteria?: string | null;
+    commercialSheetReviewed?: boolean;
+    sowReviewed?: boolean;
+    milestonesReviewed?: boolean;
+    acceptanceCriteriaReviewed?: boolean;
   } | null;
   businessCases: {
     id: string;

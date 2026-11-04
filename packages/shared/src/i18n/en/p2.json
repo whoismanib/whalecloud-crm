@@ -1,0 +1,385 @@
+{
+  "nav": {
+    "handoffs": "Hand-offs",
+    "renewals": "Renewals",
+    "crs": "Change requests",
+    "forecast": "Forecast",
+    "distributors": "Distributors",
+    "onboarding": "Onboarding",
+    "capacity": "Resident capacity",
+    "admin": "Administration"
+  },
+  "export": {
+    "csv": "CSV",
+    "xlsx": "Excel"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "readAll": "Mark all read",
+    "titles": {
+      "auditBroken": "Audit log: hash chain broken (record {{id}})",
+      "complianceReview": "Compliance checklist awaiting legal review",
+      "forecastStale": "Forecast not updated: {{name}}",
+      "onboardingOverdue": "Onboarding overdue: {{name}}",
+      "renewalCreated": "Renewal created: {{contract}} (ends {{endDate}})",
+      "renewalQuoteOverdue": "Renewal not quoted at T−60: {{contract}} (quote by {{quoteBy}})",
+      "slaAcceptanceOverdue": "Acceptance certificate overdue: {{name}} ({{due}})",
+      "slaApprovalOverdue": "Approval overdue ({{due}})",
+      "slaHandoffOverdue": "Delivery hand-off overdue: {{name}} ({{due}})",
+      "slaInvoiceOverdue": "Invoice not issued: {{name}} ({{due}})",
+      "slaPriceOverdue": "Price request overdue: {{name}} ({{due}})",
+      "slaPriceDueSoon": "Price request due soon: {{name}} ({{due}})",
+      "poCapacityWarn": "PO {{poNumber}} at {{pct}} %: consider a CR or renewal",
+      "poCapacityCritical": "PO {{poNumber}} exhausted ({{pct}} %): hours without PO",
+      "channelConflict": "Channel conflict on registration for {{account}}",
+      "dealRegistration": "New deal registration: {{account}}",
+      "collection": {
+        "D_MINUS_10": "Collections D−10: {{invoice}}",
+        "D_PLUS_1": "Collections D+1: {{invoice}} (balance {{balance}})",
+        "D_PLUS_7": "Collections D+7: {{invoice}} (balance {{balance}})",
+        "D_PLUS_15": "Collections D+15: {{invoice}} (balance {{balance}})",
+        "D_PLUS_30": "Collections D+30: {{invoice}} (balance {{balance}})"
+      }
+    }
+  },
+  "handoff": {
+    "title": "Delivery hand-offs",
+    "hint": "Hand-off meeting within 5 business days of signature; full checklist and ZMP reference before execution starts.",
+    "dueOn": "Due",
+    "meeting": "Meeting",
+    "checklist": "Meeting checklist",
+    "actualStart": "Actual start",
+    "plannedStart": "Planned start",
+    "acceptanceCriteria": "Acceptance criteria",
+    "sowUrl": "SOW link (https)",
+    "onTime": "On time",
+    "late": "Late",
+    "overdue": "Overdue",
+    "pending": "Pending",
+    "items": {
+      "commercialSheetReviewed": "Commercial sheet reviewed",
+      "sowReviewed": "SOW reviewed",
+      "milestonesReviewed": "Milestones reviewed",
+      "acceptanceCriteriaReviewed": "Acceptance criteria agreed"
+    }
+  },
+  "plan": {
+    "title": "Account plan",
+    "objectives": "Objectives",
+    "growth": "Growth opportunities",
+    "risks": "Risks",
+    "target": "Annual target",
+    "none": "No plan for this year"
+  },
+  "review": {
+    "title": "Account reviews",
+    "periodStart": "Period start",
+    "heldOn": "Held on",
+    "findings": "Findings",
+    "actions": "Actions",
+    "edoStats": "eDo: {{open}} open · {{critical}} critical · {{slaOverdue}} SLA overdue · ball in Whale {{ballInWhale}} / client {{ballInClient}}",
+    "overdueTitle": "Pending quarterly reviews",
+    "quarterOf": "quarter starting {{date}}"
+  },
+  "reviewKind": {
+    "QUARTERLY": "Quarterly",
+    "EDO_MONTHLY": "Monthly eDo"
+  },
+  "renewal": {
+    "title": "L2/L3 renewal calendar",
+    "hint": "Renewal opportunity at T−90 and quote no later than T−60 before contract end.",
+    "contract": "Contract",
+    "endDate": "Ends",
+    "createOn": "Create opportunity (T−90)",
+    "quoteBy": "Quote by (T−60)",
+    "alert": "Alert",
+    "createOpp": "Create opportunity"
+  },
+  "renewalStatus": {
+    "SCHEDULED": "Scheduled",
+    "OPPORTUNITY_CREATED": "Opportunity created",
+    "QUOTED": "Quoted",
+    "RENEWED": "Renewed",
+    "NOT_RENEWED": "Not renewed"
+  },
+  "renewalAlert": {
+    "NONE": "On track",
+    "CREATE_OPPORTUNITY": "Create opportunity",
+    "QUOTE_OVERDUE": "Quote overdue"
+  },
+  "cr": {
+    "title": "Change requests",
+    "new": "New CR",
+    "list": "CRs",
+    "rateCards": "Rate card by profile",
+    "lines": "Lines (profile × hours)",
+    "profile": "Profile",
+    "hours": "Hours",
+    "rate": "Rate",
+    "quote": "Quote with rate card",
+    "rateHint": "Rates come from the contract rate card, then the account card, then the global card.",
+    "po": "Client PO",
+    "poNumber": "PO number",
+    "registerPo": "Register PO",
+    "exception": "Country Manager exception",
+    "exceptionActive": "Work authorised without PO (exception)",
+    "exceptionShort": "Exception",
+    "expiresOn": "Expires",
+    "grantException": "Grant exception",
+    "startWork": "Start work",
+    "reception": "Client acceptance",
+    "registerReception": "Register acceptance",
+    "opportunity": "View opportunity (engine B)",
+    "parentContract": "Parent contract",
+    "description": "Description",
+    "workWithoutPo": "Work in progress without PO",
+    "withException": "with exception until {{date}}",
+    "noException": "no exception",
+    "scope": "Scope",
+    "global": "Global",
+    "validity": "Validity",
+    "validFrom": "Valid from"
+  },
+  "crStatus": {
+    "DRAFT": "Draft",
+    "QUOTED": "Quoted",
+    "PO_RECEIVED": "PO received",
+    "IN_PROGRESS": "In progress",
+    "RECEIVED": "Accepted",
+    "INVOICED": "Invoiced",
+    "CANCELLED": "Cancelled"
+  },
+  "forecast": {
+    "title": "Weekly forecast",
+    "takeSnapshot": "Take weekly snapshot",
+    "current": "Current week",
+    "report": "Weekly report",
+    "history": "History and accuracy",
+    "stale": "Not updated since Friday",
+    "noSnapshot": "No snapshots yet",
+    "week": "Week {{week}} of {{year}}",
+    "quarter": "Current quarter",
+    "topDeals": "Top deals",
+    "changes": "Changes vs previous week",
+    "noChanges": "No changes vs previous week",
+    "accuracy": "Forecast accuracy",
+    "accuracyHint": "Forecast (commit + probable from the quarter's first snapshot) vs signed S&S; target ±10 %.",
+    "forecastAmount": "Forecast",
+    "actual": "Actual",
+    "weekCol": "Week",
+    "takenAt": "Taken",
+    "cadence": {
+      "UPDATE": "Monday: update categories and amounts of your opportunities.",
+      "REVIEW": "Tuesday: forecast review with the Country Manager.",
+      "REPORT": "Wednesday: snapshot is taken and the weekly report is sent.",
+      "NONE": "Weekly cycle: Monday update · Tuesday review · Wednesday report."
+    },
+    "totals": {
+      "commit": "Commit",
+      "probable": "Probable",
+      "pipeline": "Pipeline",
+      "weighted": "Weighted",
+      "commitPlusProbable": "Commit + probable"
+    },
+    "change": {
+      "NEW": "New",
+      "ADVANCED": "Advanced",
+      "REGRESSED": "Regressed",
+      "SLIPPED": "Close date slipped",
+      "CATEGORY": "Category changed",
+      "WON": "Won",
+      "LOST": "Lost",
+      "REMOVED": "Removed"
+    }
+  },
+  "distributor": {
+    "title": "Distributors",
+    "new": "New distributor",
+    "newRegistration": "Register deal",
+    "register": "Register",
+    "agreements": "Agreements",
+    "agreement": "Agreement",
+    "territories": "Territories",
+    "margin": "Margin (fraction)",
+    "products": "Products",
+    "startsOn": "From",
+    "endsOn": "To",
+    "addAgreement": "Add agreement",
+    "trainings": "Trainings and demos",
+    "product": "Product",
+    "attendees": "Attendees",
+    "distributor": "Distributor",
+    "registrations": "Deal registrations",
+    "conflicts": "{{count}} conflicting opportunity(ies)",
+    "valid": "Valid",
+    "expired": "Expired",
+    "none": "No agreement",
+    "pipeline": "Pipeline USD",
+    "won": "Won USD"
+  },
+  "distributorStatus": {
+    "PROSPECT": "Prospect",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive"
+  },
+  "registrationStatus": {
+    "SUBMITTED": "Submitted",
+    "CONFLICT_REVIEW": "Conflict under review",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "EXPIRED": "Expired"
+  },
+  "trainingKind": {
+    "TRAINING": "Training",
+    "DEMO": "Demo"
+  },
+  "compliance": {
+    "tab": "Compliance",
+    "title": "Compliance checklist",
+    "hint": "Required before sending the proposal (stage 4→5): Law 21.719, anti-corruption, public tender and hardware export control. Reviewed by China Legal, approved by the Country Manager.",
+    "start": "Start checklist",
+    "newVersion": "New version",
+    "required": "Required",
+    "optional": "Optional",
+    "na": "N/A",
+    "submit": "Send to Legal",
+    "markReviewed": "Mark reviewed",
+    "legalComment": "Legal comment"
+  },
+  "complianceSection": {
+    "DATA_PROTECTION": "Data protection (Law 21.719)",
+    "ANTI_CORRUPTION": "Anti-corruption",
+    "PUBLIC_TENDER": "Public tender",
+    "EXPORT_CONTROL": "Export control"
+  },
+  "complianceItem": {
+    "DP_PERSONAL_DATA_PROCESSED": "Will personal data of the client or its users be processed?",
+    "DP_DPA_SIGNED": "Is there a data processing agreement (DPA) or equivalent clauses?",
+    "DP_INTERNATIONAL_TRANSFER": "Is there an international data transfer (e.g. support from China)?",
+    "DP_SECURITY_MEASURES": "Are security measures and breach notification defined?",
+    "AC_PUBLIC_OFFICIALS": "Are public officials or state-owned companies involved?",
+    "AC_GIFTS_HOSPITALITY": "Are gifts, travel or hospitality involved?",
+    "AC_INTERMEDIARIES": "Are intermediaries, agents or distributors involved?",
+    "PT_PUBLIC_ENTITY": "Is the client a public body (Mercado Público / ChileCompra)?",
+    "PT_BASES_REVIEWED": "Have the tender terms been reviewed?",
+    "PT_GUARANTEE_REQUIRED": "Is a performance/bid bond required?",
+    "EC_DUAL_USE_HW": "Does it include dual-use or controlled hardware?",
+    "EC_LICENSE_REQUIRED": "Is an export licence required?",
+    "EC_END_USER_DECLARATION": "Has an end-user declaration been obtained?"
+  },
+  "checklistStatus": {
+    "DRAFT": "Draft",
+    "IN_REVIEW": "In legal review",
+    "REVIEWED": "Reviewed by Legal",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  },
+  "onboarding": {
+    "title": "Onboarding",
+    "new": "New onboarding",
+    "kits": "Kit per country",
+    "items": "Items",
+    "days": "Days to productive",
+    "productiveDays": "{{count}} days",
+    "person": "Person",
+    "startDate": "Start date",
+    "target": "Productive target",
+    "progress": "Progress",
+    "checklist": "Checklist",
+    "firstOpp": "First opportunity",
+    "daysCount": "{{count}} days since start",
+    "overdue": "Overdue",
+    "productive": "Productive"
+  },
+  "onboardingItem": {
+    "MANUAL": "Sales manual",
+    "TEMPLATES": "Templates",
+    "STANDARD_DEMO": "Standard demo",
+    "ACCESS_CRM": "CRM access",
+    "ACCESS_EDO": "eDo access",
+    "ACCESS_ZMP": "ZMP access",
+    "ACCESS_FOL": "FOL access"
+  },
+  "capacity": {
+    "title": "Resident capacity",
+    "newPo": "New resident PO",
+    "contract": "Contract (PO)",
+    "totalHours": "PO hours",
+    "remaining": "Balance",
+    "excess": "Hours above PO",
+    "exhaustion": "At the current pace it runs out in {{months}} months",
+    "suggestion": "Consumption above threshold: create a CR or bring the renewal forward.",
+    "withoutPo": "Hours reported without PO",
+    "import": "Import hours (ZMP/FOL export)",
+    "importHint": "CSV with columns poNumber, resident, hours (; or , separator).",
+    "importBtn": "Import",
+    "month": "Month"
+  },
+  "capacityAlert": {
+    "NONE": "Normal",
+    "WARN_80": "80 % consumed",
+    "CRITICAL_100": "Exhausted"
+  },
+  "admin": {
+    "title": "Administration",
+    "tabs": {
+      "users": "Users and roles",
+      "raci": "RACI",
+      "settings": "Settings",
+      "fx": "Exchange rates",
+      "calendars": "Holidays",
+      "import": "Import",
+      "jobs": "Scheduled jobs"
+    },
+    "newUser": "New user",
+    "roles": "Roles",
+    "lastLogin": "Last login",
+    "active": "Active",
+    "newPassword": "Password (min. 12)",
+    "publishRaci": "Publish new version ({{count}} changes)",
+    "raciHint": "Each publish creates a new RACI version; permissions apply immediately.",
+    "invalidJson": "Invalid JSON",
+    "history": "History",
+    "unitsPerUsd": "Units per USD",
+    "source": "Source",
+    "calendar": "Calendar",
+    "workday": "Working day",
+    "jobsHint": "The worker runs these jobs on their cron; you can force a run here.",
+    "run": "Run"
+  },
+  "jobs": {
+    "sla_scan": "SLAs due soon and overdue",
+    "collections_daily": "Collections escalation",
+    "renewals_daily": "Renewals T−90 / T−60",
+    "capacity_daily": "Resident PO consumption (80 %)",
+    "audit_verify": "Audit log chain verification",
+    "forecast_monday": "Opportunities not updated (Monday)",
+    "forecast_snapshot": "Weekly snapshot (Wednesday)",
+    "onboarding_daily": "Overdue onboardings"
+  },
+  "import": {
+    "kinds": {
+      "legacy-tracker": "Legacy tracker (tracker_data.json)",
+      "accounts": "Accounts (CSV)",
+      "opportunities": "Opportunities (CSV)",
+      "invoices": "Invoices (CSV)"
+    },
+    "file": "File",
+    "dryRun": "Dry run",
+    "run": "Import",
+    "template": "Download CSV template",
+    "legacyHint": "JSON from the previous tracker with wom[], new_clients[] and billing[]; status is mapped to stages with the legacy table.",
+    "csvHint": "CSV with header (; or , separator). Rules are validated row by row.",
+    "simulated": "Dry run (no changes)",
+    "applied": "Import applied",
+    "summary": "{{ok}} of {{total}} rows valid · {{skipped}} skipped",
+    "created": {
+      "accounts": "Accounts",
+      "opportunities": "Opportunities",
+      "contracts": "Contracts",
+      "milestones": "Milestones",
+      "invoices": "Invoices",
+      "payments": "Payments"
+    }
+  }
+}

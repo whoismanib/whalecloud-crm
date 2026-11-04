@@ -14,6 +14,14 @@ const BillingPage = lazy(() => import('../features/billing/BillingPage'));
 const HealthPage = lazy(() => import('../features/health/HealthPage'));
 const TicketsPage = lazy(() => import('../features/tickets/TicketsPage'));
 const AuditPage = lazy(() => import('../features/audit/AuditPage'));
+const HandoffsPage = lazy(() => import('../features/handoffs/HandoffsPage'));
+const RenewalsPage = lazy(() => import('../features/renewals/RenewalsPage'));
+const ChangeRequestsPage = lazy(() => import('../features/change-requests/ChangeRequestsPage'));
+const ForecastPage = lazy(() => import('../features/forecast/ForecastPage'));
+const DistributorsPage = lazy(() => import('../features/distributors/DistributorsPage'));
+const OnboardingPage = lazy(() => import('../features/onboarding/OnboardingPage'));
+const CapacityPage = lazy(() => import('../features/capacity/CapacityPage'));
+const AdminPage = lazy(() => import('../features/admin/AdminPage'));
 
 const Loading = () => (
   <Center mih={240}>
@@ -44,6 +52,14 @@ const router = createBrowserRouter(
         { path: 'salud', element: page(<HealthPage />) },
         { path: 'incidentes', element: page(<TicketsPage />) },
         { path: 'bitacora', element: page(<AuditPage />) },
+        { path: 'traspasos', element: page(<HandoffsPage />) },
+        { path: 'renovaciones', element: page(<RenewalsPage />) },
+        { path: 'crs', element: page(<ChangeRequestsPage />) },
+        { path: 'pronostico', element: page(<ForecastPage />) },
+        { path: 'distribuidores', element: page(<DistributorsPage />) },
+        { path: 'incorporacion', element: page(<OnboardingPage />) },
+        { path: 'capacidad', element: page(<CapacityPage />) },
+        { path: 'administracion', element: page(<AdminPage />) },
       ],
     },
   ],

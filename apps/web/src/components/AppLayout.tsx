@@ -5,6 +5,7 @@ import {
   Group,
   Menu,
   NavLink,
+  ScrollArea,
   Text,
   Tooltip,
   useMantineColorScheme,
@@ -12,7 +13,15 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconBuilding,
+  IconCalendarRepeat,
+  IconChartLine,
   IconChecklist,
+  IconClockHour4,
+  IconFileDiff,
+  IconSettings,
+  IconTruckDelivery,
+  IconUsersGroup,
+  IconUserPlus,
   IconFileInvoice,
   IconHeartbeat,
   IconHistory,
@@ -30,6 +39,7 @@ import { NavLink as RouterLink, Outlet, useLocation } from 'react-router-dom';
 import { api } from '../api/client';
 import { canDo, useMe } from '../auth/useMe';
 import { LanguageSwitch } from './LanguageSwitch';
+import { NotificationBell } from './NotificationBell';
 
 export function AppLayout() {
   const { t } = useTranslation();
@@ -61,7 +71,53 @@ export function AppLayout() {
       icon: IconTicket,
       show: canDo(me, 'P10', 'view'),
     },
+    {
+      to: '/traspasos',
+      label: t('p2:nav.handoffs'),
+      icon: IconTruckDelivery,
+      show: canDo(me, 'P9', 'view'),
+    },
+    {
+      to: '/renovaciones',
+      label: t('p2:nav.renewals'),
+      icon: IconCalendarRepeat,
+      show: canDo(me, 'P10', 'view'),
+    },
+    { to: '/crs', label: t('p2:nav.crs'), icon: IconFileDiff, show: canDo(me, 'P11', 'view') },
+    {
+      to: '/pronostico',
+      label: t('p2:nav.forecast'),
+      icon: IconChartLine,
+      show: canDo(me, 'P12', 'view'),
+    },
+    {
+      to: '/distribuidores',
+      label: t('p2:nav.distributors'),
+      icon: IconUsersGroup,
+      show: canDo(me, 'P13', 'view'),
+    },
+    {
+      to: '/incorporacion',
+      label: t('p2:nav.onboarding'),
+      icon: IconUserPlus,
+      show: canDo(me, 'P15', 'view'),
+    },
+    {
+      to: '/capacidad',
+      label: t('p2:nav.capacity'),
+      icon: IconClockHour4,
+      show: canDo(me, 'P16', 'view'),
+    },
     { to: '/bitacora', label: t('nav.audit'), icon: IconHistory, show: canDo(me, 'ADM', 'view') },
+    {
+      to: '/administracion',
+      label: t('p2:nav.admin'),
+      icon: IconSettings,
+      show:
+        canDo(me, 'ADM', 'write') ||
+        canDo(me, 'P1', 'approve') ||
+        Boolean(me?.actionRoles?.['FX.write']),
+    },
   ];
   const logout = async () => {
     await api.post('/auth/logout').catch(() => undefined);
@@ -71,7 +127,7 @@ export function AppLayout() {
   return (
     <AppShell
       header={{ height: 56 }}
-      navbar={{ width: 230, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+      navbar={{ width: 240, breakpoint: 'sm', collapsed: { mobile: !opened } }}
       padding="md"
     >
       <AppShell.Header>
@@ -84,6 +140,7 @@ export function AppLayout() {
             </Text>
           </Group>
           <Group gap="xs">
+            <NotificationBell />
             <LanguageSwitch persist />
             <Tooltip label={colorScheme === 'dark' ? t('ui.lightMode') : t('ui.darkMode')}>
               <ActionIcon
@@ -116,19 +173,21 @@ export function AppLayout() {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="xs">
-        {items
-          .filter((i) => i.show)
-          .map((i) => (
-            <NavLink
-              key={i.to}
-              component={RouterLink}
-              to={i.to}
-              label={i.label}
-              leftSection={<i.icon size={18} />}
-              active={i.to === '/' ? loc.pathname === '/' : loc.pathname.startsWith(i.to)}
-              onClick={() => opened && toggle()}
-            />
-          ))}
+        <AppShell.Section grow component={ScrollArea}>
+          {items
+            .filter((i) => i.show)
+            .map((i) => (
+              <NavLink
+                key={i.to}
+                component={RouterLink}
+                to={i.to}
+                label={i.label}
+                leftSection={<i.icon size={18} />}
+                active={i.to === '/' ? loc.pathname === '/' : loc.pathname.startsWith(i.to)}
+                onClick={() => opened && toggle()}
+              />
+            ))}
+        </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet />

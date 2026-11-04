@@ -27,6 +27,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
+import { ExportButtons } from '../../components/ExportButtons';
 import { RuleErrors } from '../../components/RuleErrors';
 import { EnumBadge, EnumSelect, PageHeader, useFieldError } from '../../components/ui';
 import { fmtDate, fmtDateTime, todayIso } from '../../lib/format';
@@ -144,6 +145,7 @@ export default function TicketsPage() {
         title={t('tickets.title')}
         right={
           <>
+            <ExportButtons entity="tickets" />
             <Checkbox
               label={t('tickets.onlyOpen')}
               checked={onlyOpen}

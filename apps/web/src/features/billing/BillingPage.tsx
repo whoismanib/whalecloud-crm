@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { hasAction, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
+import { ExportButtons } from '../../components/ExportButtons';
 import { EnumBadge, PageHeader } from '../../components/ui';
 import { fmtDate, fmtMoney } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
@@ -94,7 +95,7 @@ export default function BillingPage() {
   const roles = me?.roles ?? [];
   return (
     <Stack>
-      <PageHeader title={t('billing.title')} />
+      <PageHeader title={t('billing.title')} right={<ExportButtons entity="invoices" />} />
       <RuleErrors error={invs.error ?? actions.error} />
       <SimpleGrid cols={{ base: 2, md: 4 }}>
         <Paper withBorder p="sm">

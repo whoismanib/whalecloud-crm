@@ -82,7 +82,29 @@
     "PAYMENT_CURRENCY_MISMATCH": "回款币种须与发票一致（{{invoiceCurrency}}）。",
     "PAYMENT_EXCEEDS_BALANCE": "回款超过余额（{{balance}}）。",
     "COLLECTION_NOT_DUE": "该催收动作尚未到期（计划 {{scheduledOn}}）。",
-    "ACCOUNT_POSSIBLE_DUPLICATE": "可能重复：已存在“{{name}}”。"
+    "ACCOUNT_POSSIBLE_DUPLICATE": "可能重复：已存在“{{name}}”。",
+    "ACCOUNT_NOT_FOUND": "客户“{{name}}”不存在。",
+    "OPPORTUNITY_NOT_FOUND": "未找到商机。",
+    "CANNOT_DEACTIVATE_SELF": "不能停用自己的用户。",
+    "COMPLIANCE_ITEMS_UNANSWERED": "合规清单尚有未回答项：{{items}}。",
+    "COMPLIANCE_NOT_REVIEWED": "清单须经法务审核后才能批准（当前状态：{{status}}）。",
+    "CONTRACT_NOT_PO": "合同必须为订单（OC）。",
+    "CR_EXCEPTION_EXPIRED": "国家经理例外已过期（{{expiresOn}}）。",
+    "CR_LINES_REQUIRED": "变更请求至少需要一行角色 × 工时。",
+    "DATE_RANGE_INVALID": "结束日期必须晚于开始日期。",
+    "DISTRIBUTOR_AGREEMENT_MISSING": "分销商没有有效协议。",
+    "DISTRIBUTOR_AGREEMENT_EXPIRED": "分销商协议已过期。",
+    "DISTRIBUTOR_OUT_OF_TERRITORY": "分销商协议不覆盖区域 {{country}}。",
+    "HANDOFF_CHECKLIST_INCOMPLETE": "移交清单未完成：{{missing}}。",
+    "PO_NOT_FOUND": "订单不存在。",
+    "PO_REQUIRED": "没有客户订单或国家经理例外，不能开始工作。",
+    "RACI_ADMIN_LOCKOUT": "此变更会使管理员角色失去 ADM 权限。",
+    "RATE_CARD_MISSING": "角色“{{profile}}”没有有效费率。",
+    "RATE_CARD_CURRENCY_MIX": "变更请求的费率币种不一致（{{profile}}）。",
+    "ROW_INVALID": "行无效。",
+    "SNAPSHOT_EXISTS": "第 {{week}} 周的快照已存在。",
+    "CATEGORY_REQUIRED": "缺少预测类别。",
+    "CATEGORY_INCONSISTENT": "仅在方案阶段及以后才可标记为承诺。"
   },
   "validation": {
     "REQUIRED": "必填",
@@ -98,6 +120,9 @@
     "INVALID_ENUM_VALUE": "请选择一项",
     "TOO_SMALL": "太短",
     "TOO_BIG": "太长",
-    "ENGINE_REQUIRED": "开票模式必填"
+    "ENGINE_REQUIRED": "开票模式必填",
+    "PASSWORD_TOO_SHORT": "密码至少 12 位。",
+    "MONTH_FIRST_DAY": "必须是当月第一天。",
+    "RATE_POSITIVE": "汇率必须大于零。"
   }
 }

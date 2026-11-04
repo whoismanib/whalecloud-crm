@@ -34,7 +34,9 @@ import { api, ApiError } from '../../api/client';
 import { useCatalogs } from '../../api/catalogs';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
+import { ExportButtons } from '../../components/ExportButtons';
 import { EnumBadge, EnumSelect, PageHeader, StageBadge, useFieldError } from '../../components/ui';
+import { AccountPlanPanel } from '../renewals/AccountPlanPanel';
 import { fmtMoney } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -281,6 +283,7 @@ function AccountDetail({ id }: { id: string }) {
           <StageBadge stage={o.stage} status={o.status} />
         </Group>
       ))}
+      <AccountPlanPanel accountId={id} />
     </Stack>
   );
 }
@@ -307,6 +310,7 @@ export default function AccountsPage() {
               onChange={(e) => setQ(e.currentTarget.value)}
               size="xs"
             />
+            <ExportButtons entity="accounts" />
             {canDo(me, 'P1', 'write') && (
               <Button size="xs" onClick={() => setCreating(true)}>
                 {t('accounts.new')}

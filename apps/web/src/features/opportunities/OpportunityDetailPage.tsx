@@ -7,6 +7,7 @@ import { RuleErrors } from '../../components/RuleErrors';
 import { EnumBadge, StageBadge } from '../../components/ui';
 import { fmtDate, fmtMoney, fmtPct } from '../../lib/format';
 import { ApprovalTab } from './tabs/ApprovalTab';
+import { ComplianceTab } from './tabs/ComplianceTab';
 import { ContractTab } from './tabs/ContractTab';
 import { LinesTab } from './tabs/LinesTab';
 import { MilestonesTab } from './tabs/MilestonesTab';
@@ -97,6 +98,7 @@ export default function OpportunityDetailPage() {
           <Tabs.Tab value="qualification">{t('opps.tabs.qualification')}</Tabs.Tab>
           <Tabs.Tab value="priceRequest">{t('opps.tabs.priceRequest')}</Tabs.Tab>
           <Tabs.Tab value="lines">{t('opps.tabs.lines')}</Tabs.Tab>
+          <Tabs.Tab value="compliance">{t('p2:compliance.tab')}</Tabs.Tab>
           <Tabs.Tab value="approval">{t('opps.tabs.approval')}</Tabs.Tab>
           <Tabs.Tab value="contract">{t('opps.tabs.contract')}</Tabs.Tab>
           <Tabs.Tab value="milestones">{t('opps.tabs.milestones')}</Tabs.Tab>
@@ -113,6 +115,9 @@ export default function OpportunityDetailPage() {
         </Tabs.Panel>
         <Tabs.Panel value="lines" pt="md">
           <LinesTab opp={o} />
+        </Tabs.Panel>
+        <Tabs.Panel value="compliance" pt="md">
+          <ComplianceTab opp={o} />
         </Tabs.Panel>
         <Tabs.Panel value="approval" pt="md">
           <ApprovalTab opp={o} />

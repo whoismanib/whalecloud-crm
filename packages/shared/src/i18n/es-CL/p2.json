@@ -1,0 +1,385 @@
+{
+  "nav": {
+    "handoffs": "Traspasos",
+    "renewals": "Renovaciones",
+    "crs": "Change requests",
+    "forecast": "Pronóstico",
+    "distributors": "Distribuidores",
+    "onboarding": "Incorporación",
+    "capacity": "Capacidad residentes",
+    "admin": "Administración"
+  },
+  "export": {
+    "csv": "CSV",
+    "xlsx": "Excel"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "readAll": "Marcar todo leído",
+    "titles": {
+      "auditBroken": "Bitácora: cadena de hash rota (registro {{id}})",
+      "complianceReview": "Checklist de cumplimiento pendiente de revisión legal",
+      "forecastStale": "Pronóstico sin actualizar: {{name}}",
+      "onboardingOverdue": "Incorporación atrasada: {{name}}",
+      "renewalCreated": "Renovación creada: {{contract}} (vence {{endDate}})",
+      "renewalQuoteOverdue": "Renovación sin cotizar a T−60: {{contract}} (cotizar antes de {{quoteBy}})",
+      "slaAcceptanceOverdue": "Acta de aceptación vencida: {{name}} ({{due}})",
+      "slaApprovalOverdue": "Aprobación vencida ({{due}})",
+      "slaHandoffOverdue": "Traspaso a delivery vencido: {{name}} ({{due}})",
+      "slaInvoiceOverdue": "Factura sin emitir: {{name}} ({{due}})",
+      "slaPriceOverdue": "Solicitud de precio vencida: {{name}} ({{due}})",
+      "slaPriceDueSoon": "Solicitud de precio por vencer: {{name}} ({{due}})",
+      "poCapacityWarn": "OC {{poNumber}} al {{pct}} %: evaluar CR o renovación",
+      "poCapacityCritical": "OC {{poNumber}} agotada ({{pct}} %): horas sin OC",
+      "channelConflict": "Conflicto de canal en registro de {{account}}",
+      "dealRegistration": "Nuevo registro de oportunidad: {{account}}",
+      "collection": {
+        "D_MINUS_10": "Cobranza D−10: {{invoice}}",
+        "D_PLUS_1": "Cobranza D+1: {{invoice}} (saldo {{balance}})",
+        "D_PLUS_7": "Cobranza D+7: {{invoice}} (saldo {{balance}})",
+        "D_PLUS_15": "Cobranza D+15: {{invoice}} (saldo {{balance}})",
+        "D_PLUS_30": "Cobranza D+30: {{invoice}} (saldo {{balance}})"
+      }
+    }
+  },
+  "handoff": {
+    "title": "Traspasos a delivery",
+    "hint": "Reunión de traspaso dentro de 5 días hábiles desde la firma; checklist completo y referencia ZMP antes de pasar a ejecución.",
+    "dueOn": "Vence",
+    "meeting": "Reunión",
+    "checklist": "Checklist de la reunión",
+    "actualStart": "Inicio real",
+    "plannedStart": "Inicio planificado",
+    "acceptanceCriteria": "Criterios de aceptación",
+    "sowUrl": "Enlace al SOW (https)",
+    "onTime": "A tiempo",
+    "late": "Fuera de plazo",
+    "overdue": "Vencido",
+    "pending": "Pendiente",
+    "items": {
+      "commercialSheetReviewed": "Hoja comercial revisada",
+      "sowReviewed": "SOW revisado",
+      "milestonesReviewed": "Hitos revisados",
+      "acceptanceCriteriaReviewed": "Criterios de aceptación acordados"
+    }
+  },
+  "plan": {
+    "title": "Plan de cuenta",
+    "objectives": "Objetivos",
+    "growth": "Oportunidades de crecimiento",
+    "risks": "Riesgos",
+    "target": "Meta anual",
+    "none": "Sin plan para este año"
+  },
+  "review": {
+    "title": "Revisiones de cuenta",
+    "periodStart": "Inicio del período",
+    "heldOn": "Realizada el",
+    "findings": "Hallazgos",
+    "actions": "Acciones",
+    "edoStats": "eDo: {{open}} abiertos · {{critical}} críticos · {{slaOverdue}} SLA vencido · pelota en Whale {{ballInWhale}} / cliente {{ballInClient}}",
+    "overdueTitle": "Revisiones trimestrales pendientes",
+    "quarterOf": "trimestre que inicia el {{date}}"
+  },
+  "reviewKind": {
+    "QUARTERLY": "Trimestral",
+    "EDO_MONTHLY": "Mensual eDo"
+  },
+  "renewal": {
+    "title": "Calendario de renovaciones L2/L3",
+    "hint": "Oportunidad de renovación a T−90 y cotización a más tardar T−60 del término del contrato.",
+    "contract": "Contrato",
+    "endDate": "Término",
+    "createOn": "Crear oportunidad (T−90)",
+    "quoteBy": "Cotizar antes de (T−60)",
+    "alert": "Alerta",
+    "createOpp": "Crear oportunidad"
+  },
+  "renewalStatus": {
+    "SCHEDULED": "Programada",
+    "OPPORTUNITY_CREATED": "Oportunidad creada",
+    "QUOTED": "Cotizada",
+    "RENEWED": "Renovada",
+    "NOT_RENEWED": "No renovada"
+  },
+  "renewalAlert": {
+    "NONE": "Al día",
+    "CREATE_OPPORTUNITY": "Crear oportunidad",
+    "QUOTE_OVERDUE": "Cotización atrasada"
+  },
+  "cr": {
+    "title": "Change requests",
+    "new": "Nuevo CR",
+    "list": "CRs",
+    "rateCards": "Tarifario por perfil",
+    "lines": "Líneas (perfil × horas)",
+    "profile": "Perfil",
+    "hours": "Horas",
+    "rate": "Tarifa",
+    "quote": "Cotizar con tarifario",
+    "rateHint": "Las tarifas se toman del tarifario del contrato, luego de la cuenta y luego el global.",
+    "po": "OC del cliente",
+    "poNumber": "N° OC",
+    "registerPo": "Registrar OC",
+    "exception": "Excepción del Country Manager",
+    "exceptionActive": "Trabajo autorizado sin OC (excepción)",
+    "exceptionShort": "Excepción",
+    "expiresOn": "Vence",
+    "grantException": "Autorizar excepción",
+    "startWork": "Iniciar trabajo",
+    "reception": "Recepción conforme",
+    "registerReception": "Registrar recepción",
+    "opportunity": "Ver oportunidad (motor B)",
+    "parentContract": "Contrato padre",
+    "description": "Descripción",
+    "workWithoutPo": "Trabajo en curso sin OC",
+    "withException": "con excepción hasta {{date}}",
+    "noException": "sin excepción",
+    "scope": "Ámbito",
+    "global": "Global",
+    "validity": "Vigencia",
+    "validFrom": "Vigente desde"
+  },
+  "crStatus": {
+    "DRAFT": "Borrador",
+    "QUOTED": "Cotizado",
+    "PO_RECEIVED": "OC recibida",
+    "IN_PROGRESS": "En ejecución",
+    "RECEIVED": "Recepcionado",
+    "INVOICED": "Facturado",
+    "CANCELLED": "Cancelado"
+  },
+  "forecast": {
+    "title": "Pronóstico semanal",
+    "takeSnapshot": "Tomar snapshot semanal",
+    "current": "Semana actual",
+    "report": "Informe semanal",
+    "history": "Historial y precisión",
+    "stale": "Sin actualizar desde el viernes",
+    "noSnapshot": "Aún no hay snapshots",
+    "week": "Semana {{week}} de {{year}}",
+    "quarter": "Trimestre en curso",
+    "topDeals": "Principales oportunidades",
+    "changes": "Cambios vs semana anterior",
+    "noChanges": "Sin cambios respecto de la semana anterior",
+    "accuracy": "Precisión del pronóstico",
+    "accuracyHint": "Pronóstico (commit + probable del primer snapshot del trimestre) vs S&S firmado; meta ±10 %.",
+    "forecastAmount": "Pronóstico",
+    "actual": "Real",
+    "weekCol": "Semana",
+    "takenAt": "Tomado",
+    "cadence": {
+      "UPDATE": "Lunes: actualiza categorías y montos de tus oportunidades.",
+      "REVIEW": "Martes: revisión del pronóstico con el Country Manager.",
+      "REPORT": "Miércoles: se toma el snapshot y se envía el informe semanal.",
+      "NONE": "Ciclo semanal: lunes actualización · martes revisión · miércoles informe."
+    },
+    "totals": {
+      "commit": "Commit",
+      "probable": "Probable",
+      "pipeline": "Pipeline",
+      "weighted": "Ponderado",
+      "commitPlusProbable": "Commit + probable"
+    },
+    "change": {
+      "NEW": "Nueva",
+      "ADVANCED": "Avanzó",
+      "REGRESSED": "Retrocedió",
+      "SLIPPED": "Se movió el cierre",
+      "CATEGORY": "Cambio de categoría",
+      "WON": "Ganada",
+      "LOST": "Perdida",
+      "REMOVED": "Retirada"
+    }
+  },
+  "distributor": {
+    "title": "Distribuidores",
+    "new": "Nuevo distribuidor",
+    "newRegistration": "Registrar oportunidad",
+    "register": "Registrar",
+    "agreements": "Acuerdos",
+    "agreement": "Acuerdo",
+    "territories": "Territorios",
+    "margin": "Margen (fracción)",
+    "products": "Productos",
+    "startsOn": "Desde",
+    "endsOn": "Hasta",
+    "addAgreement": "Agregar acuerdo",
+    "trainings": "Capacitaciones y demos",
+    "product": "Producto",
+    "attendees": "Asistentes",
+    "distributor": "Distribuidor",
+    "registrations": "Registro de oportunidades",
+    "conflicts": "{{count}} oportunidad(es) en conflicto",
+    "valid": "Vigente",
+    "expired": "Vencido",
+    "none": "Sin acuerdo",
+    "pipeline": "Pipeline USD",
+    "won": "Ganado USD"
+  },
+  "distributorStatus": {
+    "PROSPECT": "Prospecto",
+    "ACTIVE": "Activo",
+    "INACTIVE": "Inactivo"
+  },
+  "registrationStatus": {
+    "SUBMITTED": "Enviado",
+    "CONFLICT_REVIEW": "Conflicto en revisión",
+    "APPROVED": "Aprobado",
+    "REJECTED": "Rechazado",
+    "EXPIRED": "Vencido"
+  },
+  "trainingKind": {
+    "TRAINING": "Capacitación",
+    "DEMO": "Demo"
+  },
+  "compliance": {
+    "tab": "Cumplimiento",
+    "title": "Checklist de cumplimiento",
+    "hint": "Obligatorio antes de enviar la propuesta (etapa 4→5): Ley 21.719, anticorrupción, licitación pública y control de exportación de hardware. Revisa Legal China y aprueba el Country Manager.",
+    "start": "Iniciar checklist",
+    "newVersion": "Nueva versión",
+    "required": "Obligatoria",
+    "optional": "Opcional",
+    "na": "N/A",
+    "submit": "Enviar a Legal",
+    "markReviewed": "Marcar revisado",
+    "legalComment": "Comentario de Legal"
+  },
+  "complianceSection": {
+    "DATA_PROTECTION": "Protección de datos (Ley 21.719)",
+    "ANTI_CORRUPTION": "Anticorrupción",
+    "PUBLIC_TENDER": "Licitación pública",
+    "EXPORT_CONTROL": "Control de exportación"
+  },
+  "complianceItem": {
+    "DP_PERSONAL_DATA_PROCESSED": "¿Se tratarán datos personales del cliente o de sus usuarios?",
+    "DP_DPA_SIGNED": "¿Existe acuerdo de tratamiento de datos (DPA) o cláusulas equivalentes?",
+    "DP_INTERNATIONAL_TRANSFER": "¿Hay transferencia internacional de datos (p. ej., soporte desde China)?",
+    "DP_SECURITY_MEASURES": "¿Se definieron medidas de seguridad y notificación de brechas?",
+    "AC_PUBLIC_OFFICIALS": "¿Interactúan funcionarios públicos o empresas del Estado?",
+    "AC_GIFTS_HOSPITALITY": "¿Hay regalos, viajes u hospitalidad asociados?",
+    "AC_INTERMEDIARIES": "¿Participan intermediarios, agentes o distribuidores?",
+    "PT_PUBLIC_ENTITY": "¿El cliente es un organismo público (Mercado Público / ChileCompra)?",
+    "PT_BASES_REVIEWED": "¿Se revisaron las bases de licitación?",
+    "PT_GUARANTEE_REQUIRED": "¿Se exige boleta de garantía?",
+    "EC_DUAL_USE_HW": "¿Incluye hardware de doble uso o controlado?",
+    "EC_LICENSE_REQUIRED": "¿Requiere licencia de exportación?",
+    "EC_END_USER_DECLARATION": "¿Se obtuvo declaración de usuario final?"
+  },
+  "checklistStatus": {
+    "DRAFT": "Borrador",
+    "IN_REVIEW": "En revisión legal",
+    "REVIEWED": "Revisado por Legal",
+    "APPROVED": "Aprobado",
+    "REJECTED": "Rechazado"
+  },
+  "onboarding": {
+    "title": "Incorporación",
+    "new": "Nueva incorporación",
+    "kits": "Kit por país",
+    "items": "Ítems",
+    "days": "Días para ser productivo",
+    "productiveDays": "{{count}} días",
+    "person": "Persona",
+    "startDate": "Fecha de ingreso",
+    "target": "Meta productiva",
+    "progress": "Avance",
+    "checklist": "Checklist",
+    "firstOpp": "Primera oportunidad",
+    "daysCount": "{{count}} días desde el ingreso",
+    "overdue": "Atrasada",
+    "productive": "Productivo"
+  },
+  "onboardingItem": {
+    "MANUAL": "Manual comercial",
+    "TEMPLATES": "Plantillas",
+    "STANDARD_DEMO": "Demo estándar",
+    "ACCESS_CRM": "Acceso CRM",
+    "ACCESS_EDO": "Acceso eDo",
+    "ACCESS_ZMP": "Acceso ZMP",
+    "ACCESS_FOL": "Acceso FOL"
+  },
+  "capacity": {
+    "title": "Capacidad de residentes",
+    "newPo": "Nueva OC de residentes",
+    "contract": "Contrato (OC)",
+    "totalHours": "Horas de la OC",
+    "remaining": "Saldo",
+    "excess": "Horas sobre la OC",
+    "exhaustion": "Al ritmo actual se agota en {{months}} meses",
+    "suggestion": "Consumo sobre el umbral: crear un CR o adelantar la renovación.",
+    "withoutPo": "Horas reportadas sin OC",
+    "import": "Importar horas (export ZMP/FOL)",
+    "importHint": "CSV con columnas poNumber, resident, hours (separador ; o ,).",
+    "importBtn": "Importar",
+    "month": "Mes"
+  },
+  "capacityAlert": {
+    "NONE": "Normal",
+    "WARN_80": "80 % consumido",
+    "CRITICAL_100": "Agotada"
+  },
+  "admin": {
+    "title": "Administración",
+    "tabs": {
+      "users": "Usuarios y roles",
+      "raci": "RACI",
+      "settings": "Parámetros",
+      "fx": "Tipos de cambio",
+      "calendars": "Feriados",
+      "import": "Importación",
+      "jobs": "Tareas programadas"
+    },
+    "newUser": "Nuevo usuario",
+    "roles": "Roles",
+    "lastLogin": "Último acceso",
+    "active": "Activo",
+    "newPassword": "Contraseña (mín. 12)",
+    "publishRaci": "Publicar nueva versión ({{count}} cambios)",
+    "raciHint": "Cada publicación crea una versión nueva del RACI; los permisos se aplican de inmediato.",
+    "invalidJson": "JSON inválido",
+    "history": "Historial",
+    "unitsPerUsd": "Unidades por USD",
+    "source": "Fuente",
+    "calendar": "Calendario",
+    "workday": "Día hábil",
+    "jobsHint": "El worker ejecuta estas tareas según su cron; aquí puedes forzar una ejecución.",
+    "run": "Ejecutar"
+  },
+  "jobs": {
+    "sla_scan": "SLA por vencer y vencidos",
+    "collections_daily": "Escalamiento de cobranza",
+    "renewals_daily": "Renovaciones T−90 / T−60",
+    "capacity_daily": "Consumo de OC de residentes (80 %)",
+    "audit_verify": "Verificación de la cadena de la bitácora",
+    "forecast_monday": "Oportunidades sin actualizar (lunes)",
+    "forecast_snapshot": "Snapshot semanal (miércoles)",
+    "onboarding_daily": "Incorporaciones atrasadas"
+  },
+  "import": {
+    "kinds": {
+      "legacy-tracker": "Tracker legado (tracker_data.json)",
+      "accounts": "Cuentas (CSV)",
+      "opportunities": "Oportunidades (CSV)",
+      "invoices": "Facturas (CSV)"
+    },
+    "file": "Archivo",
+    "dryRun": "Simulación",
+    "run": "Importar",
+    "template": "Descargar plantilla CSV",
+    "legacyHint": "JSON del tracker anterior con wom[], new_clients[] y billing[]; el estado se mapea a etapas con la tabla legada.",
+    "csvHint": "CSV con encabezado (separador ; o ,). Las reglas se validan fila por fila.",
+    "simulated": "Simulación (sin cambios)",
+    "applied": "Importación aplicada",
+    "summary": "{{ok}} de {{total}} filas válidas · {{skipped}} omitidas",
+    "created": {
+      "accounts": "Cuentas",
+      "opportunities": "Oportunidades",
+      "contracts": "Contratos",
+      "milestones": "Hitos",
+      "invoices": "Facturas",
+      "payments": "Pagos"
+    }
+  }
+}

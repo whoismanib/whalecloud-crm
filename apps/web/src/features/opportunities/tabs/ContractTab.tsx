@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Group,
   MultiSelect,
   Paper,
@@ -8,11 +9,18 @@ import {
   Stack,
   Table,
   Text,
+  Textarea,
   TextInput,
   Title,
 } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
-import { buildRepositoryName, CONTRACT_TYPES, type ContractType } from '@wcrm/shared';
+import {
+  buildRepositoryName,
+  CONTRACT_TYPES,
+  HANDOFF_CHECKLIST as HANDOFF_CHECKS,
+  type ContractType,
+  type HandoffChecklistKey as HandoffCheck,
+} from '@wcrm/shared';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../../api/client';
@@ -137,12 +145,24 @@ export function ContractTab({ opp }: TabProps) {
   const [attendees, setAttendees] = useState<string[]>(opp.handoff?.attendeeUserIds ?? []);
   const [zmp, setZmp] = useState(opp.zmpProjectId ?? '');
   const [meetingAt, setMeetingAt] = useState(todayIso());
+  const [criteria, setCriteria] = useState(opp.handoff?.acceptanceCriteria ?? '');
+  const [sowUrl, setSowUrl] = useState('');
+  const [checks, setChecks] = useState<Record<HandoffCheck, boolean>>(
+    () =>
+      Object.fromEntries(HANDOFF_CHECKS.map((k) => [k, Boolean(opp.handoff?.[k])])) as Record<
+        HandoffCheck,
+        boolean
+      >,
+  );
   const handoff = useAction(
     () =>
       api.post(`/opportunities/${opp.id}/handoff`, {
         attendeeUserIds: attendees,
         zmpProjectId: zmp,
         meetingAt,
+        acceptanceCriteria: criteria || null,
+        sowUrl: sowUrl || null,
+        ...checks,
       }),
     {
       invalidate: [['opportunity', opp.id]],
@@ -259,6 +279,39 @@ export function ContractTab({ opp }: TabProps) {
               value={zmp}
               onChange={(e) => setZmp(e.currentTarget.value)}
             />
+            <Textarea
+              size="xs"
+              autosize
+              label={t('p2:handoff.acceptanceCriteria')}
+              value={criteria}
+              onChange={(e) => setCriteria(e.currentTarget.value)}
+            />
+            <TextInput
+              size="xs"
+              label={t('p2:handoff.sowUrl')}
+              placeholder="https://"
+              value={sowUrl}
+              onChange={(e) => setSowUrl(e.currentTarget.value)}
+            />
+            <Text size="xs" fw={600}>
+              {t('p2:handoff.checklist')}
+              {opp.handoff?.dueOn
+                ? ` · ${t('p2:handoff.dueOn')}: ${fmtDate(opp.handoff.dueOn)}`
+                : ''}
+            </Text>
+            {HANDOFF_CHECKS.map((k) => (
+              <Checkbox
+                key={k}
+                size="xs"
+                label={t(`p2:handoff.items.${k}`)}
+                checked={checks[k]}
+                onChange={(e) => {
+                  const v = e.currentTarget.checked;
+                  setChecks((c) => ({ ...c, [k]: v }));
+                }}
+                data-testid={`handoff-${k}`}
+              />
+            ))}
             <RuleErrors error={handoff.error} />
             <Group>
               <Button size="xs" onClick={() => handoff.mutate(undefined)}>
