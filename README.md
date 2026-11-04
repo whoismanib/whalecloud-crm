@@ -59,6 +59,14 @@ Alex Xiao con L2 al 63,84 %; CR residente con OC y factura vencida +30), BancoEs
 ganada, hitos pagado / vencido / aceptación pendiente), Equifiber (planilla v7.0: 58,0 % / 50,3 %,
 banda VP, flujo 20/20/50/10 ≠ T&C 30/50/20), Entel, GTD, Coopeuch (bloqueada sin comprador
 económico) y tickets eDo de WOM y BancoEstado. Las fechas demo están ancladas a noviembre de 2026.
+Fase 2: traspasos con checklist, plan de cuenta y revisiones de WOM, renovación L2/L3 a T−90,
+CR con excepción del CM y CR cotizado con tarifario, distribuidores (Robotic Work con conflicto de
+canal en GTD, Grupo IGPS con acuerdo vencido), incorporación atrasada, OC de residentes al 80 %,
+snapshots de pronóstico W44/W45 y notificaciones generadas por los jobs.
+
+Importación (Administración → Importación): CSV de cuentas, oportunidades y facturas (plantillas
+descargables) y el `tracker_data.json` legado, con modo simulación. Exportación CSV/XLSX en
+Cuentas, Oportunidades, Facturación, Incidentes y Resumen.
 
 ## Scripts
 
@@ -71,6 +79,8 @@ económico) y tickets eDo de WOM y BancoEstado. Las fechas demo están ancladas 
 | `npm test` | Vitest: shared (unidad), api (Supertest contra Postgres real `DATABASE_URL_TEST`, BD recreada por ejecución), web |
 | `npm run test:coverage` | cobertura de `packages/shared/src/rules` (umbral 90 %) |
 | `npm run db:migrate` / `db:seed [-- --demo]` / `db:generate` | migraciones Drizzle y seed |
+| `npm run db:reset -w @wcrm/api [-- --demo]` | vacía la BD de desarrollo, migra y siembra |
+| `npm run dev:worker -w @wcrm/api` / `npm run worker -w @wcrm/api` | worker pg-boss (SLA, cobranza, renovaciones, OC 80 %, pronóstico, incorporación, verificación de bitácora) |
 | `npm run i18n:check` | compara claves es-CL / en / zh-CN |
 | `npm run check:no-external` | el build web no referencia dominios externos (uso desde China) |
 

@@ -782,3 +782,27 @@ Parámetros nuevos: `health.staleBusinessDays`, `kpi.pendingAcceptanceBusinessDa
 `kpi.priceTimeWindowWeeks`, `compliance.requiredBeforeProposal` (false hasta P14),
 `qualification.meddpiccMinScore`; `invoices.defaultPaymentTermDays` = 45 (legado). Tablas de P9–P16
 completas, vistas de KPIs y snapshots quedan para la fase 2.
+
+## 10. Cambios en la fase 2
+
+Implementado en `apps/api/src/db/schema/phase2.ts` + `drizzle/0002_phase2.sql` y
+`0003_phase2_guards.sql` (triggers `forbid_update_delete` en `forecast_snapshots` y
+`forecast_snapshot_items`, secuencia `change_request_code_seq`, permisos de `wcrm_app`).
+
+- `handoffs`: + `commercial_sheet_reviewed`, `sow_reviewed`, `milestones_reviewed`,
+  `acceptance_criteria_reviewed` (checklist P9, exigido por el gate 7→8).
+- `forecast_snapshots`: + `taken_on date` y `kpis jsonb` (reemplaza `kpi_snapshots`); sin `fx_month`.
+  `weekly_reports` no se creó (PDF pendiente).
+- `notifications`: + `dedupe_key text NOT NULL`, UNIQUE (`user_id`, `dedupe_key`). No se creó `tasks`:
+  los SLA se calculan al leer y los jobs emiten notificaciones.
+- `collection_actions`: + `notified_at` (escalamiento notificado una vez por paso).
+- Nueva `onboarding_kits` (`country_code` PK, `items onboarding_item[]`, `productive_days`, `notes`).
+  `onboarding_checklists.first_opportunity_at` no se persiste: se calcula al leer.
+- `hours_imports`: CSV en el cuerpo (sin `attachment_id`); `report jsonb` por fila.
+- `import_jobs`: sin adjuntos; `report jsonb` (creados, omitidos, errores por fila); enum
+  `import_kind` = `ACCOUNTS`, `OPPORTUNITIES`, `INVOICES`, `LEGACY_TRACKER`, `ZMP_HOURS`.
+- No creadas aún: `templates`, `audit_findings`, `data_subject_requests`, `weekly_reports`,
+  `kpi_snapshots`, `tasks`.
+- `compliance.requiredBeforeProposal` = **true** (gate 4→5 activo). Parámetros nuevos:
+  `renewals`, `capacity.poAlertPct` (0,8), `onboarding.productiveDays` (30),
+  `distributors.blockExpiredAgreement`, `forecast.accuracyTolerance` (0,1).

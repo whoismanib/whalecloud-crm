@@ -366,3 +366,24 @@ GET /api/v1/sheet-versions/…/approval-preview
  "steps":[{"kind":"MARGIN_PRESIDENT","assigneeRole":"LATAM_PRESIDENT","dueOn":"2026-11-09"}],
  "conditions":[]}}
 ```
+
+## 22. Cambios en la fase 2
+
+- Nuevas: `GET /handoffs` (lista P9 con a tiempo/vencido), `GET /notifications` (`meta.unread`),
+  `POST /notifications/:id/read`, `POST /notifications/read-all`, `GET /onboarding/kits`,
+  `PUT /onboarding/kits/:country`, `GET /admin/jobs`, `POST /admin/jobs/:name/run`,
+  `GET /forecast/report`, `PATCH /opportunities/:id/forecast` (`meta.warnings`),
+  `GET /imports`, `GET /imports/templates/:kind`, `POST /imports/:kind`
+  (`accounts|opportunities|invoices|legacy-tracker`, `{csv|data, dryRun}`; P1:A o ADM:R),
+  `GET /exports/:entity?format=csv|xlsx` (`accounts|opportunities|invoices|tickets|dashboard`).
+- `POST /change-requests/:id/po` recibe `{poNumber, poReceivedOn, url, standardName}` y crea el
+  contrato OC + oportunidad motor B; `reception` recibe `{receptionOn, url, standardName}`.
+- `POST /resident-pos/hours-imports` recibe JSON `{month, csv}` y responde 200 con el reporte.
+- `GET /onboarding` es de sesión: sin letra P15 devuelve solo el checklist propio.
+- Usuarios: `DELETE /admin/calendars/:id/holidays/:date`; desactivación con `PATCH /admin/users/:id`
+  `{isActive:false}`.
+- No implementadas aún: `/forecast/stale` (lo cubre `forecast.monday`), `/forecast/snapshots/:id/report`,
+  `/change-requests/:id/price-request`, `/audit-findings`, `/data-subject-requests`, `/templates`,
+  `/admin/countries/:code/clone-from/:source`, `/resident-pos/consumption` (incluido en
+  `GET /resident-pos`), `/admin/users/:id/{deactivate,reassign,mfa-reset}`, catálogos, metas,
+  delegaciones, `/admin/exports/full`, `/admin/ops`.

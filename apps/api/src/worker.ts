@@ -10,6 +10,10 @@ import { dateInTz } from './lib/dates';
  * pg-boss keeps its own schema; it connects with the owner role (it creates/migrates `pgboss`).
  */
 const config = loadConfig();
+if (!config.WORKER_ENABLED) {
+  console.log('worker disabled (WORKER_ENABLED=false)');
+  process.exit(0);
+}
 const app = await buildApp({ config, logger: true });
 await app.ready();
 const boss = new PgBoss({

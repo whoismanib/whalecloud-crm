@@ -540,3 +540,14 @@ escalamiento se calculan al leer y las 5 acciones de cobranza se crean al emitir
 archivos como **enlaces https** al repositorio con nombre estándar validado (subida binaria en fase 2);
 MFA TOTP activable por `MFA_REQUIRED`; hash de bitácora canonizando `occurred_at` como epoch;
 KPIs calculados en TypeScript (`rules/kpis.ts`) sin vistas SQL; compose sin `worker`/`backup`/TLS.
+
+## 18. Estado de implementación y desviaciones (fase 2)
+
+Worker pg-boss (`apps/api/src/worker.ts`, `npm run worker` / `dev:worker`) con el rol dueño de la BD
+y esquema `pgboss`; jobs implementados: `sla.scan`, `collections.daily`, `renewals.daily`,
+`capacity.daily`, `audit.verify`, `forecast.monday`, `forecast.snapshot`, `onboarding.daily`
+(también ejecutables desde Administración). Notificaciones in-app con deduplicación y correo por un
+`MailTransport` enchufable (`MAIL_DRIVER=console|none`; SMTP pendiente). Importaciones y exportaciones
+síncronas en la API. Sin `approvals.expiry`, `reviews.quarterly`, `fx.recalc`, `email.send`,
+`report.weekly.pdf` ni `import.process` como jobs. El servicio `worker` del compose de producción lo
+agrega el Release Manager. Detalle en `docs/engineering/IMPLEMENTATION-NOTES.md` §3.1.

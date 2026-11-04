@@ -342,3 +342,11 @@ networks: { front: {}, back: { internal: true } }
   con un rol `CREATEDB`: la BD se recrea en cada ejecución y los archivos corren en serie.
 - Solo `docker-compose.yml` y `docker-compose.dev.yml`; `migrate` aplica migraciones y seed base
   (`SEED_ARGS=--demo` agrega la demo).
+
+## 10. Ajustes de la fase 2
+
+- Scripts nuevos: `npm run dev:worker -w @wcrm/api` / `npm run worker -w @wcrm/api` (pg-boss) y
+  `npm run db:reset -w @wcrm/api [-- --demo]` (solo `NODE_ENV=development`).
+- Variables nuevas: `MAIL_DRIVER` (`console` | `none`; en test siempre `none`), `WORKER_ENABLED`,
+  `JOBS_TIMEZONE` (por defecto `APP_TIMEZONE`).
+- Textos de la fase 2 en el namespace i18n `p2` (`packages/shared/src/i18n/*/p2.json`).
