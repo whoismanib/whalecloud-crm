@@ -1,0 +1,130 @@
+# Deploy (ADR 0005, docs/release/RUNBOOK-DEPLOY.md).
+# - staging: automatic after docker.yml succeeds for a push to main.
+# - production: after docker.yml succeeds for a v* tag, only with manual approval
+#   (GitHub Environment `production` with required reviewers).
+# - workflow_dispatch: redeploy a given image tag (also used for rollback).
+# Each environment needs secrets SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, SSH_KNOWN_HOSTS and
+# variables APP_DIR (e.g. /opt/whalecloud-crm) and PUBLIC_URL (e.g. https://crm.example.com).
+name: deploy
+
+on:
+  workflow_run:
+    workflows: [docker]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: staging | production
+        required: true
+        type: choice
+        options: [staging, production]
+      image_tag:
+        description: Image tag to deploy (sha-abc1234, v0.1.0, ...)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment || 'auto' }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       (github.event.workflow_run.head_branch == 'main' ||
+        startsWith(github.event.workflow_run.head_branch, 'v')))
+    outputs:
+      environment: ${{ steps.plan.outputs.environment }}
+      image_tag: ${{ steps.plan.outputs.image_tag }}
+      ref: ${{ steps.plan.outputs.ref }}
+    steps:
+      - id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_ENV: ${{ github.event.inputs.environment }}
+          IN_TAG: ${{ github.event.inputs.image_tag }}
+          RUN_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            env_name="$IN_ENV"; tag="$IN_TAG"; ref="$GITHUB_SHA"
+          elif [ "$RUN_BRANCH" = "main" ]; then
+            env_name=staging; tag="sha-$(echo "$RUN_SHA" | cut -c1-7)"; ref="$RUN_SHA"
+          else
+            env_name=production; tag="$RUN_BRANCH"; ref="$RUN_SHA"
+          fi
+          case "$tag" in *[!A-Za-z0-9._-]*|'') echo "invalid image tag: $tag"; exit 1;; esac
+          echo "environment=$env_name" >> "$GITHUB_OUTPUT"
+          echo "image_tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          echo "Deploy $tag to $env_name"
+
+  migrate:
+    name: migrate (${{ needs.plan.outputs.environment }})
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: ${{ needs.plan.outputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.plan.outputs.ref }}
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_deploy && chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Copy compose, nginx and deploy script to the host
+        env:
+          TARGET: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          APP_DIR: ${{ vars.APP_DIR }}
+        run: |
+          ssh -i ~/.ssh/id_deploy "$TARGET" "mkdir -p '$APP_DIR/docker/nginx' '$APP_DIR/docker/postgres/init' '$APP_DIR/scripts'"
+          scp -i ~/.ssh/id_deploy docker-compose.prod.yml "$TARGET:$APP_DIR/"
+          scp -i ~/.ssh/id_deploy docker/nginx/prod.conf "$TARGET:$APP_DIR/docker/nginx/"
+          scp -i ~/.ssh/id_deploy docker/postgres/init/01-roles.sh "$TARGET:$APP_DIR/docker/postgres/init/"
+          scp -i ~/.ssh/id_deploy scripts/deploy.sh "$TARGET:$APP_DIR/scripts/"
+      - name: Pull images and run migrations (one-shot migrate service)
+        env:
+          TARGET: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          APP_DIR: ${{ vars.APP_DIR }}
+          IMAGE_TAG: ${{ needs.plan.outputs.image_tag }}
+        run: ssh -i ~/.ssh/id_deploy "$TARGET" "cd '$APP_DIR' && sh scripts/deploy.sh migrate '$IMAGE_TAG'"
+
+  rollout:
+    name: rollout (${{ needs.plan.outputs.environment }})
+    needs: [plan, migrate]
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ needs.plan.outputs.environment }}
+      url: ${{ vars.PUBLIC_URL }}
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_deploy && chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: docker compose up -d (api, worker, web, backup)
+        env:
+          TARGET: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          APP_DIR: ${{ vars.APP_DIR }}
+        run: ssh -i ~/.ssh/id_deploy "$TARGET" "cd '$APP_DIR' && sh scripts/deploy.sh rollout"
+      - name: Smoke test /api/health from the internet
+        env:
+          PUBLIC_URL: ${{ vars.PUBLIC_URL }}
+        run: |
+          for i in 1 2 3 4 5 6; do
+            if curl -fsS --max-time 10 "$PUBLIC_URL/api/health"; then exit 0; fi
+            sleep 10
+          done
+          echo "smoke test failed: see docs/release/RUNBOOK-ROLLBACK.md"; exit 1
