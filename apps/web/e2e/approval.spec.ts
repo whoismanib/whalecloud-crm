@@ -24,6 +24,21 @@ import {
 const inboxCard = (page: Page, name: string) =>
   page.getByTestId('approvals-inbox').locator('.mantine-Paper-root', { hasText: name });
 
+/**
+ * Clicks "Solicitar aprobación" and waits until the API has created the request (201). The step
+ * label (e.g. "Margen · VP") is already in the preview table before the click, so asserting on it
+ * does not wait for the POST; reading the request by API right after would race it.
+ */
+async function requestApproval(page: Page) {
+  const created = page.waitForResponse(
+    (r) =>
+      r.request().method() === 'POST' &&
+      /\/sheet-versions\/[^/]+\/approval-requests$/.test(new URL(r.url()).pathname),
+  );
+  await page.getByTestId('request-approval').click();
+  expect((await created).status()).toBe(201);
+}
+
 async function openInbox(page: Page) {
   await page.getByRole('link', { name: 'Aprobaciones' }).click();
   await expect(page.getByRole('heading', { name: 'Mi bandeja de aprobaciones' })).toBeVisible();
@@ -54,8 +69,8 @@ test.describe('P6 approval routing', () => {
     await approvedBusinessCase(page, s.oppId);
     await login(page, 'am');
     await openOpportunity(page, s.oppId, 'Aprobación');
-    await page.getByTestId('request-approval').click();
-    await expect(page.getByText('Margen · VP').last()).toBeVisible();
+    await requestApproval(page);
+    await expect(page.getByText('Margen · VP · VP (Jacky)')).toBeVisible();
 
     // the AM (R in P6) cannot approve, the president cannot take Jacky's step
     const am = await apiOf(page);
@@ -118,8 +133,8 @@ test.describe('P6 approval routing', () => {
       'Alex Xiao (presidente LatAm)',
     );
     await page.getByLabel('Justificación competitiva').fill('Huawei ofertó 15 % bajo');
-    await page.getByTestId('request-approval').click();
-    await expect(page.getByText('Margen · presidente').last()).toBeVisible();
+    await requestApproval(page);
+    await expect(page.getByText('Margen · presidente ·')).toBeVisible();
 
     await login(page, 'vp');
     await openInbox(page);

@@ -62,6 +62,13 @@ precisión, distribuidores con conflicto, plan de cuenta, pestaña Cumplimiento,
 capacidad 80 %, incorporación propia, admin: usuarios, RACI, parámetros, feriados, `audit.verify`
 y simulación de importación del tracker legado), sin errores de consola salvo el 401 esperado antes del login.
 
+**e2e `approval.spec.ts` (carrera corregida):** tras pulsar «Solicitar aprobación», la prueba
+esperaba el texto «Margen · VP», pero ese texto ya está en la tabla de la vista previa, así que la
+aserción pasaba al instante y el `GET /opportunities/:id/approval-requests` leía antes de que el
+`POST` hiciera commit (lista vacía → `req.steps` indefinido). Ahora el helper `requestApproval`
+espera la respuesta 201 del `POST` y la aserción apunta a la tarjeta de la solicitud creada. No era
+un defecto de la app ni de fechas: la carrera existía desde el primer commit y antes pasaba por suerte.
+
 ## 2. Reglas → código
 
 | Regla (fuente / backlog) | Función | Test |
