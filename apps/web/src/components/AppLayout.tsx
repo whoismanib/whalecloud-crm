@@ -100,7 +100,7 @@ export function AppLayout() {
       to: '/incorporacion',
       label: t('p2:nav.onboarding'),
       icon: IconUserPlus,
-      show: canDo(me, 'P15', 'view'),
+      show: true,
     },
     {
       to: '/capacidad',

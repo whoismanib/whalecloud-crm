@@ -534,6 +534,13 @@ describe('P15 onboarding', () => {
     expect(row.daysToFirstOpportunity).toBeGreaterThan(0);
     const job = await okData(admin.post('/admin/jobs/onboarding.daily/run'));
     expect(job.result.overdue).toBeGreaterThanOrEqual(1);
+    // no P15 letter: only their own checklist
+    const dl = await as(app, ['LOCAL_DELIVERY']);
+    await okData(
+      cm.post('/onboarding', { userId: dl.userId, countryCode: 'CL', startDate: '2026-11-02' }),
+    );
+    const mine = await okData(client(app, dl).get('/onboarding'));
+    expect(mine.map((x: { userId: string }) => x.userId)).toEqual([dl.userId]);
   });
 });
 

@@ -163,7 +163,7 @@
     "changes": "Cambios vs semana anterior",
     "noChanges": "Sin cambios respecto de la semana anterior",
     "accuracy": "Precisión del pronóstico",
-    "accuracyHint": "Pronóstico (commit + probable del primer snapshot del trimestre) vs S&S firmado; meta ±10 %.",
+    "accuracyHint": "Pronóstico (seguro + probable del primer snapshot del trimestre) vs S&S firmado; meta ±10 %.",
     "forecastAmount": "Pronóstico",
     "actual": "Real",
     "weekCol": "Semana",
@@ -175,11 +175,11 @@
       "NONE": "Ciclo semanal: lunes actualización · martes revisión · miércoles informe."
     },
     "totals": {
-      "commit": "Commit",
+      "commit": "Seguro (commit)",
       "probable": "Probable",
       "pipeline": "Pipeline",
       "weighted": "Ponderado",
-      "commitPlusProbable": "Commit + probable"
+      "commitPlusProbable": "Seguro + probable"
     },
     "change": {
       "NEW": "Nueva",

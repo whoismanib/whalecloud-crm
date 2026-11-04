@@ -15,7 +15,21 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api/client';
-import { fmtDateTime } from '../lib/format';
+import { fmtDate, fmtDateTime, fmtNumber } from '../lib/format';
+
+/** Dates and decimal amounts in notification params are shown in the user's locale. */
+function fmtParams(params: Record<string, unknown>) {
+  return Object.fromEntries(
+    Object.entries(params).map(([k, v]) => [
+      k,
+      typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)
+        ? fmtDate(v)
+        : typeof v === 'string' && /^-?\d+\.\d+$/.test(v)
+          ? fmtNumber(v, 0)
+          : v,
+    ]),
+  );
+}
 
 interface Notification {
   id: number;
@@ -92,7 +106,7 @@ export function NotificationBell() {
                 <Group justify="space-between" wrap="nowrap" align="flex-start">
                   <Text size="sm" fw={n.readAt ? 400 : 600}>
                     {t(`p2:notifications.titles.${n.titleKey}`, {
-                      ...n.params,
+                      ...fmtParams(n.params),
                       defaultValue: n.titleKey,
                     })}
                   </Text>

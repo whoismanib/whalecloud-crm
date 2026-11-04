@@ -1,5 +1,6 @@
 import {
   addDays,
+  can,
   daysToFirstOpportunity,
   ONBOARDING_ITEMS,
   OnboardingCreateSchema,
@@ -97,9 +98,17 @@ export async function onboardingRoutes(app: FastifyInstance) {
     },
   );
 
-  app.get('/onboarding', { config: { guard: { process: 'P15', action: 'view' } } }, async (req) =>
-    ok(await listOnboarding(db, await rules.get(), req.today)),
-  );
+  /** P15 R/A/C/I see every checklist; anyone else sees only their own (P15-02 self-service). */
+  app.get('/onboarding', { config: { session: true } }, async (req) => {
+    const ctx = await rules.get();
+    const auth = authOf(req);
+    const list = await listOnboarding(db, ctx, req.today);
+    return ok(
+      can(auth.roles, 'P15', 'view', ctx.raci)
+        ? list
+        : list.filter((o) => o.userId === auth.user.id),
+    );
+  });
 
   app.post(
     '/onboarding',

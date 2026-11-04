@@ -163,7 +163,7 @@
     "changes": "与上周相比的变化",
     "noChanges": "与上周相比无变化",
     "accuracy": "预测准确率",
-    "accuracyHint": "预测（季度首个快照的承诺 + 可能）对比已签约 S&S；目标 ±10 %。",
+    "accuracyHint": "预测（季度首个快照的确定 + 可能）对比已签约 S&S；目标 ±10 %。",
     "forecastAmount": "预测",
     "actual": "实际",
     "weekCol": "周",
@@ -175,11 +175,11 @@
       "NONE": "每周节奏：周一更新 · 周二复核 · 周三周报。"
     },
     "totals": {
-      "commit": "承诺",
+      "commit": "确定",
       "probable": "可能",
       "pipeline": "管道",
       "weighted": "加权",
-      "commitPlusProbable": "承诺 + 可能"
+      "commitPlusProbable": "确定 + 可能"
     },
     "change": {
       "NEW": "新增",

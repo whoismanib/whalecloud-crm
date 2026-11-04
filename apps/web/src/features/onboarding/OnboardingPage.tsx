@@ -260,7 +260,7 @@ export default function OnboardingPage() {
           ))}
         </Table.Tbody>
       </Table>
-      <Kits />
+      {canDo(me, 'P15', 'view') && <Kits />}
       <Modal opened={creating} onClose={() => setCreating(false)} title={t('p2:onboarding.new')}>
         <NewOnboarding onDone={() => setCreating(false)} />
       </Modal>
