@@ -252,7 +252,6 @@ export async function distributorRoutes(app: FastifyInstance) {
       const agr = await distributorAgreementFailures(db, body.distributorId, {
         today: req.today,
         country: acc.countryCode,
-        vertical: acc.vertical,
       });
       if (agr.length && ctx.settings['distributors.blockExpiredAgreement'])
         throw ruleViolation(agr);
