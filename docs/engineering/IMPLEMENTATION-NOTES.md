@@ -74,7 +74,11 @@ cambio a zh-CN + modo oscuro y verificación de la cadena de bitácora.
 11. **MEDDPICC obligatorio solo **sobre** USD 500.000** (BACKLOG P2-02: "≤ USD 500.000 → opcional").
 12. **Compose**: solo `docker-compose.yml` (+ `.dev.yml` que expone 5432). Sin `worker`, `backup`, `mailpit` ni `prod.yml`/TLS en fase 1. `migrate` también ejecuta el seed base (`SEED_ARGS=--demo` para demo).
 13. **Tests API**: la BD de test se recrea por ejecución (globalSetup) y los archivos corren en serie; no se trunca (la bitácora no lo permite). Cabecera `X-Test-Today` solo con `allowTodayOverride` (tests y seed demo), nunca en producción.
-14. El tablero agrega todos los datos del país (no filtra por visibilidad de etapa); la lista de salud sí aplica visibilidad.
+14. **Imágenes Docker**: la etapa de dependencias (`npm ci`) se validó en este entorno; la construcción
+    completa quedó bloqueada por límites del entorno (Docker Hub respondió 429 y el proxy no está
+    disponible dentro de los contenedores). La etapa runtime usa `npm prune --omit=dev` para no
+    descargar dos veces. Validar `docker compose up --build` en CI/un host con acceso a Docker Hub.
+15. El tablero agrega todos los datos del país (no filtra por visibilidad de etapa); la lista de salud sí aplica visibilidad.
 
 ## 4. Pendiente para la fase 2
 

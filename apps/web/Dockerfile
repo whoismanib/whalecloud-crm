@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 # SPA built with Vite, served by nginx with /api proxied to the api service. Context: repo root.
 FROM node:22-alpine AS build
 WORKDIR /app
