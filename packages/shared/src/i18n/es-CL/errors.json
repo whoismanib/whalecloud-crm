@@ -114,7 +114,12 @@
     "DELEGATION_ROLE_NOT_HELD": "El titular no tiene el rol {{role}}.",
     "DELEGATION_IN_PAST": "La delegación ya terminó.",
     "DELEGATE_NOT_FOUND": "El delegado no existe o está inactivo.",
-    "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar."
+    "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar.",
+    "EDO_ID_MISSING": "Fila sin id de eDo (issueId); no se puede importar.",
+    "EDO_CREATED_MISSING": "Ticket {{number}} sin fecha de creación válida.",
+    "EDO_STATUS_UNKNOWN": "Ticket {{number}}: estado de eDo desconocido ({{status}}).",
+    "EDO_STATUS_ASSUMED": "Ticket {{number}}: estado «{{status}}» no reconocido; se importa como {{as}}.",
+    "EDO_PRIORITY_ASSUMED": "Ticket {{number}}: prioridad «{{priority}}» no reconocida; se importa como {{as}}."
   },
   "validation": {
     "REQUIRED": "Obligatorio",

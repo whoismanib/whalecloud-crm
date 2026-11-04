@@ -819,3 +819,10 @@ Migración `0004_blank_tax_id_null.sql`: `accounts.tax_id = ''` → NULL (QA-001
 
 `approval_delegations` según §4.1 más `revoked_by`; `cost_estimates` según §4.6 con `person_months`
 nullable hasta que el responsable lo registra y CHECK `>= 0`; enum `resource_type`.
+
+### 10.3 Importación eDo (`drizzle/0007_edo_ticket_import.sql`)
+
+`tickets.external_source` (`'EDO'` o null), `external_id` (issueId de eDo) y `external_url`. Índice único
+`(external_source, external_id)`; el único `(account_id, number)` pasa a ser parcial
+(`WHERE external_id IS NULL`) porque eDo reutiliza números, más un índice no único `(account_id, number)`.
+Enum `import_kind` + `EDO_INCIDENTS`. Ver ADR 0007.

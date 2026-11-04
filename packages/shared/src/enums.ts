@@ -443,6 +443,7 @@ export const IMPORT_KINDS = [
   'INVOICES',
   'LEGACY_TRACKER',
   'ZMP_HOURS',
+  'EDO_INCIDENTS',
 ] as const;
 export type ImportKind = (typeof IMPORT_KINDS)[number];
 

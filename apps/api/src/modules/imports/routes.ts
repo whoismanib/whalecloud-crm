@@ -1,6 +1,7 @@
 import {
   can,
   CsvImportSchema,
+  EdoImportSchema,
   escalationStatus,
   LegacyImportSchema,
   neutralizeFormula,
@@ -29,6 +30,7 @@ import { visibilityFilter } from '../../services/opportunities';
 import { computeDashboard } from '../dashboard/routes';
 import {
   importAccounts,
+  importEdoIncidents,
   importInvoices,
   importLegacyTracker,
   importOpportunities,
@@ -41,6 +43,7 @@ const KIND: Record<string, ImportKind> = {
   opportunities: 'OPPORTUNITIES',
   invoices: 'INVOICES',
   'legacy-tracker': 'LEGACY_TRACKER',
+  'edo-incidents': 'EDO_INCIDENTS',
 };
 
 /** CSV templates for the importers (first line = header). */
@@ -132,7 +135,7 @@ async function send(
     .send(Buffer.from(buf));
 }
 
-/** Imports (CORE-08, legacy tracker) and CSV/XLSX exports of the main lists (DASH-08). */
+/** Imports (CORE-08, legacy tracker, legacy eDo incidents) and CSV/XLSX exports of the main lists (DASH-08). */
 export async function importExportRoutes(app: FastifyInstance) {
   const { db, rules } = app.ctx;
 
@@ -166,7 +169,15 @@ export async function importExportRoutes(app: FastifyInstance) {
     },
     async (req) => {
       const { kind } = parse(
-        z.object({ kind: z.enum(['accounts', 'opportunities', 'invoices', 'legacy-tracker']) }),
+        z.object({
+          kind: z.enum([
+            'accounts',
+            'opportunities',
+            'invoices',
+            'legacy-tracker',
+            'edo-incidents',
+          ]),
+        }),
         req.params,
       );
       const ctx = await rules.get();
@@ -178,6 +189,15 @@ export async function importExportRoutes(app: FastifyInstance) {
         const body = parse(LegacyImportSchema, req.body);
         dryRun = body.dryRun;
         run = (tx) => importLegacyTracker(tx, ctx, actor, req.today, body.data);
+      } else if (kind === 'edo-incidents') {
+        const body = parse(EdoImportSchema, req.body);
+        dryRun = body.dryRun;
+        run = (tx) =>
+          importEdoIncidents(tx, actor, body.data, {
+            accountId: body.accountId,
+            accountName: body.accountName,
+            timeZone: app.ctx.config.APP_TIMEZONE,
+          });
       } else {
         const body = parse(CsvImportSchema, req.body);
         dryRun = body.dryRun;
@@ -198,7 +218,13 @@ export async function importExportRoutes(app: FastifyInstance) {
           rowsTotal: report.rowsTotal,
           rowsOk: report.rowsOk,
           rowsError: report.errors.length,
-          report: { created: report.created, skipped: report.skipped, errors: report.errors },
+          report: {
+            created: report.created,
+            updated: report.updated,
+            skipped: report.skipped,
+            errors: report.errors,
+            warnings: report.warnings,
+          },
           createdBy: actor.userId,
         })
         .returning({ id: importJobs.id });
@@ -211,7 +237,12 @@ export async function importExportRoutes(app: FastifyInstance) {
           {
             field: kind,
             old: null,
-            new: { ...report.created, errors: report.errors.length, dryRun },
+            new: {
+              ...report.created,
+              ...(report.updated && { updated: report.updated }),
+              errors: report.errors.length,
+              dryRun,
+            },
           },
         ],
       });

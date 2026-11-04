@@ -151,6 +151,16 @@ y simulación de importación del tracker legado), sin errores de consola salvo 
 25. **Admin**: sin `deactivate`/`reassign`/`mfa-reset`, catálogos, metas, delegaciones ni exportación
     completa; usuarios se desactivan con `PATCH isActive=false` (revoca sesiones).
 26. `npm run db:reset` (solo development) vacía los esquemas, migra y siembra (`-- --demo`).
+27. **Importación de incidentes eDo** (`POST /imports/edo-incidents`, Admin → Importar → "Incidentes eDo"):
+    lee el `edo_incidents.json` del tablero legado; mapeo puro en `rules/edoIncidents.ts`. La tarea pedía
+    upsert por número de ticket, pero **eDo reutilizó números** (11 pares en el archivo real, p. ej.
+    WOM_IS1147 de 2021 y de 2022), así que la clave es el `issueId` (`tickets.external_source = 'EDO'`,
+    `external_id`). El índice único `(account_id, number)` queda solo para tickets manuales
+    (`WHERE external_id IS NULL`); un ticket manual con el mismo número se vincula en vez de duplicarse.
+    `last_update_at` de un ticket importado refleja eDo: si alguien lo edita en el CRM, la siguiente
+    importación lo vuelve a la fecha de eDo (y lo cuenta como actualizado). `notes` no se toca.
+    Estados 0/1 → OPEN, 2/3 → IN_PROGRESS, 4 → RESOLVED (no abierto, igual que el legado), 5 → CLOSED.
+    Sync directo con eDo: ADR 0007 (propuesta).
 
 ## 4. Pendiente (fase 3)
 

@@ -372,7 +372,8 @@
       "legacy-tracker": "Legacy tracker (tracker_data.json)",
       "accounts": "Accounts (CSV)",
       "opportunities": "Opportunities (CSV)",
-      "invoices": "Invoices (CSV)"
+      "invoices": "Invoices (CSV)",
+      "edo-incidents": "eDo incidents (edo_incidents.json)"
     },
     "file": "File",
     "dryRun": "Dry run",
@@ -389,7 +390,17 @@
       "contracts": "Contracts",
       "milestones": "Milestones",
       "invoices": "Invoices",
-      "payments": "Payments"
+      "payments": "Payments",
+      "tickets": "Tickets"
+    },
+    "edoHint": "edo_incidents.json file from the legacy dashboard. Each ticket is matched by its eDo id (issueId): existing tickets are updated, unchanged ones are skipped. CRM notes are never touched.",
+    "account": "Account",
+    "accountDefault": "WOM (by name)",
+    "updatedLabel": "Updated",
+    "warnings": "Warnings",
+    "updated": {
+      "tickets": "Tickets",
+      "ticketsLinked": "Manual tickets linked to eDo"
     }
   }
 }

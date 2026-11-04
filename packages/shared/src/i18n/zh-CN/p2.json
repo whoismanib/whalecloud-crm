@@ -372,7 +372,8 @@
       "legacy-tracker": "旧版跟踪表（tracker_data.json）",
       "accounts": "客户（CSV）",
       "opportunities": "商机（CSV）",
-      "invoices": "发票（CSV）"
+      "invoices": "发票（CSV）",
+      "edo-incidents": "eDo 事件单（edo_incidents.json）"
     },
     "file": "文件",
     "dryRun": "试运行",
@@ -389,7 +390,17 @@
       "contracts": "合同",
       "milestones": "里程碑",
       "invoices": "发票",
-      "payments": "付款"
+      "payments": "付款",
+      "tickets": "工单"
+    },
+    "edoHint": "旧看板的 edo_incidents.json 文件。按 eDo 编号（issueId）匹配工单：已存在的更新，未变化的跳过。不会修改 CRM 备注。",
+    "account": "客户",
+    "accountDefault": "WOM（按名称）",
+    "updatedLabel": "已更新",
+    "warnings": "提示",
+    "updated": {
+      "tickets": "工单",
+      "ticketsLinked": "已关联 eDo 的手工工单"
     }
   }
 }
