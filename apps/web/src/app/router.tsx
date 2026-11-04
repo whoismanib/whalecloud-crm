@@ -1,7 +1,8 @@
 import { Center, Loader } from '@mantine/core';
-import { lazy, Suspense, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { LoginPage } from '../auth/LoginPage';
+import { applyUserLocale } from './i18n';
 import { useMe } from '../auth/useMe';
 import { AppLayout } from '../components/AppLayout';
 
@@ -32,6 +33,9 @@ const page = (el: ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>
 
 function RequireAuth() {
   const { data: me, isLoading } = useMe();
+  useEffect(() => {
+    if (me?.mfaVerified) applyUserLocale(me.id, me.locale);
+  }, [me?.id, me?.mfaVerified, me?.locale]);
   if (isLoading) return <Loading />;
   if (!me || !me.mfaVerified) return <LoginPage />;
   return <AppLayout />;

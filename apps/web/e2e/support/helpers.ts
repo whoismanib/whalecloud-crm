@@ -12,6 +12,7 @@ export const USERS = {
   vp: 'jacky@example.com',
   president: 'alex.xiao@example.com',
   admin: 'admin@example.com',
+  kong: 'alex.kong@example.com',
 } as const;
 export type Who = keyof typeof USERS;
 
@@ -37,14 +38,33 @@ export function uniq(prefix: string): string {
   return `${prefix} ${Date.now().toString(36).toUpperCase()}${seq}`;
 }
 
-/** Logs in through the real login form and waits for the app shell. */
-export async function login(page: Page, who: Who): Promise<void> {
+/**
+ * Logs in through the real login form and waits for the app shell. The app applies the user's
+ * saved language at login (QA-003); unless `keepLocale` is set, the UI is switched back to es-CL
+ * so the Spanish selectors used by the specs work for the zh-CN demo users too.
+ */
+export async function login(
+  page: Page,
+  who: Who,
+  opts: { keepLocale?: boolean } = {},
+): Promise<void> {
   await page.context().clearCookies();
   await page.goto('/');
+  if ((await page.locator('html').getAttribute('lang')) !== 'es-CL') {
+    await page.evaluate(() => localStorage.removeItem('wcrm.locale'));
+    await page.reload();
+  }
   await page.getByLabel('Correo').fill(USERS[who]);
   await page.getByLabel('Contraseña').fill(who === 'admin' ? ADMIN_PASSWORD : DEMO_PASSWORD);
   await page.getByRole('button', { name: 'Entrar' }).click();
   await expect(page.getByRole('button', { name: 'theme' })).toBeVisible();
+  if (opts.keepLocale) return;
+  const lang = await page.locator('html').getAttribute('lang');
+  if (lang !== 'es-CL') {
+    await page.getByRole('textbox', { name: /Idioma|语言|Language/ }).click();
+    await page.getByRole('option', { name: 'Español (Chile)' }).click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es-CL');
+  }
 }
 
 export interface Api {

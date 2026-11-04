@@ -42,6 +42,21 @@ void i18n.use(initReactI18next).init({
   defaultNS: 'common',
   interpolation: { escapeValue: false },
 });
+if (typeof document !== 'undefined') document.documentElement.lang = i18n.language;
+
+let appliedForUser: string | null = null;
+
+/**
+ * ADM-05 / QA-003: the profile language wins once per signed-in user (login or reload); later
+ * changes come from the header selector, which also saves the preference on the server.
+ */
+export function applyUserLocale(userId: string, locale: string | null | undefined) {
+  if (appliedForUser === userId) return;
+  appliedForUser = userId;
+  if (locale && LANGS.some((l) => l.value === locale) && locale !== i18n.language) {
+    setLanguage(locale);
+  }
+}
 
 export function setLanguage(lng: string) {
   void i18n.changeLanguage(lng);

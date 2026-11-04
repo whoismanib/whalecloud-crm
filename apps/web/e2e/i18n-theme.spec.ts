@@ -32,6 +32,17 @@ test.describe('language and theme', () => {
     await expect(page.getByRole('link', { name: 'Oportunidades' })).toBeVisible();
   });
 
+  test("applies the user's saved language at login (QA-003)", async ({ page }) => {
+    // Alex Kong's profile language is zh-CN; the browser has no local choice (es-CL login page)
+    await login(page, 'kong', { keepLocale: true });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+    await expect(page.getByRole('link', { name: '概览' })).toBeVisible();
+    // logging out and in as a Spanish-speaking user switches back to that user's language
+    await login(page, 'am', { keepLocale: true });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es-CL');
+    await expect(page.getByRole('link', { name: 'Oportunidades' })).toBeVisible();
+  });
+
   test('dark mode toggles the color scheme and survives a reload', async ({ page }) => {
     await login(page, 'admin');
     const html = page.locator('html');
