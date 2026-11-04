@@ -40,6 +40,7 @@ import {
   legacyPoYear,
   legacyBaseName,
   matchLegacyInvoice,
+  matchOwnerName,
   parseAmount,
   parseCsv,
   parseLooseDate,
@@ -622,5 +623,20 @@ describe('import / export helpers', () => {
     expect(m('Migrate Prepaid OCS, Greenplum, Mediation', 2026)).toBe(c[5]);
     expect(m('Multiple APN', 2026)).toBe(c[6]);
     expect(m('National Roaming Control', 2026)).toBeNull();
+  });
+
+  it('finds the CRM user behind a legacy pic', () => {
+    const u = [
+      { fullName: 'Manuel Ibieta', email: 'manuel.ibieta@example.com' },
+      { fullName: 'Jesús de Pablo', email: 'jesus.depablo@example.com' },
+      { fullName: 'Alex Kong', email: 'alex.kong@example.com' },
+      { fullName: 'Alex Xiao', email: 'alex.xiao@example.com' },
+    ];
+    expect(matchOwnerName('Manuel', u)).toBe(u[0]);
+    expect(matchOwnerName(' manuel ibieta ', u)).toBe(u[0]);
+    expect(matchOwnerName('Jesus', u)).toBe(u[1]);
+    expect(matchOwnerName('Alex', u)).toBeNull();
+    expect(matchOwnerName('Daniel', u)).toBeNull();
+    expect(matchOwnerName('', u)).toBeNull();
   });
 });

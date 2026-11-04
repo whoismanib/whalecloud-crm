@@ -234,6 +234,36 @@ export function matchLegacyInvoice<T extends { name: string; year: number | null
   return best.reduce((a, b) => (dist(b.c.year) < dist(a.c.year) ? b : a)).c;
 }
 
+const fold = (v: string) =>
+  v
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+
+/**
+ * Finds the CRM user behind a legacy "pic" (person in charge), e.g. "Manuel" → Manuel Ibieta.
+ * Matches the full name, the first name or the first part of the e-mail, ignoring case and
+ * accents. Returns null when nobody or more than one user matches.
+ */
+export function matchOwnerName<T extends { fullName: string; email: string }>(
+  pic: string | null | undefined,
+  users: readonly T[],
+): T | null {
+  if (!pic || !fold(pic)) return null;
+  const p = fold(pic);
+  const hits = users.filter((u) => {
+    const full = fold(u.fullName);
+    return (
+      full === p ||
+      full.split(' ')[0] === p ||
+      fold(u.email.split('@')[0]!.split(/[._-]/)[0]!) === p
+    );
+  });
+  return hits.length === 1 ? hits[0]! : null;
+}
+
 function mapStatus(raw: string | null): {
   stage: number;
   status: OpportunityStatus;

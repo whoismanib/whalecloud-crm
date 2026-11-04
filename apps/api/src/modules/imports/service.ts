@@ -7,6 +7,7 @@ import {
   LEGACY_STATUSES,
   mapLegacyTracker,
   matchLegacyInvoice,
+  matchOwnerName,
   money,
   parseAmount,
   parseLooseDate,
@@ -31,6 +32,8 @@ import {
   opportunityContacts,
   payments,
   stageHistory,
+  userRoles,
+  users,
 } from '../../db/schema/index';
 import { moneyColumns } from '../../services/money';
 import type { RulesContext } from '../../services/rulesContext';
@@ -69,7 +72,7 @@ async function defaultEntityId(db: DbOrTx, code = 'WC_CL_SPA') {
 export async function findOrCreateAccount(
   db: DbOrTx,
   actor: Actor,
-  p: { name: string; customerType: 'NEW' | 'EXISTING'; vertical?: string },
+  p: { name: string; customerType: 'NEW' | 'EXISTING'; vertical?: string; ownerId?: string },
   report: ImportReport,
 ) {
   const [a] = await db
@@ -87,7 +90,7 @@ export async function findOrCreateAccount(
       customerType: p.customerType,
       defaultBillingEntityId: (await defaultEntityId(db))!,
       currency: 'USD',
-      ownerId: actor.userId!,
+      ownerId: p.ownerId ?? actor.userId!,
       createdBy: actor.userId,
     })
     .returning();
@@ -142,6 +145,8 @@ export async function createImportedOpportunity(
     closeReason?: string | null;
     /** Date the deal was won (legacy PO date); defaults to the import date. */
     wonOn?: string | null;
+    /** Owner; defaults to the user running the import. */
+    ownerId?: string;
   },
 ) {
   const seq = await db.execute<{ n: string }>(
@@ -156,7 +161,7 @@ export async function createImportedOpportunity(
       code: `OPP-${today.slice(0, 4)}-${seq.rows[0]!.n.padStart(4, '0')}`,
       name: p.name,
       accountId: p.accountId,
-      ownerId: actor.userId!,
+      ownerId: p.ownerId ?? actor.userId!,
       countryCode: acc!.countryCode,
       vertical: p.vertical as 'TELECOM_BSS',
       billingEngine: p.billingEngine as 'A',
@@ -638,13 +643,26 @@ export async function importLegacyTracker(
       params: f.params ?? undefined,
     })),
   );
+  // Owners: the tracker's "pic" when it is a CRM user with a business role (ADMIN never owns
+  // business records, ARCHITECTURE §6.3); else the account owner; else whoever imports.
+  const roleRows = await db
+    .select({ id: users.id, fullName: users.fullName, email: users.email, role: userRoles.role })
+    .from(users)
+    .innerJoin(userRoles, eq(userRoles.userId, users.id))
+    .where(eq(users.isActive, true));
+  const businessUsers = [
+    ...new Map(roleRows.filter((u) => u.role !== 'ADMIN').map((u) => [u.id, u])).values(),
+  ];
+  const businessIds = new Set(businessUsers.map((u) => u.id));
   for (const o of mapped.opportunities) {
+    const picOwner = matchOwnerName(o.ownerName, businessUsers)?.id;
     const acc = await findOrCreateAccount(
       db,
       actor,
-      { name: o.accountName, customerType: o.customerType },
+      { name: o.accountName, customerType: o.customerType, ownerId: picOwner },
       report,
     );
+    const ownerId = picOwner ?? (businessIds.has(acc.ownerId) ? acc.ownerId : actor.userId!);
     // Same name in different years is a different project (BSS Support L3 2026 vs 2027).
     const [dup] = await db
       .select({ id: opportunities.id })
@@ -675,6 +693,7 @@ export async function importLegacyTracker(
       competitor: o.competitor,
       closeReason: o.status !== 'OPEN' ? `Estado legado: ${o.legacyStatus ?? 'Cancelled'}` : null,
       wonOn: o.wonOn,
+      ownerId,
     });
     bump(report, 'opportunities');
     if (o.stage >= 7 && o.status === 'OPEN') {
