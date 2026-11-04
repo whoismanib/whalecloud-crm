@@ -483,6 +483,7 @@ function Fx() {
           />
           <Select
             size="xs"
+            w={280}
             label={t('fields.type')}
             data={['ACTUAL', 'BUDGET']}
             value={v.kind}
@@ -757,11 +758,13 @@ function Imports() {
               skipped: result.skipped,
             })}
           </Text>
-          <Text size="sm">
-            {Object.entries(result.created)
-              .map(([k, n]) => `${t(`p2:import.created.${k}`, { defaultValue: k })}: ${n}`)
-              .join(' · ')}
-          </Text>
+          {Object.keys(result.created).length > 0 && (
+            <Text size="sm">
+              {Object.entries(result.created)
+                .map(([k, n]) => `${t(`p2:import.created.${k}`, { defaultValue: k })}: ${n}`)
+                .join(' · ')}
+            </Text>
+          )}
           {result.updated && Object.keys(result.updated).length > 0 && (
             <Text size="sm" data-testid="import-updated">
               {t('p2:import.updatedLabel')}:{' '}
