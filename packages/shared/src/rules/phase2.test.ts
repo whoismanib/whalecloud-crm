@@ -41,6 +41,7 @@ import {
   parseCsv,
   parseLooseDate,
   quarterEnd,
+  neutralizeFormula,
   toCsv,
 } from './importing';
 import { CL_CALENDAR, toBusinessCalendar } from '../constants/holidays';
@@ -435,6 +436,36 @@ describe('import / export helpers', () => {
       '\uFEFFa,b,c\r\n"x,y",1,\r\n',
     );
     expect(toCsv([{ a: { k: 1 } }], ['a'])).toContain('"{""k"":1}"');
+  });
+  it('neutralizes spreadsheet formulas in exports (QA-006, CWE-1236)', () => {
+    const csv = toCsv(
+      [
+        { v: '=HYPERLINK("http://evil.example","x")' },
+        { v: '+1+2' },
+        { v: '-2+3' },
+        { v: '@SUM(A1)' },
+        { v: '\tcmd' },
+        { v: '\rcmd' },
+        { v: '-12.50' },
+        { v: -5 },
+        { v: 'WOM' },
+      ],
+      ['v'],
+    );
+    const lines = csv.slice(1).split('\r\n');
+    expect(lines.slice(1, 10)).toEqual([
+      `"'=HYPERLINK(""http://evil.example"",""x"")"`,
+      "'+1+2",
+      "'-2+3",
+      "'@SUM(A1)",
+      `"'\tcmd"`,
+      `"'\rcmd"`,
+      '-12.50',
+      '-5',
+      'WOM',
+    ]);
+    expect(neutralizeFormula('=1')).toBe("'=1");
+    expect(neutralizeFormula(7)).toBe(7);
   });
   it('loose dates, quarters and amounts', () => {
     expect(parseLooseDate('2026-11-04T10:00')).toBe('2026-11-04');

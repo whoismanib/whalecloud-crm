@@ -52,10 +52,20 @@ export function parseCsv(text: string, delimiter?: string): Record<string, strin
   return body.map((r) => Object.fromEntries(keys.map((k, i) => [k, (r[i] ?? '').trim()])));
 }
 
+/**
+ * CWE-1236: a text cell starting with = + - @, tab or CR is prefixed with `'` so spreadsheet apps
+ * show it as text instead of evaluating it. Plain numbers ("-12.50") are left as they are.
+ */
+export function neutralizeFormula<T>(v: T): T | string {
+  if (typeof v !== 'string') return v;
+  if (/^-?\d+(\.\d+)?$/.test(v)) return v;
+  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+}
+
 function csvCell(v: unknown): string {
   if (v === null || v === undefined) return '';
-  const s = typeof v === 'object' ? JSON.stringify(v) : String(v);
-  return /[",;\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  const s = neutralizeFormula(typeof v === 'object' ? JSON.stringify(v) : String(v));
+  return /[",;\n\r\t]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
 /** CSV writer (comma, CRLF, UTF-8 BOM for Excel). */

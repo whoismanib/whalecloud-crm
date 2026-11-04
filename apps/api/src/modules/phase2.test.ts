@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import ExcelJS from 'exceljs';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { as, client, createTestApp, login, uniq } from '../../test/helpers';
@@ -800,5 +801,26 @@ describe('imports and exports', () => {
       `SELECT count(*)::int n FROM audit_log WHERE action='EXPORT'`,
     );
     expect(n.rows[0].n).toBeGreaterThanOrEqual(3);
+  });
+
+  it('neutralizes spreadsheet formulas in CSV and XLSX exports (QA-006)', async () => {
+    const evil = `=HYPERLINK("http://evil.example","${uniq('x')}")`;
+    await newAccount(cm, { name: evil });
+    const csv = await cm.get('/exports/accounts?format=csv');
+    expect(csv.text).toContain(`"'${evil.replace(/"/g, '""')}"`);
+    expect(csv.text).not.toMatch(/(^|,|\r\n)"?=HYPERLINK/);
+    const xlsx = await cm
+      .get('/exports/accounts?format=xlsx')
+      .buffer(true)
+      .parse((res, cb) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (c: Buffer) => chunks.push(c));
+        res.on('end', () => cb(null, Buffer.concat(chunks)));
+      });
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(xlsx.body as Buffer);
+    const names = (wb.worksheets[0]!.getColumn(1).values as unknown[]).map(String);
+    expect(names).toContain(`'${evil}`);
+    expect(names).not.toContain(evil);
   });
 });

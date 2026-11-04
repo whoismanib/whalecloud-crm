@@ -3,6 +3,7 @@ import {
   CsvImportSchema,
   escalationStatus,
   LegacyImportSchema,
+  neutralizeFormula,
   parseCsv,
   toCsv,
   type ImportKind,
@@ -115,7 +116,9 @@ async function send(
           const v = r[c];
           return [
             c,
-            v !== null && typeof v === 'object' && !(v instanceof Date) ? JSON.stringify(v) : v,
+            neutralizeFormula(
+              v !== null && typeof v === 'object' && !(v instanceof Date) ? JSON.stringify(v) : v,
+            ),
           ];
         }),
       ),
