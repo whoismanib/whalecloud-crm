@@ -333,3 +333,12 @@ networks: { front: {}, back: { internal: true } }
 - Montos: nunca `number` para dinero; `string` + `decimal.js`.
 - Fechas de negocio: `string` `YYYY-MM-DD`; nunca `new Date()` dentro de `rules/` (se inyecta `today`).
 - Toda escritura de negocio: `service` → transacción → regla pura → persistencia → `audit.record` → jobs/notificaciones.
+
+## 9. Ajustes de la fase 1
+
+- `typecheck` = `tsc -p` por workspace (los paquetes no emiten; no se usan proyectos `composite`).
+- `dev` levanta API + web (sin worker hasta la fase 2); `db:seed` pasa argumentos (`npm run db:seed -- --demo`).
+- Variables nuevas: `MFA_REQUIRED`, `APP_TIMEZONE`, `WEB_PORT`. Los tests de API usan `DATABASE_URL_TEST`
+  con un rol `CREATEDB`: la BD se recrea en cada ejecución y los archivos corren en serie.
+- Solo `docker-compose.yml` y `docker-compose.dev.yml`; `migrate` aplica migraciones y seed base
+  (`SEED_ARGS=--demo` agrega la demo).

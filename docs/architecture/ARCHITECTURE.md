@@ -531,3 +531,12 @@ Recursos (prod): `db` 2 GB, `api` 1 GB, `worker` 768 MB, `web` 128 MB. Una répl
 | Reglas cambian (umbrales, RACI sin confirmar) | Todo en `settings`/RACI versionados; reglas puras con tests de tabla |
 | Un único desarrollador | Stack mínimo (sin Redis, sin microservicios), un solo lenguaje, reglas y esquemas compartidos, OpenAPI generado |
 | Corrupción/borrado de bitácora | Triple protección (grants, triggers, hash chain) + backups |
+
+## 17. Estado de implementación y desviaciones (fase 1)
+
+Ver `docs/engineering/IMPLEMENTATION-NOTES.md`. Resumen de desviaciones deliberadas en la fase 1:
+validación Zod manual en rutas (sin type provider ni OpenAPI todavía); **sin worker pg-boss**: SLA y
+escalamiento se calculan al leer y las 5 acciones de cobranza se crean al emitir la factura;
+archivos como **enlaces https** al repositorio con nombre estándar validado (subida binaria en fase 2);
+MFA TOTP activable por `MFA_REQUIRED`; hash de bitácora canonizando `occurred_at` como epoch;
+KPIs calculados en TypeScript (`rules/kpis.ts`) sin vistas SQL; compose sin `worker`/`backup`/TLS.

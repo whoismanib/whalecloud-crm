@@ -769,3 +769,16 @@ Vistas para KPIs (`0002_kpi_views.sql`, recreadas en cada migración que las toq
 - TC 2026-01..2026-11 de ejemplo (CNY ≈ 7,1; CLP ≈ 940 por USD; marcados `source='seed'`).
 - Usuarios demo (solo dev/staging), uno por rol, contraseña de `SEED_DEMO_PASSWORD` y secreto TOTP fijo de `SEED_TOTP_SECRET` (para Playwright).
 - Datos demo: cuentas WOM, BancoEstado, Entel, GTD; oportunidad "Equifiber OSS fase 1" con planilla v7.0 y partidas del ejemplo (para validar 58,0 % / 50,3 %).
+
+## 9. Cambios en la fase 1
+
+Implementado en `apps/api/src/db/schema` + `apps/api/drizzle/0000_init.sql` y `0001_audit_and_guards.sql`.
+Agregados: tabla `tickets` (incidentes eDo del tablero legado, con `ball_in`), `opportunities.risk`,
+`legacy_status`, `on_hold`, `holidays.is_workday` (días laborales de recuperación en China),
+`milestones.invoice_due_on`, `business_cases.decision_comment`. Sin FK (coherencia por la app) en
+`opportunities.current_price_request_id / current_sheet_version_id / current_approval_request_id`
+para evitar ciclos. `sheet_versions.file_attachment_id` opcional (archivos como enlaces en fase 1).
+Parámetros nuevos: `health.staleBusinessDays`, `kpi.pendingAcceptanceBusinessDays`,
+`kpi.priceTimeWindowWeeks`, `compliance.requiredBeforeProposal` (false hasta P14),
+`qualification.meddpiccMinScore`; `invoices.defaultPaymentTermDays` = 45 (legado). Tablas de P9–P16
+completas, vistas de KPIs y snapshots quedan para la fase 2.
