@@ -98,8 +98,9 @@ Los tickets que dejaron de llegar no se borran (los cerrados viejos no se piden 
 **Red: funciona desde Chile y desde China**
 
 - El servidor del CRM está en ECS Hong Kong (ADR 0005). `edo.iwhalecloud.com` es de WhaleCloud
-  (China) y se alcanza desde HK sin VPN. Validado desde Chile con el tablero legado, falta
-  validarlo desde la VM: `curl -sS -o /dev/null -w '%{http_code}' https://edo.iwhalecloud.com/`.
+  (China). **Comprobado** solo desde el Mac de Manuel en Chile (tablero legado). **Supuesto, sin
+  verificar:** que se alcanza desde HK sin VPN ni IP de oficina. Validarlo desde la VM con
+  `curl -sS -o /dev/null -w '%{http_code}' https://edo.iwhalecloud.com/`.
 - La red `back` es `internal: true` (sin salida). Hay que conectar el `worker` también a la red
   `egress` (como `backup`) y limitar la salida a `edo.iwhalecloud.com:443` con el firewall/security
   group de la VM. La `api` sigue sin salida.
