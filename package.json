@@ -21,7 +21,7 @@
     "test:coverage": "npm run test:coverage -w @wcrm/shared",
     "db:generate": "npm run db:generate -w @wcrm/api",
     "db:migrate": "npm run db:migrate -w @wcrm/api",
-    "db:seed": "npm run db:seed -w @wcrm/api",
+    "db:seed": "npm run db:seed -w @wcrm/api --",
     "db:reset": "npm run db:reset -w @wcrm/api",
     "i18n:check": "node scripts/i18n-check.mjs",
     "check:no-external": "node scripts/check-no-external.mjs apps/web/dist",
@@ -40,5 +40,9 @@
     "concurrently": "9.1.0",
     "globals": "15.13.0",
     "@types/node": "22.10.2"
+  },
+  "overrides": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }

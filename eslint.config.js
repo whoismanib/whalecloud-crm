@@ -19,7 +19,10 @@ export default tseslint.config(
   {
     languageOptions: { globals: { ...globals.node }, ecmaVersion: 2022, sourceType: 'module' },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-explicit-any': 'error',
     },
   },
@@ -31,7 +34,10 @@ export default tseslint.config(
         {
           patterns: [
             { group: ['node:*'], message: 'shared must stay runtime-agnostic (ADR 0006)' },
-            { group: ['react', 'react-dom', 'pg', 'fastify', 'drizzle-orm'], message: 'shared must stay pure' },
+            {
+              group: ['react', 'react-dom', 'pg', 'fastify', 'drizzle-orm'],
+              message: 'shared must stay pure',
+            },
           ],
         },
       ],

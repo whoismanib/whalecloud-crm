@@ -1,0 +1,42 @@
+{
+  "name": "@wcrm/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "3.9.1",
+    "@mantine/core": "7.15.2",
+    "@mantine/hooks": "7.15.2",
+    "@mantine/notifications": "7.15.2",
+    "@tabler/icons-react": "3.26.0",
+    "@tanstack/react-query": "5.62.8",
+    "@wcrm/shared": "*",
+    "i18next": "24.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "7.54.1",
+    "react-i18next": "15.2.0",
+    "react-router-dom": "6.28.0",
+    "recharts": "2.15.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.1.0",
+    "@types/react": "18.3.17",
+    "@types/react-dom": "18.3.5",
+    "@vitejs/plugin-react": "4.3.4",
+    "jsdom": "25.0.1",
+    "postcss": "8.5.32",
+    "postcss-preset-mantine": "1.17.0",
+    "postcss-simple-vars": "7.0.1",
+    "vite": "5.4.21"
+  }
+}

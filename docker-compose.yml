@@ -1,0 +1,62 @@
+# Base stack: db, migrate (+ seed), api, web.
+#   cp .env.example .env && docker compose up --build        → http://localhost:8080
+#   SEED_ARGS=--demo docker compose up --build               → with demo data
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-wcrm}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-postgres}
+      DB_OWNER_USER: ${DB_OWNER_USER:-wcrm_owner}
+      DB_OWNER_PASSWORD: ${DB_OWNER_PASSWORD:-change-me-owner}
+      DB_APP_USER: ${DB_APP_USER:-wcrm_app}
+      DB_APP_PASSWORD: ${DB_APP_PASSWORD:-change-me-app}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      retries: 20
+    networks: [back]
+
+  migrate:
+    image: ${REGISTRY:-local}/whalecloud-crm-api:${IMAGE_TAG:-dev}
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    command: ['sh', '-c', 'node dist/migrate.js && node dist/db/seed/seed.js ${SEED_ARGS:-}']
+    env_file: .env
+    environment: &dbenv
+      DATABASE_URL: postgres://${DB_APP_USER:-wcrm_app}:${DB_APP_PASSWORD:-change-me-app}@db:5432/${POSTGRES_DB:-wcrm}
+      DATABASE_URL_MIGRATIONS: postgres://${DB_OWNER_USER:-wcrm_owner}:${DB_OWNER_PASSWORD:-change-me-owner}@db:5432/${POSTGRES_DB:-wcrm}
+    depends_on:
+      db: { condition: service_healthy }
+    networks: [back]
+
+  api:
+    image: ${REGISTRY:-local}/whalecloud-crm-api:${IMAGE_TAG:-dev}
+    command: ['node', 'dist/server.js']
+    env_file: .env
+    environment:
+      <<: *dbenv
+      CORS_ORIGINS: ''
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/readyz']
+      interval: 10s
+    networks: [back, front]
+
+  web:
+    image: ${REGISTRY:-local}/whalecloud-crm-web:${IMAGE_TAG:-dev}
+    build: { context: ., dockerfile: apps/web/Dockerfile }
+    ports: ['${WEB_PORT:-8080}:80']
+    depends_on: [api]
+    networks: [front]
+
+volumes:
+  pgdata: {}
+
+networks:
+  front: {}
+  back: { internal: true }

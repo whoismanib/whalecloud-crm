@@ -1,0 +1,341 @@
+{
+  "stage": {
+    "0": "0 Lead",
+    "1": "1 Qualified",
+    "2": "2 Discovery",
+    "3": "3 Solution / demo",
+    "4": "4 Price requested",
+    "5": "5 Proposal sent",
+    "6": "6 Negotiation & approval",
+    "7": "7 Won",
+    "8": "8 In delivery",
+    "9": "9 Accepted",
+    "10": "10 Invoiced",
+    "11": "11 Collected"
+  },
+  "role": {
+    "COUNTRY_MANAGER": "Country Manager",
+    "ACCOUNT_MANAGER": "Account Manager",
+    "CHINA_SALES": "China Sales",
+    "CHINA_DELIVERY": "China R&D and delivery",
+    "LOCAL_DELIVERY": "Local delivery",
+    "CHINA_FINANCE": "China Finance",
+    "CHINA_LEGAL": "China Legal",
+    "VP": "VP (Jacky)",
+    "LATAM_PRESIDENT": "LatAm President",
+    "ADMIN": "Administrator"
+  },
+  "vertical": {
+    "TELECOM_BSS": "Telecom BSS",
+    "TELECOM_OSS": "Telecom OSS & assurance",
+    "AI": "AI",
+    "FINTECH": "Fintech & digital banking",
+    "CLOUD_DATA": "Cloud LPC & data",
+    "ENERGY": "Energy",
+    "ROBOTICS": "Embodied AI robotics"
+  },
+  "engine": {
+    "A": "A · Milestone project",
+    "B": "B · CR or T&M",
+    "C": "C · License + support",
+    "D": "D · Subscription or usage",
+    "E": "E · Hardware or rental"
+  },
+  "customerType": {
+    "EXISTING": "Existing",
+    "NEW": "New"
+  },
+  "origin": {
+    "EVENT": "Event",
+    "REFERRAL": "Referral",
+    "DISTRIBUTOR": "Distributor",
+    "PUBLIC_RFI": "Public RFI",
+    "INBOUND": "Inbound",
+    "OUTBOUND": "Outbound",
+    "OTHER": "Other"
+  },
+  "oppStatus": {
+    "OPEN": "Open",
+    "LOST": "Lost",
+    "DISCARDED": "Discarded",
+    "NOT_QUOTED": "Not quoted"
+  },
+  "forecast": {
+    "COMMIT": "Commit",
+    "PROBABLE": "Probable",
+    "PIPELINE": "Pipeline"
+  },
+  "qual": {
+    "EMPTY": "Empty",
+    "PARTIAL": "Partial",
+    "COMPLETE": "Complete"
+  },
+  "contactRole": {
+    "ECONOMIC_BUYER": "Economic buyer",
+    "SPONSOR": "Sponsor",
+    "CHAMPION": "Champion",
+    "DECISION_MAKER": "Decision maker",
+    "TECHNICAL_EVALUATOR": "Technical evaluator",
+    "END_USER": "End user",
+    "PROCUREMENT": "Procurement",
+    "LEGAL": "Legal",
+    "INFLUENCER": "Influencer",
+    "BLOCKER": "Blocker",
+    "ACCOUNTS_PAYABLE": "Accounts payable",
+    "CONTRACT_OWNER": "Contract owner",
+    "FINANCE_MANAGER": "Finance manager"
+  },
+  "activityType": {
+    "MEETING": "Meeting",
+    "CALL": "Call",
+    "EMAIL": "Email",
+    "DEMO": "Demo",
+    "EVENT": "Event",
+    "OTHER": "Other"
+  },
+  "docStatus": {
+    "DRAFT": "Draft",
+    "SUBMITTED": "Submitted",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  },
+  "prStatus": {
+    "DRAFT": "Draft",
+    "SUBMITTED": "Submitted",
+    "COSTING": "Costing",
+    "BUILDING": "Building",
+    "READY_FOR_APPROVAL": "Ready for approval",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "CANCELLED": "Cancelled"
+  },
+  "relationship": {
+    "NEW_CUSTOMER": "New customer",
+    "EXISTING_CUSTOMER": "Existing customer"
+  },
+  "competition": {
+    "TENDER_3_PLUS": "Tender with 3+ bidders",
+    "INVITED_FEW": "Few invited",
+    "DIRECT": "Direct"
+  },
+  "signingModel": {
+    "SINGLE_CL_SPA": "All with Chilean SpA",
+    "SPLIT_SW_CN_SERVICES_CL": "Software China + services SpA",
+    "SPLIT_SW_SG_SERVICES_CL": "Software Singapore + services SpA",
+    "OTHER": "Other"
+  },
+  "lineItem": {
+    "HARDWARE": "Hardware",
+    "THIRD_PARTY_SOFTWARE": "Third-party software",
+    "OWN_SOFTWARE": "Own software",
+    "IMPLEMENTATION": "Implementation",
+    "WARRANTY": "Warranty",
+    "SUPPORT_L3": "L3 support",
+    "SUPPORT_L1L2": "L1/L2 support"
+  },
+  "capexOpex": {
+    "CAPEX": "CAPEX",
+    "OPEX": "OPEX",
+    "OPTIONAL": "Optional"
+  },
+  "trigger": {
+    "SIGNATURE": "Signature",
+    "SRS_DONE": "SRS done",
+    "UAT": "UAT",
+    "GO_LIVE": "Go-live",
+    "DELIVERY": "Delivery",
+    "TERM_START": "Term start",
+    "PERIOD_END": "Period end",
+    "QUARTERLY_ADVANCE": "Quarterly in advance",
+    "PO_RECEPTION": "PO + reception",
+    "OTHER": "Other"
+  },
+  "band": {
+    "COMMITTEE": "China pricing committee",
+    "PRESIDENT": "Alex Xiao (LatAm president)",
+    "VP": "Jacky (VP)",
+    "NOT_QUOTABLE": "Not quotable (< 50 %)"
+  },
+  "stepKind": {
+    "MARGIN_COMMITTEE": "Margin · committee",
+    "MARGIN_PRESIDENT": "Margin · president",
+    "MARGIN_VP": "Margin · VP",
+    "VP_CO_APPROVAL": "President co-approval",
+    "NON_ECONOMIC": "Non-economic condition",
+    "CM_PRICE_MANUAL": "CM manual price"
+  },
+  "approvalStatus": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "CHANGES_REQUESTED": "Changes requested",
+    "EXPIRED": "Expired",
+    "INVALIDATED": "Invalidated",
+    "CANCELLED": "Cancelled"
+  },
+  "condition": {
+    "PAYMENT_TERM_OVER_60": "Payment term > 60 days",
+    "CLP_WITHOUT_FX_PREMIUM": "CLP price without FX premium",
+    "PENALTY_OVER_10": "Penalties > 10 %",
+    "UNLIMITED_LIABILITY": "Unlimited liability"
+  },
+  "contractType": {
+    "NDA": "NDA",
+    "MSA": "MSA",
+    "SOW": "SOW",
+    "OC": "PO",
+    "CR": "CR"
+  },
+  "contractStatus": {
+    "DRAFT": "Draft",
+    "IN_LEGAL_REVIEW": "In legal review",
+    "SIGNED": "Signed",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired",
+    "TERMINATED": "Terminated",
+    "CANCELLED": "Cancelled"
+  },
+  "milestoneStatus": {
+    "PLANNED": "Planned",
+    "READY": "Ready",
+    "ACCEPTED": "Accepted",
+    "SENT_TO_FINANCE": "At Finance",
+    "INVOICED": "Invoiced",
+    "PARTIALLY_PAID": "Partially paid",
+    "PAID": "Collected",
+    "CANCELLED": "Cancelled"
+  },
+  "evidence": {
+    "ACCEPTANCE_EMAIL": "Acceptance email",
+    "MSA": "MSA",
+    "SIGNED_AC": "Signed AC",
+    "RECEPTION": "Reception",
+    "PO": "PO",
+    "TERM_START": "Term start",
+    "USAGE_REPORT": "Usage report",
+    "PERIOD_ELAPSED": "Period elapsed",
+    "DELIVERY_NOTE": "Delivery note"
+  },
+  "signature": {
+    "HANDWRITTEN_SCAN": "Handwritten signature scan",
+    "ADVANCED_ESIGN": "Advanced e-signature",
+    "SIMPLE_ESIGN": "Simple e-signature",
+    "EMAIL": "Email"
+  },
+  "invoiceStatus": {
+    "ISSUED": "Issued",
+    "PARTIALLY_PAID": "Partially paid",
+    "PAID": "Paid",
+    "CANCELLED": "Void"
+  },
+  "collectionStep": {
+    "D_MINUS_10": "−10 · AM confirms invoice approved",
+    "D_PLUS_1": "+1 · AM formal reminder",
+    "D_PLUS_7": "+7 · CM calls contract owner",
+    "D_PLUS_15": "+15 · CM letter to finance (president informed)",
+    "D_PLUS_30": "+30 · China Finance & Legal: suspension"
+  },
+  "actionStatus": {
+    "PENDING": "Pending",
+    "DONE": "Done",
+    "SKIPPED": "Skipped",
+    "CANCELLED": "Cancelled"
+  },
+  "risk": {
+    "LOW": "Low",
+    "MEDIUM": "Medium",
+    "HIGH": "High"
+  },
+  "ticketPriority": {
+    "P1": "P1 critical",
+    "P2": "P2 high",
+    "P3": "P3 medium",
+    "P4": "P4 low"
+  },
+  "ticketStatus": {
+    "OPEN": "Open",
+    "IN_PROGRESS": "In progress",
+    "PENDING_CLIENT": "Waiting for client",
+    "RESOLVED": "Resolved",
+    "CLOSED": "Closed"
+  },
+  "ballIn": {
+    "WHALE": "Whale",
+    "CLIENT": "Client"
+  },
+  "health": {
+    "HEALTHY": "Healthy",
+    "AT_RISK": "At risk",
+    "CRITICAL": "Critical",
+    "STALE": "Stale",
+    "ON_HOLD": "On hold",
+    "CLOSED": "Closed"
+  },
+  "auditAction": {
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "ARCHIVE": "Archive",
+    "STAGE_CHANGE": "Stage change",
+    "APPROVAL_REQUEST": "Approval request",
+    "APPROVAL_DECISION": "Approval decision",
+    "EXCEPTION": "Exception",
+    "LOGIN": "Login",
+    "LOGIN_FAILED": "Failed login",
+    "LOGOUT": "Logout",
+    "MFA_ENROLL": "MFA enrol",
+    "MFA_RESET": "MFA reset",
+    "PASSWORD_CHANGE": "Password change",
+    "EXPORT": "Export",
+    "IMPORT": "Import",
+    "FILE_UPLOAD": "File",
+    "SETTING_CHANGE": "Setting",
+    "RACI_CHANGE": "RACI",
+    "FX_CHANGE": "FX rate",
+    "ANONYMIZE": "Anonymisation",
+    "SNAPSHOT": "Snapshot"
+  },
+  "auditCategory": {
+    "PRICE": "Price",
+    "SCOPE": "Scope",
+    "STAGE": "Stage",
+    "APPROVAL": "Approval",
+    "EXCEPTION": "Exception",
+    "CONTRACT": "Contract",
+    "BILLING": "Billing",
+    "COLLECTION": "Collection",
+    "SECURITY": "Security",
+    "CONFIG": "Configuration",
+    "DATA": "Data",
+    "EXPORT": "Export"
+  },
+  "rag": {
+    "GREEN": "On target",
+    "AMBER": "Watch",
+    "RED": "Below target",
+    "NONE": "No target"
+  },
+  "sla": {
+    "ON_TRACK": "On track",
+    "DUE_SOON": "Due soon",
+    "OVERDUE": "Overdue",
+    "DONE": "Done",
+    "DONE_LATE": "Done late"
+  },
+  "bucket": {
+    "CURRENT": "Current",
+    "1-7": "1–7 days",
+    "8-15": "8–15 days",
+    "16-30": "16–30 days",
+    "30+": "> 30 days"
+  },
+  "legacyStatus": {
+    "PO": "PO",
+    "Voucher": "Voucher",
+    "TP Sent": "TP Sent",
+    "Preparing TP": "Preparing TP",
+    "RFP Sent": "RFP Sent",
+    "Preparing RFP": "Preparing RFP",
+    "PVB": "PVB",
+    "Cancelled": "Cancelled"
+  }
+}

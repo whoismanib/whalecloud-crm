@@ -1,0 +1,341 @@
+{
+  "stage": {
+    "0": "0 线索",
+    "1": "1 已评估",
+    "2": "2 需求探索",
+    "3": "3 方案/演示",
+    "4": "4 已申请报价",
+    "5": "5 已发建议书",
+    "6": "6 谈判与毛利审批",
+    "7": "7 赢单",
+    "8": "8 交付中",
+    "9": "9 已验收",
+    "10": "10 已开票",
+    "11": "11 已回款"
+  },
+  "role": {
+    "COUNTRY_MANAGER": "国家经理",
+    "ACCOUNT_MANAGER": "客户经理",
+    "CHINA_SALES": "中方销售",
+    "CHINA_DELIVERY": "中方研发与交付",
+    "LOCAL_DELIVERY": "本地交付",
+    "CHINA_FINANCE": "中方财务",
+    "CHINA_LEGAL": "中方法务",
+    "VP": "副总裁（Jacky）",
+    "LATAM_PRESIDENT": "拉美总裁",
+    "ADMIN": "管理员"
+  },
+  "vertical": {
+    "TELECOM_BSS": "电信 BSS",
+    "TELECOM_OSS": "电信 OSS 与保障",
+    "AI": "人工智能",
+    "FINTECH": "金融科技与数字银行",
+    "CLOUD_DATA": "本地公有云与数据",
+    "ENERGY": "能源",
+    "ROBOTICS": "具身智能机器人"
+  },
+  "engine": {
+    "A": "A · 里程碑项目",
+    "B": "B · 变更或人天",
+    "C": "C · 许可+年度支持",
+    "D": "D · 订阅或用量",
+    "E": "E · 硬件或租赁"
+  },
+  "customerType": {
+    "EXISTING": "老客户",
+    "NEW": "新客户"
+  },
+  "origin": {
+    "EVENT": "活动",
+    "REFERRAL": "推荐",
+    "DISTRIBUTOR": "分销商",
+    "PUBLIC_RFI": "公开 RFI",
+    "INBOUND": "主动来询",
+    "OUTBOUND": "主动开发",
+    "OTHER": "其他"
+  },
+  "oppStatus": {
+    "OPEN": "进行中",
+    "LOST": "丢单",
+    "DISCARDED": "放弃",
+    "NOT_QUOTED": "未报价"
+  },
+  "forecast": {
+    "COMMIT": "确定",
+    "PROBABLE": "可能",
+    "PIPELINE": "管道"
+  },
+  "qual": {
+    "EMPTY": "空",
+    "PARTIAL": "部分",
+    "COMPLETE": "完整"
+  },
+  "contactRole": {
+    "ECONOMIC_BUYER": "经济决策人",
+    "SPONSOR": "发起人",
+    "CHAMPION": "支持者",
+    "DECISION_MAKER": "决策者",
+    "TECHNICAL_EVALUATOR": "技术评估人",
+    "END_USER": "最终用户",
+    "PROCUREMENT": "采购",
+    "LEGAL": "法务",
+    "INFLUENCER": "影响者",
+    "BLOCKER": "阻碍者",
+    "ACCOUNTS_PAYABLE": "应付账款",
+    "CONTRACT_OWNER": "合同负责人",
+    "FINANCE_MANAGER": "财务经理"
+  },
+  "activityType": {
+    "MEETING": "会议",
+    "CALL": "电话",
+    "EMAIL": "邮件",
+    "DEMO": "演示",
+    "EVENT": "活动",
+    "OTHER": "其他"
+  },
+  "docStatus": {
+    "DRAFT": "草稿",
+    "SUBMITTED": "已提交",
+    "APPROVED": "已批准",
+    "REJECTED": "已驳回"
+  },
+  "prStatus": {
+    "DRAFT": "草稿",
+    "SUBMITTED": "已发送",
+    "COSTING": "成本估算中",
+    "BUILDING": "报价编制中",
+    "READY_FOR_APPROVAL": "待审批",
+    "APPROVED": "已批准",
+    "REJECTED": "已驳回",
+    "CANCELLED": "已取消"
+  },
+  "relationship": {
+    "NEW_CUSTOMER": "新客户",
+    "EXISTING_CUSTOMER": "老客户"
+  },
+  "competition": {
+    "TENDER_3_PLUS": "三家及以上招标",
+    "INVITED_FEW": "邀请少数",
+    "DIRECT": "直接"
+  },
+  "signingModel": {
+    "SINGLE_CL_SPA": "全部由智利 SpA 签约",
+    "SPLIT_SW_CN_SERVICES_CL": "软件中国 + 服务智利 SpA",
+    "SPLIT_SW_SG_SERVICES_CL": "软件新加坡 + 服务智利 SpA",
+    "OTHER": "其他"
+  },
+  "lineItem": {
+    "HARDWARE": "硬件",
+    "THIRD_PARTY_SOFTWARE": "第三方软件",
+    "OWN_SOFTWARE": "自有软件",
+    "IMPLEMENTATION": "实施",
+    "WARRANTY": "质保",
+    "SUPPORT_L3": "L3 支持",
+    "SUPPORT_L1L2": "L1/L2 支持"
+  },
+  "capexOpex": {
+    "CAPEX": "CAPEX",
+    "OPEX": "OPEX",
+    "OPTIONAL": "可选"
+  },
+  "trigger": {
+    "SIGNATURE": "签约",
+    "SRS_DONE": "SRS 完成",
+    "UAT": "UAT",
+    "GO_LIVE": "上线",
+    "DELIVERY": "交货",
+    "TERM_START": "服务期开始",
+    "PERIOD_END": "期末",
+    "QUARTERLY_ADVANCE": "按季预付",
+    "PO_RECEPTION": "订单+验收",
+    "OTHER": "其他"
+  },
+  "band": {
+    "COMMITTEE": "中方定价会",
+    "PRESIDENT": "Alex Xiao（拉美总裁）",
+    "VP": "Jacky（副总裁）",
+    "NOT_QUOTABLE": "不报价（< 50 %）"
+  },
+  "stepKind": {
+    "MARGIN_COMMITTEE": "毛利 · 定价会",
+    "MARGIN_PRESIDENT": "毛利 · 总裁",
+    "MARGIN_VP": "毛利 · 副总裁",
+    "VP_CO_APPROVAL": "总裁会签",
+    "NON_ECONOMIC": "非经济条件",
+    "CM_PRICE_MANUAL": "国家经理手工定价"
+  },
+  "approvalStatus": {
+    "PENDING": "待审批",
+    "APPROVED": "已批准",
+    "REJECTED": "已驳回",
+    "CHANGES_REQUESTED": "要求修改",
+    "EXPIRED": "已过期",
+    "INVALIDATED": "已失效",
+    "CANCELLED": "已取消"
+  },
+  "condition": {
+    "PAYMENT_TERM_OVER_60": "付款期 > 60 天",
+    "CLP_WITHOUT_FX_PREMIUM": "比索报价无汇率溢价",
+    "PENALTY_OVER_10": "罚则 > 10 %",
+    "UNLIMITED_LIABILITY": "无限责任"
+  },
+  "contractType": {
+    "NDA": "NDA",
+    "MSA": "MSA",
+    "SOW": "SOW",
+    "OC": "订单",
+    "CR": "变更"
+  },
+  "contractStatus": {
+    "DRAFT": "草稿",
+    "IN_LEGAL_REVIEW": "法务审核中",
+    "SIGNED": "已签署",
+    "ACTIVE": "生效",
+    "EXPIRED": "到期",
+    "TERMINATED": "终止",
+    "CANCELLED": "取消"
+  },
+  "milestoneStatus": {
+    "PLANNED": "计划",
+    "READY": "就绪",
+    "ACCEPTED": "已验收",
+    "SENT_TO_FINANCE": "财务处理中",
+    "INVOICED": "已开票",
+    "PARTIALLY_PAID": "部分回款",
+    "PAID": "已回款",
+    "CANCELLED": "已取消"
+  },
+  "evidence": {
+    "ACCEPTANCE_EMAIL": "验收邮件",
+    "MSA": "MSA",
+    "SIGNED_AC": "签署的验收单",
+    "RECEPTION": "验收确认",
+    "PO": "订单",
+    "TERM_START": "服务期开始",
+    "USAGE_REPORT": "用量报告",
+    "PERIOD_ELAPSED": "期间届满",
+    "DELIVERY_NOTE": "送货单"
+  },
+  "signature": {
+    "HANDWRITTEN_SCAN": "手签扫描件",
+    "ADVANCED_ESIGN": "高级电子签名",
+    "SIMPLE_ESIGN": "简易电子签名",
+    "EMAIL": "邮件"
+  },
+  "invoiceStatus": {
+    "ISSUED": "已开具",
+    "PARTIALLY_PAID": "部分回款",
+    "PAID": "已回款",
+    "CANCELLED": "作废"
+  },
+  "collectionStep": {
+    "D_MINUS_10": "−10 · 客户经理确认发票已入客户系统",
+    "D_PLUS_1": "+1 · 客户经理正式提醒",
+    "D_PLUS_7": "+7 · 国家经理致电合同负责人",
+    "D_PLUS_15": "+15 · 国家经理致函财务（知会总裁）",
+    "D_PLUS_30": "+30 · 中方财务与法务：暂停新工作"
+  },
+  "actionStatus": {
+    "PENDING": "待处理",
+    "DONE": "已完成",
+    "SKIPPED": "已跳过",
+    "CANCELLED": "已取消"
+  },
+  "risk": {
+    "LOW": "低",
+    "MEDIUM": "中",
+    "HIGH": "高"
+  },
+  "ticketPriority": {
+    "P1": "P1 紧急",
+    "P2": "P2 高",
+    "P3": "P3 中",
+    "P4": "P4 低"
+  },
+  "ticketStatus": {
+    "OPEN": "未处理",
+    "IN_PROGRESS": "处理中",
+    "PENDING_CLIENT": "等待客户",
+    "RESOLVED": "已解决",
+    "CLOSED": "已关闭"
+  },
+  "ballIn": {
+    "WHALE": "浩鲸",
+    "CLIENT": "客户"
+  },
+  "health": {
+    "HEALTHY": "健康",
+    "AT_RISK": "有风险",
+    "CRITICAL": "严重",
+    "STALE": "未更新",
+    "ON_HOLD": "暂停",
+    "CLOSED": "已关闭"
+  },
+  "auditAction": {
+    "CREATE": "创建",
+    "UPDATE": "修改",
+    "ARCHIVE": "归档",
+    "STAGE_CHANGE": "阶段变更",
+    "APPROVAL_REQUEST": "提交审批",
+    "APPROVAL_DECISION": "审批决定",
+    "EXCEPTION": "例外",
+    "LOGIN": "登录",
+    "LOGIN_FAILED": "登录失败",
+    "LOGOUT": "退出",
+    "MFA_ENROLL": "开通 MFA",
+    "MFA_RESET": "重置 MFA",
+    "PASSWORD_CHANGE": "修改密码",
+    "EXPORT": "导出",
+    "IMPORT": "导入",
+    "FILE_UPLOAD": "文件",
+    "SETTING_CHANGE": "参数",
+    "RACI_CHANGE": "RACI",
+    "FX_CHANGE": "汇率",
+    "ANONYMIZE": "匿名化",
+    "SNAPSHOT": "快照"
+  },
+  "auditCategory": {
+    "PRICE": "价格",
+    "SCOPE": "范围",
+    "STAGE": "阶段",
+    "APPROVAL": "审批",
+    "EXCEPTION": "例外",
+    "CONTRACT": "合同",
+    "BILLING": "开票",
+    "COLLECTION": "催收",
+    "SECURITY": "安全",
+    "CONFIG": "配置",
+    "DATA": "数据",
+    "EXPORT": "导出"
+  },
+  "rag": {
+    "GREEN": "达标",
+    "AMBER": "关注",
+    "RED": "未达标",
+    "NONE": "无目标"
+  },
+  "sla": {
+    "ON_TRACK": "正常",
+    "DUE_SOON": "即将到期",
+    "OVERDUE": "已逾期",
+    "DONE": "已完成",
+    "DONE_LATE": "逾期完成"
+  },
+  "bucket": {
+    "CURRENT": "未到期",
+    "1-7": "1–7 天",
+    "8-15": "8–15 天",
+    "16-30": "16–30 天",
+    "30+": "> 30 天"
+  },
+  "legacyStatus": {
+    "PO": "PO",
+    "Voucher": "Voucher",
+    "TP Sent": "TP Sent",
+    "Preparing TP": "Preparing TP",
+    "RFP Sent": "RFP Sent",
+    "Preparing RFP": "Preparing RFP",
+    "PVB": "PVB",
+    "Cancelled": "Cancelled"
+  }
+}
