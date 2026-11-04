@@ -24,6 +24,8 @@ export interface HealthInput {
 export interface EngagementCounts {
   emailsIn: number;
   emailsOut: number;
+  /** E-mails logged without direction (manual activities). */
+  emailsOther?: number;
   meetings: number;
   /** Meetings scheduled in the future. */
   upcoming: number;
@@ -85,10 +87,13 @@ export function healthScore(
   else if (input.risk === 'MEDIUM') reasons.push({ code: 'RISK_MEDIUM', points: -10 });
   const e = input.engagement;
   if (e) {
-    const mail = e.emailsIn + e.emailsOut;
+    const other = e.emailsOther ?? 0;
+    const mail = e.emailsIn + e.emailsOut + other;
+    const idleFired = reasons.some((r) => r.code === 'IDLE');
     if (mail + e.meetings === 0 && e.upcoming === 0 && input.lastActivityOn) {
-      reasons.push({ code: 'NO_ENGAGEMENT_30D', points: -10 });
-    } else if (e.emailsIn > 0 && e.emailsOut === 0 && e.meetings === 0) {
+      // IDLE already penalises long silences; this only covers the recent-but-quiet case.
+      if (!idleFired) reasons.push({ code: 'NO_ENGAGEMENT_30D', points: -10 });
+    } else if (e.emailsIn > 0 && e.emailsOut === 0 && other === 0 && e.meetings === 0) {
       reasons.push({ code: 'ONE_WAY', points: -5, params: { count: e.emailsIn } });
     }
     if (e.meetings > 0)

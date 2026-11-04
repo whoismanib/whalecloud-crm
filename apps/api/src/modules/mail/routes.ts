@@ -1,22 +1,16 @@
 import { can, EngagementQuerySchema, LegacyMailImportSchema } from '@wcrm/shared';
 import { eq } from 'drizzle-orm';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import { recordAudit } from '../../audit/record';
 import { importJobs, users } from '../../db/schema/index';
 import { AppError } from '../../lib/errors';
 import { actorOf, authOf, ok } from '../../lib/http';
 import { parse } from '../../lib/validate';
 import { inTx } from '../imports/service';
-import { computeEngagement, importLegacyMailCache } from './service';
+import { computeEngagement, importLegacyMailCache, instantFor } from './service';
 
 /** Roles that may read every mailbox's engagement aggregates (ADR 0008 §Acceso). */
 const ALL_MAILBOX_ROLES = ['COUNTRY_MANAGER', 'LATAM_PRESIDENT', 'ADMIN'] as const;
-
-/** "Now" for engagement windows: the request day (overridable in tests) at the current time. */
-export function nowOf(req: FastifyRequest): Date {
-  const clock = new Date();
-  return new Date(`${req.today}T${clock.toISOString().slice(11)}`);
-}
 
 /** Mail / calendar sync, phase 0: import of the legacy `crm_cache.json` (ADR 0008). */
 export async function mailRoutes(app: FastifyInstance) {
@@ -95,7 +89,11 @@ export async function mailRoutes(app: FastifyInstance) {
         q.scope === 'all' && auth.roles.some((r) => ALL_MAILBOX_ROLES.includes(r as never));
       return ok({
         scope: all ? 'all' : 'mine',
-        ...(await computeEngagement(db, all ? 'ALL' : [auth.user.id], nowOf(req))),
+        ...(await computeEngagement(
+          db,
+          all ? 'ALL' : [auth.user.id],
+          instantFor(req.today, config.APP_TIMEZONE),
+        )),
       });
     },
   );

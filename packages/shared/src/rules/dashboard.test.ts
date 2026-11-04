@@ -318,7 +318,13 @@ describe('healthScore with 30-day engagement (ADR 0008)', () => {
     today: '2026-11-03',
   };
   const e = (
-    x: Partial<{ emailsIn: number; emailsOut: number; meetings: number; upcoming: number }>,
+    x: Partial<{
+      emailsIn: number;
+      emailsOut: number;
+      emailsOther: number;
+      meetings: number;
+      upcoming: number;
+    }>,
   ) => ({
     emailsIn: 0,
     emailsOut: 0,
@@ -337,6 +343,11 @@ describe('healthScore with 30-day engagement (ADR 0008)', () => {
     expect(
       healthScore({ ...base, engagement: e({ emailsIn: 2, emailsOut: 1 }) }, CL, S).score,
     ).toBe(100);
+    // Manually logged mail has no direction: it is engagement, never "one way".
+    expect(healthScore({ ...base, engagement: e({ emailsOther: 1 }) }, CL, S).score).toBe(100);
+    expect(
+      healthScore({ ...base, engagement: e({ emailsIn: 2, emailsOther: 1 }) }, CL, S).score,
+    ).toBe(100);
   });
   it('a meeting adds points back and an upcoming one avoids STALE', () => {
     const idle = {
@@ -346,6 +357,11 @@ describe('healthScore with 30-day engagement (ADR 0008)', () => {
       risk: 'MEDIUM' as const,
     };
     expect(healthScore(idle, CL, S).status).toBe('STALE');
+    // No double penalty: IDLE already covers the long silence.
+    expect(healthScore({ ...idle, engagement: e({}) }, CL, S).reasons.map((x) => x.code)).toEqual([
+      'IDLE',
+      'RISK_MEDIUM',
+    ]);
     const r = healthScore({ ...idle, engagement: e({ meetings: 1, upcoming: 1 }) }, CL, S);
     expect(r.status).not.toBe('STALE');
     expect(r.reasons.map((x) => x.code)).toEqual(['IDLE', 'RISK_MEDIUM', 'MEETING_30D']);

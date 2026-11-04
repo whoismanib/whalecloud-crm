@@ -26,7 +26,7 @@ import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { Db } from '../../db/client';
 import { computeProcessKpis } from './processKpis';
-import { opportunityEngagementCounts } from '../mail/service';
+import { instantFor, opportunityEngagementCounts } from '../mail/service';
 import {
   accounts,
   approvalRequests,
@@ -95,7 +95,7 @@ export async function computeHealth(
   ctx: RulesContext,
   auth: AuthInfo,
   today: string,
-  now: Date = new Date(`${today}T${new Date().toISOString().slice(11)}`),
+  now: Date = instantFor(today, process.env.APP_TIMEZONE ?? 'America/Santiago'),
 ) {
   const rows = await db
     .select({ o: opportunities, accountName: accounts.name, ownerName: users.fullName })
@@ -115,6 +115,7 @@ export async function computeHealth(
     const engagement = {
       emailsIn: m?.inbox ?? 0,
       emailsOut: m?.sent ?? 0,
+      emailsOther: m?.other ?? 0,
       meetings: m?.meetings ?? 0,
       upcoming: m?.upcoming ?? 0,
     };
@@ -149,7 +150,7 @@ export async function computeHealth(
       legacyStatus: stageToLegacyStatus(r.o.stage, r.o.status),
       section: r.o.stage >= 7 ? 'DELIVERY' : 'PIPELINE',
       overdueSlaCount: sla.get(r.o.id) ?? 0,
-      emails30d: engagement.emailsIn + engagement.emailsOut,
+      emails30d: engagement.emailsIn + engagement.emailsOut + engagement.emailsOther,
       meetings30d: engagement.meetings,
       upcomingMeetings: engagement.upcoming,
       nextMeetingAt: m?.nextMeetingAt ?? null,

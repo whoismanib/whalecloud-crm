@@ -163,7 +163,8 @@ describe('POST /mail/legacy-cache (ADR 0008 phase 0)', () => {
     const again = await okData(
       am.post('/mail/legacy-cache', { data: cache('2026-11-02 15:46:54') }),
     );
-    expect(again).toMatchObject({ created: {}, skipped: 5 });
+    // Same file again re-applies to the same end state (no duplicates).
+    expect(again).toMatchObject({ replacedActivities: 6, created: { topics: 4, activities: 6 } });
 
     const acts = await okData(am.get(`/activities?accountId=${accountId}`));
     expect(acts).toHaveLength(6);
@@ -194,11 +195,22 @@ describe('POST /mail/legacy-cache (ADR 0008 phase 0)', () => {
     expect((await okData(am2.get('/dashboard/engagement'))).accounts).toEqual([]);
   });
 
-  it('opportunity health uses the 30-day counts', async () => {
+  it('opportunity health uses the 30-day counts (manual e-mails count, not as inbound)', async () => {
+    await okData(
+      cm.post('/activities', {
+        accountId,
+        opportunityId: oppId,
+        type: 'EMAIL',
+        occurredAt: '2026-11-03',
+        subject: 'Correo registrado a mano',
+      }),
+    );
     const h = await okData(cm.get('/dashboard/health'));
     const row = h.find((x: { id: string }) => x.id === oppId);
-    expect(row).toMatchObject({ emails30d: 6, meetings30d: 1, upcomingMeetings: 1 });
-    expect(row.reasons.map((x: { code: string }) => x.code)).toContain('MEETING_30D');
+    expect(row).toMatchObject({ emails30d: 7, meetings30d: 1, upcomingMeetings: 1 });
+    const codes = row.reasons.map((x: { code: string }) => x.code);
+    expect(codes).toContain('MEETING_30D');
+    expect(codes).not.toContain('ONE_WAY');
   });
 
   it('a newer cache replaces the digests; an older one is rejected', async () => {
@@ -206,7 +218,10 @@ describe('POST /mail/legacy-cache (ADR 0008 phase 0)', () => {
       am.post('/mail/legacy-cache', { data: cache('2026-11-03 09:00:00', 1) }),
     );
     expect(r.replacedActivities).toBe(6);
-    const acts = await okData(am.get(`/activities?accountId=${accountId}`));
+    const all = await okData(am.get(`/activities?accountId=${accountId}`));
+    // Manually logged activities are never touched by the import.
+    expect(all.filter((x: { source: string }) => x.source === 'MANUAL')).toHaveLength(1);
+    const acts = all.filter((x: { source: string }) => x.source === 'LEGACY_MAIL_CACHE');
     expect(acts).toHaveLength(6);
     expect(
       acts.reduce(

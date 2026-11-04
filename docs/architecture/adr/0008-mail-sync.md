@@ -62,7 +62,7 @@ Restricciones:
 Se avanza por fases y todas comparten el mismo modelo de datos.
 
 - **Fase 0 (implementada en esta rama): opción E.** Se importa `crm_cache.json` con dry-run, de forma
-  idempotente y por usuario (`POST /mail/legacy-cache`). Así Manuel ve en el CRM la misma salud por cliente que
+  idempotente y por usuario (`POST /mail/legacy-cache`; reimportar el mismo archivo deja el mismo resultado). Así Manuel ve en el CRM la misma salud por cliente que
   en el tablero.
 - **Fase 1 (recomendada, siguiente historia): opción D.** Un conector local que envía metadatos por mensaje a
   `POST /mail/messages`, autenticado con un token personal (hash en BD, revocable, con alcance `mail:push`).
@@ -101,8 +101,10 @@ Solo **metadatos**; nunca el cuerpo ni los adjuntos, salvo que en el futuro se p
 - `accountEngagement` calcula el puntaje del cliente como promedio de los temas activos, redondeado como en
   Python (mitad al par).
 - `healthScore` (oportunidades) recibe, de forma opcional, los correos y reuniones de los últimos 30 días:
-  - −10 si no hubo ni correos ni reuniones (`NO_ENGAGEMENT_30D`).
-  - −5 si solo hay correo entrante (`ONE_WAY`).
+  - −10 si no hubo ni correos ni reuniones (`NO_ENGAGEMENT_30D`). No se suma si ya se aplicó `IDLE`,
+    para no castigar dos veces el mismo silencio.
+  - −5 si solo hay correo entrante (`ONE_WAY`). Un correo registrado a mano no tiene dirección: cuenta
+    como actividad, pero nunca como "solo entrante".
   - +5 si hubo reunión (`MEETING_30D`).
   - Una reunión agendada evita el estado STALE, como en el legado.
 - Ventana: 30 días. Las filas de resumen de la fase 0 llevan la fecha del último movimiento del tema, así que
@@ -118,8 +120,10 @@ Solo **metadatos**; nunca el cuerpo ni los adjuntos, salvo que en el futuro se p
   Los puntajes y conteos de `GET /dashboard/engagement` muestran solo el buzón del usuario. Los roles con
   visibilidad global (CM, presidente LatAm, administrador) pueden pedir `scope=all`.
 - **Retención**: un año para las actividades de `source ≠ MANUAL`; las borra un job mensual (pendiente, fase 1).
-  En la fase 0, cada importación de un cache más nuevo **reemplaza** las actividades importadas antes para ese
-  usuario: un cache es una ventana móvil de 30 días y sumarlas contaría dos veces los mismos correos. Los
+  En la fase 0, cada importación **reemplaza** las actividades importadas antes para ese usuario: un cache
+  es una ventana móvil de 30 días y sumarlas contaría dos veces los mismos correos. Reimportar el mismo
+  archivo deja el mismo resultado; sirve para recoger cuentas o alias creados después. Un cache más antiguo
+  que el último importado se rechaza. Los
   `mail_snapshots` se guardan dos años.
 - **Datos personales**: los asuntos pueden traer nombres. Las solicitudes de eliminación (P14‑04) tienen que
   incluir `activities.subject` y `notes` de `source ≠ MANUAL`.

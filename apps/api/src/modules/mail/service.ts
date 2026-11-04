@@ -20,6 +20,7 @@ import {
   users,
 } from '../../db/schema/index';
 import { conflict } from '../../lib/errors';
+import { dateInTz } from '../../lib/dates';
 import type { ImportReport } from '../imports/service';
 
 /** ADR 0008: mail-derived rows are always tagged with their source; phase 0 = legacy cache. */
@@ -61,9 +62,9 @@ export interface MailImportReport extends ImportReport {
 }
 
 /**
- * Imports one mailbox's legacy `crm_cache.json` (phase 0). Idempotent: the same `generated_at`
- * is a no-op, a newer cache replaces the previous digests of that owner (a cache is a rolling
- * 30-day window, so adding would double count) and an older one is rejected.
+ * Imports one mailbox's legacy `crm_cache.json` (phase 0). Idempotent: every run replaces the
+ * previous digests of that owner (a cache is a rolling 30-day window, so adding would double
+ * count), so the same file twice gives the same rows; an older cache than the last one is refused.
  */
 export async function importLegacyMailCache(
   db: DbOrTx,
@@ -92,10 +93,7 @@ export async function importLegacyMailCache(
     .where(and(eq(mailSnapshots.userId, ownerUserId), eq(mailSnapshots.source, SOURCE)))
     .orderBy(desc(mailSnapshots.generatedAt))
     .limit(1);
-  if (latest && latest.generatedAt.getTime() === generatedAt.getTime()) {
-    report.skipped = projects.length;
-    return report;
-  }
+  // Same cache again re-applies (same end state, picks up new accounts/aliases); older is refused.
   if (latest && latest.generatedAt > generatedAt) {
     throw conflict('MAIL_CACHE_OLDER', [
       {
@@ -225,12 +223,13 @@ export async function importLegacyMailCache(
       .where(eq(opportunities.id, id));
   }
 
-  await db.insert(mailSnapshots).values({
-    userId: ownerUserId,
-    source: SOURCE,
-    generatedAt,
-    ...mapped.snapshot,
-  });
+  await db
+    .insert(mailSnapshots)
+    .values({ userId: ownerUserId, source: SOURCE, generatedAt, ...mapped.snapshot })
+    .onConflictDoUpdate({
+      target: [mailSnapshots.userId, mailSnapshots.source, mailSnapshots.generatedAt],
+      set: { ...mapped.snapshot },
+    });
   report.created.snapshots = 1;
   return report;
 }
@@ -240,10 +239,21 @@ export async function importLegacyMailCache(
 export interface EngagementCountsRow {
   inbox: number;
   sent: number;
+  /** E-mails logged by hand (no direction): engagement, but neither inbound nor outbound. */
+  other: number;
   meetings: number;
   upcoming: number;
   lastAt: Date | null;
   nextMeetingAt: Date | null;
+}
+
+/**
+ * The instant used for 30-day windows: the real clock when `today` is the current local date,
+ * otherwise noon UTC of `today` (tests and `x-test-today`).
+ */
+export function instantFor(today: string, timeZone: string): Date {
+  const now = new Date();
+  return dateInTz(now, timeZone) === today ? now : new Date(`${today}T12:00:00Z`);
 }
 
 /** SUM(item_count) of e-mails/meetings in the window, grouped by `key` (topic or opportunity). */
@@ -259,8 +269,9 @@ async function windowCounts(
   const rows = await db
     .select({
       id: key,
-      inbox: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} = 'EMAIL' AND ${activities.direction} IS DISTINCT FROM 'OUT' AND ${past}), 0)::int`,
+      inbox: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} = 'EMAIL' AND ${activities.direction} = 'IN' AND ${past}), 0)::int`,
       sent: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} = 'EMAIL' AND ${activities.direction} = 'OUT' AND ${past}), 0)::int`,
+      other: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} = 'EMAIL' AND ${activities.direction} IS NULL AND ${past}), 0)::int`,
       meetings: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} IN ('MEETING','DEMO','CALL') AND ${past}), 0)::int`,
       upcoming: sql<number>`coalesce(sum(${activities.itemCount}) FILTER (WHERE ${activities.type} = 'MEETING' AND ${activities.occurredAt} > ${now}), 0)::int`,
       lastAt: sql<Date | null>`max(${activities.occurredAt}) FILTER (WHERE ${past})`,
@@ -275,6 +286,7 @@ async function windowCounts(
       {
         inbox: Number(r.inbox),
         sent: Number(r.sent),
+        other: Number(r.other),
         meetings: Number(r.meetings),
         upcoming: Number(r.upcoming),
         lastAt: r.lastAt ? new Date(r.lastAt) : null,
@@ -347,6 +359,7 @@ export async function computeEngagement(db: DbOrTx, ownerIds: string[] | 'ALL', 
     const c = counts.get(t.id) ?? {
       inbox: 0,
       sent: 0,
+      other: 0,
       meetings: 0,
       upcoming: 0,
       lastAt: null,

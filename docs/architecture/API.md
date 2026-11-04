@@ -132,7 +132,7 @@ Ver `ARCHITECTURE.md` §6 (RBAC) y `DATA-MODEL.md`.
 | PATCH | `/contacts/:id` | P1:R | |
 | POST | `/contacts/:id/anonymize` | P14:A o ADM:R | P14-04 |
 | GET / POST | `/activities` | P1:view / P1:R | `?accountId&opportunityId` P1-03. Cada fila trae `source`, `direction`, `itemCount` y `topicId` (ADR 0008) |
-| POST | `/mail/legacy-cache` | P1:R (`userId` de otro usuario: ADM:R) | ADR 0008, fase 0: `{data: crm_cache.json, dryRun, aliases?, userId?}`. Si el `generated_at` es el mismo, no hace nada. Si es más nuevo, reemplaza las actividades de resumen. Si es más antiguo, responde 409 `MAIL_CACHE_OLDER`. Los clientes sin cuenta vuelven como `CLIENT_NOT_MAPPED` y no se crean cuentas |
+| POST | `/mail/legacy-cache` | P1:R (`userId` de otro usuario: ADM:R) | ADR 0008, fase 0: `{data: crm_cache.json, dryRun, aliases?, userId?}`. Cada importación reemplaza las actividades de resumen de ese buzón; el mismo archivo dos veces deja el mismo resultado. Si el cache es más antiguo que el último, responde 409 `MAIL_CACHE_OLDER`. Los clientes sin cuenta vuelven como `CLIENT_NOT_MAPPED` y no se crean cuentas |
 
 ## 6. Oportunidades (P1, P2, P4, P12)
 
