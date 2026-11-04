@@ -31,7 +31,11 @@ const ConfigSchema = z
     DB_POOL_MAX: z.coerce.number().int().default(10),
     DB_SSL: bool,
     APP_ENCRYPTION_KEY: z.string().optional().default(''),
-    MFA_REQUIRED: bool,
+    /** ADM-01: unset → true in production, false elsewhere; production rejects `false`. */
+    MFA_REQUIRED: z
+      .string()
+      .optional()
+      .transform((v) => (v === undefined || v === '' ? undefined : v === 'true' || v === '1')),
     SESSION_COOKIE_NAME: z.string().default('wc_sid'),
     SESSION_IDLE_HOURS: z.coerce.number().default(12),
     SESSION_ABSOLUTE_DAYS: z.coerce.number().default(7),
@@ -68,7 +72,15 @@ const ConfigSchema = z
         message: 'must be true in production',
       });
     }
-  });
+    if (c.MFA_REQUIRED === false) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['MFA_REQUIRED'],
+        message: 'must be true in production (ADM-01)',
+      });
+    }
+  })
+  .transform((c) => ({ ...c, MFA_REQUIRED: c.MFA_REQUIRED ?? c.NODE_ENV === 'production' }));
 
 export type Config = z.infer<typeof ConfigSchema>;
 

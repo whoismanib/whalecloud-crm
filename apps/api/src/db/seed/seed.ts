@@ -16,7 +16,8 @@ const config = loadConfig({
   DATABASE_URL: url,
   RATE_LIMIT_LOGIN_PER_MIN: '100000',
   RATE_LIMIT_GLOBAL_PER_MIN: '100000',
-  MFA_REQUIRED: 'false',
+  // demo data is loaded through the API without TOTP; never relaxed in production (ADM-01)
+  ...(base.NODE_ENV === 'production' ? {} : { MFA_REQUIRED: 'false' }),
   LOG_LEVEL: 'warn',
 });
 const { db, pool } = createDb(url, { max: 2 });
