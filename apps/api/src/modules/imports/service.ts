@@ -6,6 +6,7 @@ import {
   legacyStatusToStage,
   LEGACY_STATUSES,
   mapLegacyTracker,
+  matchLegacyInvoice,
   money,
   parseAmount,
   parseLooseDate,
@@ -139,6 +140,8 @@ export async function createImportedOpportunity(
     contactName?: string | null;
     competitor?: string | null;
     closeReason?: string | null;
+    /** Date the deal was won (legacy PO date); defaults to the import date. */
+    wonOn?: string | null;
   },
 ) {
   const seq = await db.execute<{ n: string }>(
@@ -169,7 +172,7 @@ export async function createImportedOpportunity(
       countsAsDigital: ctx.settings['digital.verticals'].includes(p.vertical),
       competitors: p.competitor ? [p.competitor] : [],
       customerTypeFrozen: won ? acc!.customerType : null,
-      wonAt: won ? new Date(`${today}T12:00:00Z`) : null,
+      wonAt: won ? new Date(`${p.wonOn ?? today}T12:00:00Z`) : null,
       closedAt: p.status !== 'OPEN' ? new Date() : null,
       closeReason: p.status !== 'OPEN' ? (p.closeReason ?? 'Importado como cerrado') : null,
       createdBy: actor.userId,
@@ -218,6 +221,24 @@ async function ensureContract(
     .orderBy(desc(contracts.createdAt))
     .limit(1);
   if (c) return c;
+  let number = po.number;
+  if (number) {
+    // One legacy PO can cover several projects (e.g. 75810). Each project keeps its own contract
+    // (so amounts are not double counted); only the first one carries the number, because
+    // contracts_account_type_number_uq would otherwise abort the whole import.
+    const [same] = await db
+      .select({ id: contracts.id })
+      .from(contracts)
+      .where(
+        and(
+          eq(contracts.accountId, opp.accountId),
+          eq(contracts.type, 'OC'),
+          eq(contracts.number, number),
+        ),
+      )
+      .limit(1);
+    if (same) number = null;
+  }
   const [acc] = await db.select().from(accounts).where(eq(accounts.id, opp.accountId));
   const [n] = await db
     .insert(contracts)
@@ -225,7 +246,7 @@ async function ensureContract(
       accountId: opp.accountId,
       opportunityId: opp.id,
       type: 'OC',
-      number: po.number,
+      number,
       title: `OC ${po.number ?? ''} — ${opp.name}`.trim(),
       status: 'SIGNED',
       billingEntityId: acc!.defaultBillingEntityId,
@@ -617,7 +638,6 @@ export async function importLegacyTracker(
       params: f.params ?? undefined,
     })),
   );
-  const byName = new Map<string, typeof opportunities.$inferSelect>();
   for (const o of mapped.opportunities) {
     const acc = await findOrCreateAccount(
       db,
@@ -625,17 +645,18 @@ export async function importLegacyTracker(
       { name: o.accountName, customerType: o.customerType },
       report,
     );
+    // Same name in different years is a different project (BSS Support L3 2026 vs 2027).
     const [dup] = await db
-      .select()
+      .select({ id: opportunities.id })
       .from(opportunities)
       .where(
         and(
           eq(opportunities.accountId, acc.id),
           sql`lower(${opportunities.name}) = lower(${o.name})`,
+          eq(opportunities.expectedCloseDate, o.expectedCloseDate),
         ),
       );
     if (dup) {
-      byName.set(o.name.toLowerCase(), dup);
       report.skipped++;
       continue;
     }
@@ -653,29 +674,28 @@ export async function importLegacyTracker(
       risk: o.risk,
       competitor: o.competitor,
       closeReason: o.status !== 'OPEN' ? `Estado legado: ${o.legacyStatus ?? 'Cancelled'}` : null,
+      wonOn: o.wonOn,
     });
     bump(report, 'opportunities');
-    byName.set(o.name.toLowerCase(), opp);
     if (o.stage >= 7 && o.status === 'OPEN') {
       await ensureContract(db, ctx, actor, opp, {
         number: o.poNumber,
         amount: o.poAmountUsd ?? o.amountUsd,
-        signedOn: today,
+        signedOn: o.wonOn ?? today,
       });
       bump(report, 'contracts');
     }
     report.rowsOk++;
   }
+  // Candidates for billing rows: every opportunity, with the year its PO counts in.
+  const candidates = (await db.select().from(opportunities)).map((o) => ({
+    name: o.name,
+    year: Number((o.wonAt ? o.wonAt.toISOString() : String(o.expectedCloseDate)).slice(0, 4)),
+    opp: o,
+  }));
   for (const inv of mapped.invoices) {
-    let opp = byName.get(inv.projectName.toLowerCase());
-    if (!opp) {
-      [opp] = await db
-        .select()
-        .from(opportunities)
-        .where(sql`lower(${opportunities.name}) = lower(${inv.projectName})`)
-        .limit(1);
-    }
-    if (!opp) {
+    const hit = matchLegacyInvoice(inv.projectName, inv.yearHint, candidates);
+    if (!hit) {
       report.errors.push({
         row: inv.row,
         source: 'billing',
@@ -684,11 +704,22 @@ export async function importLegacyTracker(
       });
       continue;
     }
+    const opp = hit.opp;
     if (inv.invoiceNumber) {
       const [dup] = await db
         .select({ id: invoices.id })
         .from(invoices)
         .where(eq(invoices.number, inv.invoiceNumber));
+      if (dup) {
+        report.skipped++;
+        continue;
+      }
+    } else {
+      // Not invoiced yet: idempotent on (opportunity, milestone name).
+      const [dup] = await db
+        .select({ id: milestones.id })
+        .from(milestones)
+        .where(and(eq(milestones.opportunityId, opp.id), eq(milestones.name, inv.projectName)));
       if (dup) {
         report.skipped++;
         continue;

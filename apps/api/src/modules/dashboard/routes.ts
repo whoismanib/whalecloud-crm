@@ -484,8 +484,9 @@ export async function computeDashboard(
       ? null
       : Number(convert(String(target('SS_SIGNED')! * MM), 'CNY', 'USD', asOf, ctx.fx).amount);
   let toInvoice = new Decimal(0);
+  // "Con OC, sin facturar" (legacy Resumen): delivered milestones not invoiced yet.
   for (const m of msRows)
-    if (m.status === 'ACCEPTED' || m.status === 'SENT_TO_FINANCE')
+    if (m.status === 'READY' || m.status === 'ACCEPTED' || m.status === 'SENT_TO_FINANCE')
       toInvoice = toInvoice.plus(D(m.amount));
   let toCollect = new Decimal(0);
   let overdueAll = new Decimal(0);

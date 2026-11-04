@@ -37,6 +37,9 @@ import {
 } from './forecast';
 import {
   mapLegacyTracker,
+  legacyPoYear,
+  legacyBaseName,
+  matchLegacyInvoice,
   parseAmount,
   parseCsv,
   parseLooseDate,
@@ -537,7 +540,8 @@ describe('import / export helpers', () => {
     ]);
     expect(r.opportunities[0]).toMatchObject({
       billingEngine: 'B',
-      amountUsd: '118000.00',
+      amountUsd: '120000.00',
+      poAmountUsd: '118000.00',
       poNumber: '4500123',
       risk: 'LOW',
     });
@@ -555,5 +559,68 @@ describe('import / export helpers', () => {
       ['Soporte', 'PENDING'],
     ]);
     expect(r.failures.map((f) => `${f.source}:${f.row}`)).toEqual(['wom:4', 'billing:2']);
+  });
+
+  it('assigns PO years like the legacy app (sales_tracker.py po_year)', () => {
+    const y = (r: Record<string, unknown>) => legacyPoYear(r, 2026);
+    expect(y({ status: 'PO', po: '71995', po_date: '2025-07-18', delivery: 'Q3 2026' })).toBe(2025);
+    expect(y({ status: 'PO', po: '71247', delivery: 'Q2, Q3, Q4 2025' })).toBe(2025);
+    expect(y({ status: 'PO', po: '', delivery: '2027' })).toBe(2027);
+    expect(y({ status: 'PO', po: '72645', delivery: '2025' })).toBe(2025);
+    expect(y({ status: 'Voucher', delivery: 'Q1' })).toBe(2026);
+    expect(y({ status: 'TP Sent', delivery: 'Q4' })).toBe(2027);
+    const r = mapLegacyTracker(
+      {
+        wom: [
+          {
+            status: 'PO',
+            po: '74892',
+            po_date: '2026-03-18',
+            name: 'BSS Support L3',
+            delivery: '2026',
+            expected: 543608,
+          },
+          { status: 'PO', po: '', name: 'BSS Support L3', delivery: '2027', expected: 543608 },
+          {
+            status: 'PO',
+            po: '72645',
+            name: 'Portabilidad CAP',
+            delivery: '2025',
+            expected: 105000,
+            po_net: 88850,
+          },
+        ],
+      },
+      { importDate: '2026-11-04' },
+    );
+    expect(
+      r.opportunities.map((o) => [o.poYear, o.wonOn, o.expectedCloseDate, o.amountUsd]),
+    ).toEqual([
+      [2026, '2026-03-18', '2026-12-31', '543608.00'],
+      [2027, '2027-01-01', '2027-12-31', '543608.00'],
+      [2025, '2025-12-31', '2025-12-31', '105000.00'],
+    ]);
+  });
+
+  it('matches legacy billing rows to projects (quarters, variants, same name across years)', () => {
+    const c = [
+      { name: 'BSS Support L3', year: 2026 },
+      { name: 'BSS Support L3', year: 2027 },
+      { name: 'BSS Support L3 (Q2-Q4 2025)', year: 2025 },
+      { name: 'Regulatory Register User', year: 2025 },
+      { name: 'Regulatory Register User Phase 2 - Phase 1', year: 2026 },
+      { name: 'Migrate Prepaid OCS', year: 2026 },
+      { name: 'Multiple APN configuration for B2B', year: 2026 },
+    ];
+    const m = (n: string, y: number | null) => matchLegacyInvoice(n, y, c);
+    expect(legacyBaseName('BSS Support L3 Q3 2025')).toBe('bss support l3');
+    expect(m('BSS Support L3 Q1', 2026)).toBe(c[0]);
+    expect(m('BSS Support L3 Q4', 2027)).toBe(c[1]);
+    expect(m('BSS Support L3 Q3 2025', 2025)).toBe(c[2]);
+    expect(m('Regulatory Register User Phase 2 - Phase 1', 2026)).toBe(c[4]);
+    expect(m('Regulatory Register User', 2026)).toBe(c[3]);
+    expect(m('Migrate Prepaid OCS, Greenplum, Mediation', 2026)).toBe(c[5]);
+    expect(m('Multiple APN', 2026)).toBe(c[6]);
+    expect(m('National Roaming Control', 2026)).toBeNull();
   });
 });
