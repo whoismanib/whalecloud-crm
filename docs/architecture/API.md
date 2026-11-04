@@ -374,7 +374,9 @@ GET /api/v1/sheet-versions/…/approval-preview
   `PUT /onboarding/kits/:country`, `GET /admin/jobs`, `POST /admin/jobs/:name/run`,
   `GET /forecast/report`, `PATCH /opportunities/:id/forecast` (`meta.warnings`),
   `GET /imports`, `GET /imports/templates/:kind`, `POST /imports/:kind`
-  (`accounts|opportunities|invoices|legacy-tracker`, `{csv|data, dryRun}`; P1:A o ADM:R),
+  (`accounts|opportunities|invoices|legacy-tracker|edo-incidents`, `{csv|data, dryRun}`; P1:A o ADM:R;
+  `edo-incidents` recibe `{data: {incidents[]} | [], accountId?, accountName = 'WOM', dryRun}` y responde
+  además `updated` y `warnings`),
   `GET /exports/:entity?format=csv|xlsx` (`accounts|opportunities|invoices|tickets|dashboard`).
 - `POST /change-requests/:id/po` recibe `{poNumber, poReceivedOn, url, standardName}` y crea el
   contrato OC + oportunidad motor B; `reception` recibe `{receptionOn, url, standardName}`.

@@ -24,3 +24,4 @@ export * from './importing';
 export * from './presales';
 export * from './delegation';
 export * from './processKpis';
+export * from './edoIncidents';

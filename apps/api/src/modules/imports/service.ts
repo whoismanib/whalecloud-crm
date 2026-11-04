@@ -2,7 +2,10 @@ import {
   addDays,
   AccountCreateSchema,
   D,
+  edoChangedFields,
+  edoIncidentRows,
   escalationSchedule,
+  mapEdoIncidents,
   legacyStatusToStage,
   LEGACY_STATUSES,
   mapLegacyTracker,
@@ -32,9 +35,11 @@ import {
   opportunityContacts,
   payments,
   stageHistory,
+  tickets,
   userRoles,
   users,
 } from '../../db/schema/index';
+import { AppError } from '../../lib/errors';
 import { moneyColumns } from '../../services/money';
 import type { RulesContext } from '../../services/rulesContext';
 
@@ -50,6 +55,10 @@ export interface ImportReport {
   created: Record<string, number>;
   skipped: number;
   errors: ImportRowError[];
+  /** Existing rows changed by the import (eDo upsert). */
+  updated?: Record<string, number>;
+  /** Rows imported with an assumption. */
+  warnings?: ImportRowError[];
 }
 
 const newReport = (): ImportReport => ({
@@ -764,5 +773,140 @@ export async function importLegacyTracker(
     );
     report.rowsOk++;
   }
+  return report;
+}
+
+// ---------- eDo incidents (legacy edo_incidents.json) ----------
+
+const EDO = 'EDO';
+
+/**
+ * Idempotent upsert of eDo incidents into `tickets`, keyed by the eDo `issueId`
+ * (`external_source = 'EDO'`, `external_id`). A manual ticket of the same account with the
+ * same number and no external id is linked instead of duplicated. Unchanged tickets are
+ * skipped; `notes` (CRM-only) is never touched.
+ */
+export async function importEdoIncidents(
+  db: DbOrTx,
+  actor: Actor,
+  data: unknown,
+  opts: { accountId?: string; accountName: string; timeZone: string },
+): Promise<ImportReport> {
+  const report = newReport();
+  report.updated = {};
+  const rows = edoIncidentRows(data) ?? [];
+  report.rowsTotal = rows.length;
+  const mapped = mapEdoIncidents(rows, { timeZone: opts.timeZone });
+  report.errors.push(
+    ...mapped.failures.map((f) => ({ row: f.row, source: 'eDo', code: f.code, params: f.params })),
+  );
+  report.warnings = mapped.warnings.map((w) => ({
+    row: w.row,
+    source: 'eDo',
+    code: w.code,
+    params: w.params,
+  }));
+  report.rowsOk = rows.length - mapped.failures.length;
+  report.skipped += mapped.duplicates;
+  if (!mapped.tickets.length) return report;
+
+  let account: { id: string } | undefined;
+  if (opts.accountId) {
+    [account] = await db
+      .select({ id: accounts.id })
+      .from(accounts)
+      .where(eq(accounts.id, opts.accountId));
+    if (!account) throw new AppError(404, 'NOT_FOUND');
+  } else {
+    account = await findOrCreateAccount(
+      db,
+      actor,
+      { name: opts.accountName, customerType: 'EXISTING' },
+      report,
+    );
+  }
+
+  const cols = {
+    id: tickets.id,
+    rowVersion: tickets.rowVersion,
+    number: tickets.number,
+    title: tickets.title,
+    priority: tickets.priority,
+    status: tickets.status,
+    ballIn: tickets.ballIn,
+    orgHolder: tickets.orgHolder,
+    ownerName: tickets.ownerName,
+    slaDueOn: tickets.slaDueOn,
+    openedOn: tickets.openedOn,
+    lastUpdateAt: tickets.lastUpdateAt,
+    closedOn: tickets.closedOn,
+    externalUrl: tickets.externalUrl,
+    externalId: tickets.externalId,
+  };
+  const byExternal = new Map(
+    (await db.select(cols).from(tickets).where(eq(tickets.externalSource, EDO))).map((t) => [
+      t.externalId!,
+      t,
+    ]),
+  );
+  const manualByNumber = new Map<string, { id: string; rowVersion: number }[]>();
+  for (const t of await db
+    .select(cols)
+    .from(tickets)
+    .where(and(eq(tickets.accountId, account.id), sql`${tickets.externalId} IS NULL`))) {
+    manualByNumber.set(t.number, [...(manualByNumber.get(t.number) ?? []), t]);
+  }
+
+  const fields = (d: (typeof mapped.tickets)[number]) => ({
+    number: d.number,
+    title: d.title,
+    priority: d.priority,
+    status: d.status,
+    ballIn: d.ballIn,
+    orgHolder: d.orgHolder,
+    ownerName: d.ownerName,
+    slaDueOn: d.slaDueOn,
+    openedOn: d.openedOn,
+    lastUpdateAt: new Date(d.lastUpdateAt),
+    closedOn: d.closedOn,
+    externalUrl: d.externalUrl,
+  });
+  const inserts: (typeof tickets.$inferInsert)[] = [];
+  for (const d of mapped.tickets) {
+    const current = byExternal.get(d.externalId);
+    const manual = current ? undefined : manualByNumber.get(d.number)?.shift();
+    const target = current ?? manual;
+    if (!target) {
+      inserts.push({
+        ...fields(d),
+        accountId: account.id,
+        externalSource: EDO,
+        externalId: d.externalId,
+        createdBy: actor.userId,
+      });
+      continue;
+    }
+    if (current && !edoChangedFields(current, d).length) {
+      report.skipped++;
+      continue;
+    }
+    await db
+      .update(tickets)
+      .set({
+        ...fields(d),
+        externalSource: EDO,
+        externalId: d.externalId,
+        updatedAt: new Date(),
+        updatedBy: actor.userId,
+        rowVersion: target.rowVersion + 1,
+      })
+      .where(eq(tickets.id, target.id));
+    report.updated[current ? 'tickets' : 'ticketsLinked'] =
+      (report.updated[current ? 'tickets' : 'ticketsLinked'] ?? 0) + 1;
+  }
+  for (let i = 0; i < inserts.length; i += 500) {
+    await db.insert(tickets).values(inserts.slice(i, i + 500));
+  }
+  if (inserts.length) report.created.tickets = inserts.length;
   return report;
 }

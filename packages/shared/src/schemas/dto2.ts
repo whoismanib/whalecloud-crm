@@ -240,6 +240,17 @@ export const LegacyImportSchema = z.object({
   }),
   dryRun: z.boolean().default(false),
 });
+/** Legacy `edo_incidents.json` (or its `incidents[]`), already slimmed by the web client. */
+export const EdoImportSchema = z.object({
+  data: z.union([
+    z.object({ incidents: z.array(z.record(z.unknown())).max(50_000) }).passthrough(),
+    z.array(z.record(z.unknown())).max(50_000),
+  ]),
+  /** Account that owns the tickets; by default the account named `accountName` (WOM). */
+  accountId: z.string().uuid().optional(),
+  accountName: z.string().trim().min(1).max(200).default('WOM'),
+  dryRun: z.boolean().default(false),
+});
 
 // ---------- P3 Preventa (QA-004) ----------
 export const RfpCreateSchema = z.object({

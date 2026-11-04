@@ -50,6 +50,13 @@
       "when": 1793809248740,
       "tag": "0006_delegations_cost_estimates",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793818356623,
+      "tag": "0007_edo_ticket_import",
+      "breakpoints": true
     }
   ]
 }

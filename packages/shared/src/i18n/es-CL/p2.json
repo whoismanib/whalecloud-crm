@@ -372,7 +372,8 @@
       "legacy-tracker": "Tracker legado (tracker_data.json)",
       "accounts": "Cuentas (CSV)",
       "opportunities": "Oportunidades (CSV)",
-      "invoices": "Facturas (CSV)"
+      "invoices": "Facturas (CSV)",
+      "edo-incidents": "Incidentes eDo (edo_incidents.json)"
     },
     "file": "Archivo",
     "dryRun": "Simulación",
@@ -389,7 +390,17 @@
       "contracts": "Contratos",
       "milestones": "Hitos",
       "invoices": "Facturas",
-      "payments": "Pagos"
+      "payments": "Pagos",
+      "tickets": "Tickets"
+    },
+    "edoHint": "Archivo edo_incidents.json del tablero legado. Cada ticket se identifica por su id de eDo (issueId): si ya existe se actualiza, si no cambió se omite. Las notas del CRM no se tocan.",
+    "account": "Cuenta",
+    "accountDefault": "WOM (por nombre)",
+    "updatedLabel": "Actualizados",
+    "warnings": "Avisos",
+    "updated": {
+      "tickets": "Tickets",
+      "ticketsLinked": "Tickets manuales vinculados a eDo"
     }
   }
 }

@@ -27,12 +27,14 @@ import { IconTrash } from '@tabler/icons-react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   CURRENCIES,
+  edoIncidentRows,
   PROCESS_CODES,
   RACI_LETTERS,
   USER_ROLES,
   type ProcessCode,
   type RaciLetter,
   type UserRole,
+  slimEdoIncidents,
 } from '@wcrm/shared';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -42,6 +44,7 @@ import { RuleErrors } from '../../components/RuleErrors';
 import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtDateTime, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
+import { opt, useAccountsLite } from '../p2/lookups';
 
 interface AdminUser {
   id: string;
@@ -480,6 +483,7 @@ function Fx() {
           />
           <Select
             size="xs"
+            w={280}
             label={t('fields.type')}
             data={['ACTUAL', 'BUDGET']}
             value={v.kind}
@@ -600,15 +604,39 @@ interface ImportResult {
   rowsOk: number;
   created: Record<string, number>;
   skipped: number;
-  errors: { row: number; source?: string; code: string; params?: Record<string, unknown> }[];
+  errors: ImportIssue[];
+  updated?: Record<string, number>;
+  warnings?: ImportIssue[];
+}
+type ImportIssue = { row: number; source?: string; code: string; params?: Record<string, unknown> };
+type ImportKindKey = 'accounts' | 'opportunities' | 'invoices' | 'legacy-tracker' | 'edo-incidents';
+const JSON_KINDS: ImportKindKey[] = ['legacy-tracker', 'edo-incidents'];
+
+function ImportIssues({ items, color }: { items: ImportIssue[]; color: string }) {
+  const { t } = useTranslation();
+  return (
+    <>
+      {items.slice(0, 30).map((e, i) => (
+        <Text key={i} size="xs" c={color}>
+          {e.source ? `${e.source} ` : ''}#{e.row}:{' '}
+          {t(`errors:rules.${e.code}`, { ...e.params, defaultValue: e.code })}
+        </Text>
+      ))}
+      {items.length > 30 && (
+        <Text size="xs" c={color}>
+          … +{items.length - 30}
+        </Text>
+      )}
+    </>
+  );
 }
 
 function Imports() {
   const { t } = useTranslation();
-  const [kind, setKind] = useState<'accounts' | 'opportunities' | 'invoices' | 'legacy-tracker'>(
-    'legacy-tracker',
-  );
+  const [kind, setKind] = useState<ImportKindKey>('legacy-tracker');
   const [file, setFile] = useState<File | null>(null);
+  const [accountId, setAccountId] = useState<string | null>(null);
+  const accounts = useAccountsLite(kind === 'edo-incidents');
   const [dryRun, setDryRun] = useState(true);
   const [result, setResult] = useState<ImportResult | null>(null);
   const jobs = useQuery({
@@ -629,11 +657,26 @@ function Imports() {
   const run = useAction(
     async () => {
       const text = await file!.text();
-      const body =
-        kind === 'legacy-tracker' ? { data: JSON.parse(text), dryRun } : { csv: text, dryRun };
+      let body: Record<string, unknown>;
+      if (kind === 'edo-incidents') {
+        // Send only the fields the importer reads (the legacy file is ~4 MB with comments).
+        const rows = edoIncidentRows(JSON.parse(text));
+        body = { data: slimEdoIncidents(rows ?? []), dryRun, ...(accountId && { accountId }) };
+      } else if (kind === 'legacy-tracker') body = { data: JSON.parse(text), dryRun };
+      else body = { csv: text, dryRun };
       return api.post<ImportResult>(`/imports/${kind}`, body);
     },
-    { invalidate: [['imports'], ['accounts'], ['opportunities'], ['invoices']], onDone: setResult },
+    {
+      invalidate: [
+        ['imports'],
+        ['accounts'],
+        ['opportunities'],
+        ['invoices'],
+        ['tickets'],
+        ['dashboard'],
+      ],
+      onDone: setResult,
+    },
   );
   return (
     <Stack>
@@ -642,17 +685,31 @@ function Imports() {
           <Select
             size="xs"
             label={t('fields.type')}
-            data={(['legacy-tracker', 'accounts', 'opportunities', 'invoices'] as const).map(
-              (k) => ({ value: k, label: t(`p2:import.kinds.${k}`) }),
-            )}
+            data={(
+              ['legacy-tracker', 'edo-incidents', 'accounts', 'opportunities', 'invoices'] as const
+            ).map((k) => ({ value: k, label: t(`p2:import.kinds.${k}`) }))}
             value={kind}
             onChange={(v) => v && setKind(v as typeof kind)}
+            data-testid="import-kind"
           />
+          {kind === 'edo-incidents' && (
+            <Select
+              size="xs"
+              w={220}
+              label={t('p2:import.account')}
+              placeholder={t('p2:import.accountDefault')}
+              data={opt(accounts.data)}
+              value={accountId}
+              onChange={setAccountId}
+              searchable
+              clearable
+            />
+          )}
           <FileInput
             size="xs"
             w={260}
             label={t('p2:import.file')}
-            accept={kind === 'legacy-tracker' ? '.json,application/json' : '.csv,text/csv'}
+            accept={JSON_KINDS.includes(kind) ? '.json,application/json' : '.csv,text/csv'}
             value={file}
             onChange={setFile}
             data-testid="import-file"
@@ -672,13 +729,19 @@ function Imports() {
             {t('p2:import.run')}
           </Button>
         </Group>
-        {kind !== 'legacy-tracker' && (
+        {!JSON_KINDS.includes(kind) && (
           <Anchor size="xs" href={`/api/v1/imports/templates/${kind}`}>
             {t('p2:import.template')}
           </Anchor>
         )}
         <Text size="xs" c="dimmed" mt={4}>
-          {t(kind === 'legacy-tracker' ? 'p2:import.legacyHint' : 'p2:import.csvHint')}
+          {t(
+            kind === 'legacy-tracker'
+              ? 'p2:import.legacyHint'
+              : kind === 'edo-incidents'
+                ? 'p2:import.edoHint'
+                : 'p2:import.csvHint',
+          )}
         </Text>
       </Paper>
       <RuleErrors error={run.error} />
@@ -695,17 +758,30 @@ function Imports() {
               skipped: result.skipped,
             })}
           </Text>
-          <Text size="sm">
-            {Object.entries(result.created)
-              .map(([k, n]) => `${t(`p2:import.created.${k}`, { defaultValue: k })}: ${n}`)
-              .join(' · ')}
-          </Text>
-          {result.errors.slice(0, 30).map((e, i) => (
-            <Text key={i} size="xs" c="red">
-              {e.source ? `${e.source} ` : ''}#{e.row}:{' '}
-              {t(`errors:rules.${e.code}`, { ...e.params, defaultValue: e.code })}
+          {Object.keys(result.created).length > 0 && (
+            <Text size="sm">
+              {Object.entries(result.created)
+                .map(([k, n]) => `${t(`p2:import.created.${k}`, { defaultValue: k })}: ${n}`)
+                .join(' · ')}
             </Text>
-          ))}
+          )}
+          {result.updated && Object.keys(result.updated).length > 0 && (
+            <Text size="sm" data-testid="import-updated">
+              {t('p2:import.updatedLabel')}:{' '}
+              {Object.entries(result.updated)
+                .map(([k, n]) => `${t(`p2:import.updated.${k}`, { defaultValue: k })}: ${n}`)
+                .join(' · ')}
+            </Text>
+          )}
+          <ImportIssues items={result.errors} color="red" />
+          {!!result.warnings?.length && (
+            <>
+              <Text size="xs" fw={600} mt={4}>
+                {t('p2:import.warnings')} ({result.warnings.length})
+              </Text>
+              <ImportIssues items={result.warnings} color="orange" />
+            </>
+          )}
         </Alert>
       )}
       <Title order={6}>{t('p2:admin.history')}</Title>

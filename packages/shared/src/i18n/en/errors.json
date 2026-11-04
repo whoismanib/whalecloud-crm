@@ -114,7 +114,12 @@
     "DELEGATION_ROLE_NOT_HELD": "The holder does not have the role {{role}}.",
     "DELEGATION_IN_PAST": "The delegation has already ended.",
     "DELEGATE_NOT_FOUND": "The delegate does not exist or is inactive.",
-    "COST_ESTIMATE_EMPTY": "Record the person-months before signing."
+    "COST_ESTIMATE_EMPTY": "Record the person-months before signing.",
+    "EDO_ID_MISSING": "Row without an eDo id (issueId); it cannot be imported.",
+    "EDO_CREATED_MISSING": "Ticket {{number}} has no valid creation date.",
+    "EDO_STATUS_UNKNOWN": "Ticket {{number}}: unknown eDo status ({{status}}).",
+    "EDO_STATUS_ASSUMED": "Ticket {{number}}: status \"{{status}}\" not recognized; imported as {{as}}.",
+    "EDO_PRIORITY_ASSUMED": "Ticket {{number}}: priority \"{{priority}}\" not recognized; imported as {{as}}."
   },
   "validation": {
     "REQUIRED": "Required",
