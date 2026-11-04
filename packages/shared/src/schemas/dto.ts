@@ -73,7 +73,11 @@ export const PreferencesSchema = z.object({
 export const AccountCreateSchema = z.object({
   name: zReqText(200),
   legalName: zText(200).optional().nullable(),
-  taxId: zText(40).optional().nullable(),
+  // '' (blank form field) must be stored as NULL: the unique (country, tax_id) index ignores NULLs.
+  taxId: zText(40)
+    .optional()
+    .nullable()
+    .transform((v) => (v === '' ? null : v)),
   countryCode: z.string().length(2),
   vertical: z.enum(VERTICALS),
   customerType: z.enum(CUSTOMER_TYPES),

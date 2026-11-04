@@ -84,6 +84,21 @@ describe('accounts (CORE-01)', () => {
     });
     expect((await am.post('/accounts?confirmDuplicate=true', body)).status).toBe(201);
   });
+
+  it('stores a blank tax id as NULL so several accounts without RUT can be created (QA-001)', async () => {
+    const body = (name: string) => ({
+      name,
+      taxId: '',
+      countryCode: 'CL',
+      vertical: 'AI',
+      customerType: 'NEW',
+      defaultBillingEntityId: entityId,
+      currency: 'USD',
+    });
+    const a = await okData(am.post('/accounts', body(uniq('Sin RUT A '))));
+    expect(a.taxId).toBeNull();
+    expect((await am.post('/accounts', body(uniq('Sin RUT B ')))).status).toBe(201);
+  });
 });
 
 describe('opportunities (P1, CORE-02)', () => {
