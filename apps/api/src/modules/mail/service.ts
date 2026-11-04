@@ -265,7 +265,9 @@ async function windowCounts(
 ): Promise<Map<string, EngagementCountsRow>> {
   if (!ids.length) return new Map();
   const since = new Date(now.getTime() - ENGAGEMENT_WINDOW_DAYS * DAY_MS);
-  const past = sql`${activities.occurredAt} >= ${since} AND ${activities.occurredAt} <= ${now}`;
+  // A legacy "upcoming" digest row (crm_cache.json) only carries the date of the next meeting, so
+  // once that date passes it would count every scheduled meeting as held. It never counts as past.
+  const past = sql`${activities.occurredAt} >= ${since} AND ${activities.occurredAt} <= ${now} AND coalesce(${activities.externalKey}, '') NOT LIKE '%:MEETING_UPCOMING'`;
   const rows = await db
     .select({
       id: key,

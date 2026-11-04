@@ -248,6 +248,47 @@ describe('POST /mail/legacy-cache (ADR 0008 phase 0)', () => {
     expect((await okData(am.get('/dashboard/engagement?scope=all'))).scope).toBe('mine');
   });
 
+  it('an upcoming digest whose next meeting already passed never counts as held meetings', async () => {
+    const be = (await okData(cm.get('/catalogs'))).billingEntities[0].id;
+    const name = uniq('Pastco');
+    await okData(
+      cm.post('/accounts', {
+        name,
+        countryCode: 'CL',
+        vertical: 'TELECOM_BSS',
+        customerType: 'NEW',
+        defaultBillingEntityId: be,
+        currency: 'USD',
+      }),
+    );
+    const am3 = client(app, await as(app, ['ACCOUNT_MANAGER']));
+    const data = {
+      ...cache('2026-10-30 09:00:00'),
+      clients: {
+        [name]: {
+          sections: {
+            Community: {
+              projects: [
+                project({
+                  project: 'Weekly calls',
+                  inbox: 2,
+                  meetings: 3,
+                  upcoming: 31,
+                  last_date: '2026-10-29T13:00:00Z',
+                  // The cache only knows the next one; it is already in the past.
+                  next_meeting: '2026-10-31T15:00:00Z',
+                }),
+              ],
+            },
+          },
+        },
+      },
+    };
+    await okData(am3.post('/mail/legacy-cache', { data }));
+    const acc = (await okData(am3.get('/dashboard/engagement'))).accounts[0];
+    expect(acc).toMatchObject({ accountName: name, meetings: 3, upcoming: 0 });
+  });
+
   it('validates the payload', async () => {
     const bad = await am.post('/mail/legacy-cache', { data: { clients: {} } });
     expect(bad.status).toBe(400);
