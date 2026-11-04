@@ -10,7 +10,9 @@ tablero personal (`tracker_app.py`). Monorepo npm workspaces:
 | `apps/web` (`@wcrm/web`) | React 18 + Vite + Mantine + TanStack Query + react-hook-form, tema claro/oscuro |
 
 Documentación: `docs/product` (PRD, backlog, KPIs, conciliación con el legado), `docs/architecture`
-(arquitectura, modelo de datos, API, ADRs) y `docs/engineering/IMPLEMENTATION-NOTES.md` (estado de la fase 1).
+(arquitectura, modelo de datos, API, ADRs), `docs/engineering/IMPLEMENTATION-NOTES.md` (estado de la fase 1),
+`docs/qa` (plan e informe de QA) y `docs/release` (plan de release, runbooks de despliegue, rollback y
+respaldo, notas de la versión). Historial de versiones en `CHANGELOG.md`.
 
 ## Inicio rápido con Docker
 
@@ -19,6 +21,9 @@ cp .env.example .env
 SEED_ARGS=--demo docker compose up --build      # db + migrate/seed + api + web
 # abrir http://localhost:8080
 ```
+
+Producción/staging: `docker-compose.prod.yml` con `.env.prod` (plantilla `.env.prod.example`), TLS,
+worker y respaldo diario cifrado; ver `docs/release/RUNBOOK-DEPLOY.md`.
 
 ## Inicio rápido local (sin Docker)
 

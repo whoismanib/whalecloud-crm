@@ -8,7 +8,7 @@ Estado al 2026-11-04, rama `claude/trusting-albattani-kapzjw`:
 | 2. Arquitecto de soluciones | Hecho | `docs/architecture/` (ARCHITECTURE, DATA-MODEL, API, CONVENTIONS, `adr/0001`–`0006`) |
 | 3. Software Engineer | Hecho | P1–P16, worker, admin, importador del tracker legado. Ver `docs/engineering/IMPLEMENTATION-NOTES.md` |
 | 4. QA Manager | Hecho (falta reverificar) | `docs/qa/TEST-PLAN.md`, `docs/qa/QA-REPORT.md`, e2e en `apps/web/e2e/`. QA-001 a QA-008 corregidos; quedan 9 defectos menores abiertos |
-| 5. Release Manager | **Pendiente** | Ver el prompt más abajo |
+| 5. Release Manager | Hecho (v0.1.0 preparado, sin tag) | `.github/workflows/` (ci, docker, deploy), `docker-compose.prod.yml`, `.env.prod.example`, `docker/backup/`, `docker/nginx/prod.conf`, `scripts/deploy.sh`, `CHANGELOG.md`, `docs/release/`. Pendiente: validar con Docker (`docker compose config`, stack con TLS) y la primera corrida de los workflows |
 
 Las definiciones de los cinco agentes están en `.claude/agents/`. En Claude Code se invocan por nombre, por ejemplo: "usa el agente release-manager".
 
