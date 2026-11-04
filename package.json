@@ -1,0 +1,44 @@
+{
+  "name": "whalecloud-crm",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web \"npm:dev -w @wcrm/api\" \"npm:dev -w @wcrm/web\"",
+    "build": "npm run build -w @wcrm/api && npm run build -w @wcrm/web",
+    "typecheck": "npm run typecheck -w @wcrm/shared && npm run typecheck -w @wcrm/api && npm run typecheck -w @wcrm/web",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "npm run test --workspaces --if-present",
+    "test:unit": "npm run test -w @wcrm/shared && npm run test -w @wcrm/web",
+    "test:api": "npm run test -w @wcrm/api",
+    "test:coverage": "npm run test:coverage -w @wcrm/shared",
+    "db:generate": "npm run db:generate -w @wcrm/api",
+    "db:migrate": "npm run db:migrate -w @wcrm/api",
+    "db:seed": "npm run db:seed -w @wcrm/api",
+    "db:reset": "npm run db:reset -w @wcrm/api",
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "check:no-external": "node scripts/check-no-external.mjs apps/web/dist",
+    "docker:up": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d db",
+    "docker:build": "docker compose build"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vitest": "2.1.8",
+    "@vitest/coverage-v8": "2.1.8",
+    "eslint": "9.16.0",
+    "@eslint/js": "9.16.0",
+    "typescript-eslint": "8.18.0",
+    "eslint-plugin-react-hooks": "5.1.0",
+    "prettier": "3.4.2",
+    "concurrently": "9.1.0",
+    "globals": "15.13.0",
+    "@types/node": "22.10.2"
+  }
+}
