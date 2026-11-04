@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "tsc -p tsconfig.json && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "typecheck": "tsc -p tsconfig.json && tsc -p e2e/tsconfig.json",
+    "test": "vitest run",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.1",
@@ -28,6 +29,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.1.0",
     "@types/react": "18.3.17",

@@ -1,0 +1,35 @@
+{
+  "wom": [
+    {
+      "status": "PO",
+      "po": "4500E2E01",
+      "name": "E2E Legacy CR Portabilidad",
+      "expected": 120000,
+      "po_net": 118000,
+      "risk": "Low"
+    },
+    { "status": "PVB", "name": "E2E Legacy V9", "expected": 1850000, "risk": "High" },
+    { "status": "Cancelled", "name": "E2E Legacy Data lake", "expected": 5000 }
+  ],
+  "new_clients": [
+    {
+      "status": "Preparing RFP",
+      "client": "E2E Legacy Cliente Nuevo",
+      "name": "E2E Legacy RFI",
+      "expected": 90000,
+      "quarter": "Q1 2027"
+    }
+  ],
+  "billing": [
+    {
+      "name": "E2E Legacy CR Portabilidad",
+      "reception": "2026-07-01",
+      "usd": 118000,
+      "invoice_no": "L-E2E-0001",
+      "invoice_date": "2026-07-05",
+      "due": "2026-08-19",
+      "status": "Paid"
+    },
+    { "name": "E2E Legacy Inexistente", "usd": 10, "status": "Pending" }
+  ]
+}

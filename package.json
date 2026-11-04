@@ -18,6 +18,7 @@
     "test": "npm run test --workspaces --if-present",
     "test:unit": "npm run test -w @wcrm/shared && npm run test -w @wcrm/web",
     "test:api": "npm run test -w @wcrm/api",
+    "test:e2e": "npm run e2e -w @wcrm/web",
     "test:coverage": "npm run test:coverage -w @wcrm/shared",
     "db:generate": "npm run db:generate -w @wcrm/api",
     "db:migrate": "npm run db:migrate -w @wcrm/api",
