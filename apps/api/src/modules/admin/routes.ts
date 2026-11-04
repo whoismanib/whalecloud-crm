@@ -49,7 +49,7 @@ export async function adminRoutes(app: FastifyInstance) {
         lastLoginAt: users.lastLoginAt,
         roles: sql<
           string[]
-        >`coalesce(array_agg(${userRoles.role}) filter (where ${userRoles.role} is not null), '{}')`,
+        >`coalesce(array_agg(${userRoles.role}) filter (where ${userRoles.role} is not null), '{}')::text[]`,
       })
       .from(users)
       .leftJoin(userRoles, eq(userRoles.userId, users.id))

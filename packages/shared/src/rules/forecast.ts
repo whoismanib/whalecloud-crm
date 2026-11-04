@@ -93,7 +93,15 @@ export function forecastAccuracy(
   return { deviation: dev, withinTolerance: Math.abs(dev) <= tolerance };
 }
 
-export type WeekChange = 'NEW' | 'ADVANCED' | 'REGRESSED' | 'SLIPPED' | 'WON' | 'LOST' | 'REMOVED';
+export type WeekChange =
+  | 'NEW'
+  | 'ADVANCED'
+  | 'REGRESSED'
+  | 'SLIPPED'
+  | 'CATEGORY'
+  | 'WON'
+  | 'LOST'
+  | 'REMOVED';
 
 /** P12-06: week-over-week changes between two snapshots. */
 export function weekOverWeekChanges(
@@ -130,6 +138,14 @@ export function weekOverWeekChanges(
         change: 'SLIPPED',
         from: o.expectedCloseDate,
         to: c.expectedCloseDate,
+      });
+    }
+    if (c.status === 'OPEN' && o.forecastCategory !== c.forecastCategory) {
+      out.push({
+        opportunityId: c.opportunityId,
+        change: 'CATEGORY',
+        from: o.forecastCategory ?? '—',
+        to: c.forecastCategory ?? '—',
       });
     }
   }

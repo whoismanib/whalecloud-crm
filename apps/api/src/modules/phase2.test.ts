@@ -595,6 +595,8 @@ describe('admin, notifications and jobs', () => {
         roles: ['VP'],
       }),
     );
+    const listed: { email: string; roles: string[] }[] = await okData(admin.get('/admin/users'));
+    expect(listed.find((u) => u.email === email)?.roles).toEqual(['VP']);
     const vp = client(app, await login(app, email, 'Password-Larga-2026'));
     const accs = await okData(vp.get('/opportunities'));
     expect(Array.isArray(accs)).toBe(true);

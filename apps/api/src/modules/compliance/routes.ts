@@ -92,16 +92,14 @@ export async function complianceRoutes(app: FastifyInstance) {
             createdBy: authOf(req).user.id,
           })
           .returning();
-        await tx
-          .insert(complianceItems)
-          .values(
-            COMPLIANCE_ITEMS.map((i) => ({
-              checklistId: c!.id,
-              section: i.section,
-              itemCode: i.code,
-              required: required.includes(i.section),
-            })),
-          );
+        await tx.insert(complianceItems).values(
+          COMPLIANCE_ITEMS.map((i) => ({
+            checklistId: c!.id,
+            section: i.section,
+            itemCode: i.code,
+            required: required.includes(i.section),
+          })),
+        );
         await recordAudit(tx, actorOf(req), {
           action: 'CREATE',
           category: 'EXCEPTION',

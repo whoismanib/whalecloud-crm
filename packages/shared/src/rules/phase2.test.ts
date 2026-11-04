@@ -397,6 +397,8 @@ describe('P12 forecast', () => {
       it1({ opportunityId: 'e', stage: 2, expectedCloseDate: '2027-01-15' }),
       it1({ opportunityId: 'n', stage: 1 }),
     ];
+    prev.push(it1({ opportunityId: 'f', stage: 5, forecastCategory: 'PROBABLE' }));
+    curr.push(it1({ opportunityId: 'f', stage: 5, forecastCategory: 'COMMIT' }));
     expect(weekOverWeekChanges(prev, curr).map((c) => `${c.opportunityId}:${c.change}`)).toEqual([
       'a:ADVANCED',
       'b:REGRESSED',
@@ -404,8 +406,13 @@ describe('P12 forecast', () => {
       'd:LOST',
       'e:SLIPPED',
       'n:NEW',
+      'f:CATEGORY',
       'z:REMOVED',
     ]);
+    expect(weekOverWeekChanges(prev, curr).find((c) => c.change === 'CATEGORY')).toMatchObject({
+      from: 'PROBABLE',
+      to: 'COMMIT',
+    });
   });
   it('quarter ranges', () => {
     expect(quarterRange('2026Q4')).toEqual({ from: '2026-10-01', to: '2026-12-31' });
@@ -424,7 +431,9 @@ describe('import / export helpers', () => {
     expect(parseCsv('')).toEqual([]);
   });
   it('writes CSV', () => {
-    expect(toCsv([{ a: 'x,y', b: 1, c: null }], ['a', 'b', 'c'])).toBe('\uFEFFa,b,c\r\n"x,y",1,\r\n');
+    expect(toCsv([{ a: 'x,y', b: 1, c: null }], ['a', 'b', 'c'])).toBe(
+      '\uFEFFa,b,c\r\n"x,y",1,\r\n',
+    );
     expect(toCsv([{ a: { k: 1 } }], ['a'])).toContain('"{""k"":1}"');
   });
   it('loose dates, quarters and amounts', () => {

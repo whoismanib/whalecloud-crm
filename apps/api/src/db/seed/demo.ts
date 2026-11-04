@@ -818,7 +818,15 @@ async function phase2Demo(
   app: FastifyInstance,
   c: Record<string, ApiClient>,
   ids: Record<string, string>,
-  d: { wom: string; be: string; gtd: string; spa: string; crContract: string; womV9: string; today: string },
+  d: {
+    wom: string;
+    be: string;
+    gtd: string;
+    spa: string;
+    crContract: string;
+    womV9: string;
+    today: string;
+  },
 ) {
   const am = c.am!;
   const cm = c.cm!;
@@ -876,44 +884,174 @@ async function phase2Demo(
   );
 
   // P11: rate card + CR in progress under a CM exception (shows in "trabajo sin OC")
-  await okData(am.post('/rate-cards', { accountId: d.wom, profile: 'Senior Developer', rate: '45', currency: 'USD', validFrom: '2026-01-01' }));
-  await okData(am.post('/rate-cards', { accountId: d.wom, profile: 'PM', rate: '60', currency: 'USD', validFrom: '2026-01-01' }));
-  const cr = await okData(am.post('/change-requests', { parentContractId: sup.id, title: 'Reporte de portabilidad numérica', description: 'Nuevo reporte diario para Subtel' }));
-  await okData(am.put(`/change-requests/${cr.id}/lines`, [{ profile: 'Senior Developer', hours: 120 }, { profile: 'PM', hours: 16 }]));
-  await okData(cm.post(`/change-requests/${cr.id}/exception`, { reason: 'Plazo regulatorio Subtel; OC en trámite', expiresOn: '2026-11-30' }));
+  await okData(
+    am.post('/rate-cards', {
+      accountId: d.wom,
+      profile: 'Senior Developer',
+      rate: '45',
+      currency: 'USD',
+      validFrom: '2026-01-01',
+    }),
+  );
+  await okData(
+    am.post('/rate-cards', {
+      accountId: d.wom,
+      profile: 'PM',
+      rate: '60',
+      currency: 'USD',
+      validFrom: '2026-01-01',
+    }),
+  );
+  const cr = await okData(
+    am.post('/change-requests', {
+      parentContractId: sup.id,
+      title: 'Reporte de portabilidad numérica',
+      description: 'Nuevo reporte diario para Subtel',
+    }),
+  );
+  await okData(
+    am.put(`/change-requests/${cr.id}/lines`, [
+      { profile: 'Senior Developer', hours: 120 },
+      { profile: 'PM', hours: 16 },
+    ]),
+  );
+  await okData(
+    cm.post(`/change-requests/${cr.id}/exception`, {
+      reason: 'Plazo regulatorio Subtel; OC en trámite',
+      expiresOn: '2026-11-30',
+    }),
+  );
   await okData(am.post(`/change-requests/${cr.id}/start-work`));
-  const cr2 = await okData(am.post('/change-requests', { parentContractId: sup.id, title: 'Ajuste tarificación roaming' }));
-  await okData(am.put(`/change-requests/${cr2.id}/lines`, [{ profile: 'Senior Developer', hours: 40 }]));
+  const cr2 = await okData(
+    am.post('/change-requests', { parentContractId: sup.id, title: 'Ajuste tarificación roaming' }),
+  );
+  await okData(
+    am.put(`/change-requests/${cr2.id}/lines`, [{ profile: 'Senior Developer', hours: 40 }]),
+  );
 
   // P13: distributors (source: Robotic Work, Grupo IGPS, OnLab)
-  const rw = await okData(am.post('/distributors', { name: 'Robotic Work', countryCode: 'CL', status: 'ACTIVE', contactName: 'Gerencia comercial' }));
-  await okData(cm.post(`/distributors/${rw.id}/agreements`, { territories: ['CL'], verticals: ['ROBOTICS'], products: 'AgiBot inspección y recepción', marginPct: '0.18', startsOn: '2026-03-01', endsOn: '2027-02-28' }));
-  await okData(cm.post(`/distributors/${rw.id}/trainings`, { kind: 'TRAINING', heldOn: '2026-09-18', product: 'AgiBot inspección', attendees: '4 ingenieros' }));
-  const igps = await okData(am.post('/distributors', { name: 'Grupo IGPS', countryCode: 'CL', status: 'INACTIVE' }));
-  await okData(cm.post(`/distributors/${igps.id}/agreements`, { territories: ['CL'], marginPct: '0.15', startsOn: '2025-06-01', endsOn: '2026-05-31' }));
+  const rw = await okData(
+    am.post('/distributors', {
+      name: 'Robotic Work',
+      countryCode: 'CL',
+      status: 'ACTIVE',
+      contactName: 'Gerencia comercial',
+    }),
+  );
+  await okData(
+    cm.post(`/distributors/${rw.id}/agreements`, {
+      territories: ['CL'],
+      verticals: ['ROBOTICS'],
+      products: 'AgiBot inspección y recepción',
+      marginPct: '0.18',
+      startsOn: '2026-03-01',
+      endsOn: '2027-02-28',
+    }),
+  );
+  await okData(
+    cm.post(`/distributors/${rw.id}/trainings`, {
+      kind: 'TRAINING',
+      heldOn: '2026-09-18',
+      product: 'AgiBot inspección',
+      attendees: '4 ingenieros',
+    }),
+  );
+  const igps = await okData(
+    am.post('/distributors', { name: 'Grupo IGPS', countryCode: 'CL', status: 'INACTIVE' }),
+  );
+  await okData(
+    cm.post(`/distributors/${igps.id}/agreements`, {
+      territories: ['CL'],
+      marginPct: '0.15',
+      startsOn: '2025-06-01',
+      endsOn: '2026-05-31',
+    }),
+  );
   await okData(am.post('/distributors', { name: 'OnLab', countryCode: 'CL', status: 'PROSPECT' }));
-  await okData(am.post('/deal-registrations', { distributorId: rw.id, accountId: d.gtd, registeredOn: '2026-11-02', notes: 'Robots de inspección para data centers GTD' }));
+  await okData(
+    am.post('/deal-registrations', {
+      distributorId: rw.id,
+      accountId: d.gtd,
+      registeredOn: '2026-11-02',
+      notes: 'Robots de inspección para data centers GTD',
+    }),
+  );
 
   // P15: onboarding kits and the AM's checklist
-  await okData(cm.put('/onboarding/kits/CL', { items: ['MANUAL', 'TEMPLATES', 'STANDARD_DEMO', 'ACCESS_CRM', 'ACCESS_EDO', 'ACCESS_ZMP', 'ACCESS_FOL'], productiveDays: 30 }));
-  await okData(cm.put('/onboarding/kits/CO', { items: ['MANUAL', 'TEMPLATES', 'STANDARD_DEMO', 'ACCESS_CRM', 'ACCESS_ZMP'], productiveDays: 30 }));
-  const onb = await okData(cm.post('/onboarding', { userId: ids.clDelivery, countryCode: 'CL', startDate: '2026-09-15' }));
-  for (const item of ['MANUAL', 'TEMPLATES', 'ACCESS_CRM', 'ACCESS_EDO']) await okData(cm.patch(`/onboarding/${onb.id}/items/${item}`, { done: true }));
+  await okData(
+    cm.put('/onboarding/kits/CL', {
+      items: [
+        'MANUAL',
+        'TEMPLATES',
+        'STANDARD_DEMO',
+        'ACCESS_CRM',
+        'ACCESS_EDO',
+        'ACCESS_ZMP',
+        'ACCESS_FOL',
+      ],
+      productiveDays: 30,
+    }),
+  );
+  await okData(
+    cm.put('/onboarding/kits/CO', {
+      items: ['MANUAL', 'TEMPLATES', 'STANDARD_DEMO', 'ACCESS_CRM', 'ACCESS_ZMP'],
+      productiveDays: 30,
+    }),
+  );
+  const onb = await okData(
+    cm.post('/onboarding', { userId: ids.clDelivery, countryCode: 'CL', startDate: '2026-09-15' }),
+  );
+  for (const item of ['MANUAL', 'TEMPLATES', 'ACCESS_CRM', 'ACCESS_EDO'])
+    await okData(cm.patch(`/onboarding/${onb.id}/items/${item}`, { done: true }));
 
   // P16: resident team PO (WOM OC 4500123, 1 000 h) with two months of ZMP hours → 80 % alert
-  await okData(c.clDelivery!.post('/resident-pos', { contractId: d.crContract, poNumber: '4500123', totalHours: '1000', validFrom: '2026-06-01', validTo: '2026-12-31' }));
-  await okData(c.clDelivery!.post('/resident-pos/hours-imports', { month: '2026-09-01', csv: 'po_number;resident;hours\n4500123;Residente 1;200\n4500123;Residente 2;195\n' }));
-  await okData(c.clDelivery!.post('/resident-pos/hours-imports', { month: '2026-10-01', csv: 'po_number;resident;hours\n4500123;Residente 1;210\n4500123;Residente 2;200\n4500999;Residente 3;16\n' }));
+  await okData(
+    c.clDelivery!.post('/resident-pos', {
+      contractId: d.crContract,
+      poNumber: '4500123',
+      totalHours: '1000',
+      validFrom: '2026-06-01',
+      validTo: '2026-12-31',
+    }),
+  );
+  await okData(
+    c.clDelivery!.post('/resident-pos/hours-imports', {
+      month: '2026-09-01',
+      csv: 'po_number;resident;hours\n4500123;Residente 1;200\n4500123;Residente 2;195\n',
+    }),
+  );
+  await okData(
+    c.clDelivery!.post('/resident-pos/hours-imports', {
+      month: '2026-10-01',
+      csv: 'po_number;resident;hours\n4500123;Residente 1;210\n4500123;Residente 2;200\n4500999;Residente 3;16\n',
+    }),
+  );
 
   // P12: two weekly snapshots (W44, W45) so the report shows week-over-week changes
-  const cmW44 = await loginInject(app, 'jesus.depablo@example.com', process.env.SEED_DEMO_PASSWORD ?? 'Demo-Password-2026!', '2026-10-28');
+  const cmW44 = await loginInject(
+    app,
+    'jesus.depablo@example.com',
+    process.env.SEED_DEMO_PASSWORD ?? 'Demo-Password-2026!',
+    '2026-10-28',
+  );
   await okData(cmW44.post('/forecast/snapshots'));
   await okData(am.patch(`/opportunities/${d.womV9}/forecast`, { forecastCategory: 'COMMIT' }));
-  const cmW45 = await loginInject(app, 'jesus.depablo@example.com', process.env.SEED_DEMO_PASSWORD ?? 'Demo-Password-2026!', '2026-11-04');
+  const cmW45 = await loginInject(
+    app,
+    'jesus.depablo@example.com',
+    process.env.SEED_DEMO_PASSWORD ?? 'Demo-Password-2026!',
+    '2026-11-04',
+  );
   await okData(cmW45.post('/forecast/snapshots'));
 
   // Worker logic once, so the bell has SLA / collections / renewal / capacity notifications
-  for (const job of ['sla.scan', 'collections.daily', 'renewals.daily', 'capacity.daily', 'onboarding.daily'] as const) {
+  for (const job of [
+    'sla.scan',
+    'collections.daily',
+    'renewals.daily',
+    'capacity.daily',
+    'onboarding.daily',
+  ] as const) {
     await runJob(job, app.ctx, d.today);
   }
 }
