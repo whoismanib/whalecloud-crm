@@ -11,7 +11,8 @@ Plan: `docs/qa/TEST-PLAN.md`.
 - El viaje P1→P8 corre de punta a punta en el navegador hasta **11 Cobrada**, con los aprobadores correctos
   por banda y las reglas de la fuente verificadas numéricamente.
 - Se encontraron **2 defectos Critical**, ambos **corregidos** en esta ronda (alta de cuentas sin RUT
-  bloqueada; página de oportunidad caída desde etapa 7). Quedan **6 Major** y **9 Minor** abiertos.
+  bloqueada; página de oportunidad caída desde etapa 7). Los **6 Major** quedaron corregidos en la ronda de
+  ingeniería (§6.1); siguen abiertos **9 Minor**.
 - **Recomendación: NO-GO para producción; GO para piloto/UAT interno** (ver §7).
 
 ## 2. Ejecución de la suite
@@ -85,7 +86,7 @@ corresponden a páginas abiertas por URL directa sin permiso (la navegación las
 | Bitácora inmutable (rol `wcrm_app`) | `UPDATE`, `DELETE`, `TRUNCATE` → *permission denied*; `ALTER TABLE … DISABLE TRIGGER` → *must be owner*; con el rol dueño el trigger responde *audit_log is append-only*; `audit_log_verify()` sin quiebres ✅ |
 | Otras tablas append-only | `stage_history`, `forecast_snapshots`, `forecast_snapshot_items`: sin UPDATE/DELETE para `wcrm_app` ✅; `settings_history` sí admite UPDATE/DELETE (QA-015) |
 | Inyección SQL en `q` | `'`, `' OR 1=1--`, `UNION SELECT`, `; DROP TABLE` en cuentas, oportunidades, facturas, incidentes → 200 sin efecto (consultas parametrizadas Drizzle). `sql.raw` solo con moneda validada por enum ✅ |
-| Inyección de fórmulas en CSV | Nombre `=HYPERLINK(…)` se exporta tal cual (QA-006) ❌ |
+| Inyección de fórmulas en CSV | Nombre `=HYPERLINK(…)` se exporta tal cual (QA-006) ❌ → corregido en `ad55ae1`: se exporta `'=HYPERLINK(…)` en CSV y XLSX ✅ |
 
 ## 6. Defectos
 
@@ -94,14 +95,14 @@ Severidad: **Blocker** impide liberar/probar; **Critical** rompe un flujo Must s
 
 | ID | Sev. | Título | Estado |
 |---|---|---|---|
-| QA-001 | Critical | Segunda cuenta sin RUT creada por la UI falla con 409 DUPLICATE | **Corregido** (`3ed6277`) |
+| QA-001 | Critical | Segunda cuenta sin RUT creada por la UI falla con 409 DUPLICATE | **Corregido** (`3ed6277`; limpieza de BD existentes `3451df1`) |
 | QA-002 | Critical | La página de oportunidad se cae desde la etapa 7 (`c.roles.map is not a function`) | **Corregido** (`6523806`) |
-| QA-003 | Major | La preferencia de idioma del usuario no se aplica al iniciar sesión | Abierto |
-| QA-004 | Major | P3 Preventa (RFI/RFP) no implementado y no declarado como pendiente | Abierto |
-| QA-005 | Major | Responsive: scroll horizontal de página a 390 px y cabecera que se monta sobre el contenido | Abierto |
-| QA-006 | Major | Exportación CSV vulnerable a inyección de fórmulas | Abierto |
-| QA-007 | Major | MFA no es obligatorio en producción (config no lo exige) | Abierto |
-| QA-008 | Major | Otras historias Must sin implementar (P5-04, DASH-05, ADM-04, ADM-09, P7-01, P7-04, P11-03, P12-04, DASH-04) | Abierto |
+| QA-003 | Major | La preferencia de idioma del usuario no se aplica al iniciar sesión | **Corregido** (`d9d44c1`) |
+| QA-004 | Major | P3 Preventa (RFI/RFP) no implementado y no declarado como pendiente | **Corregido** (`21d4174`) |
+| QA-005 | Major | Responsive: scroll horizontal de página a 390 px y cabecera que se monta sobre el contenido | **Corregido** (`80811b5`) |
+| QA-006 | Major | Exportación CSV vulnerable a inyección de fórmulas | **Corregido** (`ad55ae1`) |
+| QA-007 | Major | MFA no es obligatorio en producción (config no lo exige) | **Corregido** (`6d0ebc1`) |
+| QA-008 | Major | Otras historias Must sin implementar (P5-04, DASH-05, ADM-04, ADM-09, P7-01, P7-04, P11-03, P12-04, DASH-04) | **Corregido** (`c155ce5`): P5-04, DASH-05 y ADM-04 implementadas; el resto declarado como pendiente en `IMPLEMENTATION-NOTES.md` §4 (requiere aceptación CM/PM) |
 | QA-009 | Minor | Fechas exportadas en CSV con comillas dobles extra | Abierto |
 | QA-010 | Minor | `GET /opportunities/:id/stage-history` documentado en API.md no existe | Abierto |
 | QA-011 | Minor | Texto del requisito cortado en la tarjeta "Matriz de aprobación" | Abierto |
@@ -238,7 +239,26 @@ Oportunidad de USD 2,5 MM con partidas sobre objetivo: la tarjeta "Matriz de apr
 advierte que el caso de negocio será exigido; el bloqueo aparece recién en el gate 4→5
 (`BUSINESS_CASE_REQUIRED`, correcto según P4-01).
 
+## 6.1 Ronda de correcciones (ingeniería, 4 nov 2026)
+
+| ID | Commit | Corrección | Verificación |
+|---|---|---|---|
+| QA-001 (seguimiento) | `3451df1` | Migración `0004_blank_tax_id_null.sql`: `tax_id = ''` → NULL en BD existentes | Aplicada sobre la BD de desarrollo con una fila forzada a `''` |
+| QA-003 | `d9d44c1` | Al resolver `/auth/me` se aplica `me.locale` una vez por usuario; `<html lang>` desde el arranque | E2E `i18n-theme.spec.ts` (usuario zh-CN → 概览; luego AM → es-CL). El helper `login()` vuelve a es-CL salvo `keepLocale` |
+| QA-005 | `80811b5` | `ScrollTable` (Table.ScrollContainer) en todas las tablas; cabecera en una línea; `fieldset` de la A1 con `min-width: 0` | E2E `responsive.spec.ts` (390 px); medición de las 16 rutas + pestañas a 390 y 1440 px sin desborde |
+| QA-006 | `ad55ae1` | `neutralizeFormula`: prefijo `'` en celdas de texto que empiezan con `= + - @`, tab o CR (CSV y XLSX); números simples intactos | Unitario (`phase2.test.ts`) y API (CSV + XLSX) |
+| QA-007 | `6d0ebc1` | `MFA_REQUIRED` sin definir = true en production; `false` en production falla al arrancar; override de dev intacto; el seed no lo relaja en production | `config.test.ts` |
+| QA-004 | `21d4174` | P3 completo: registro, decisión en 2 días hábiles (alerta AM + CM), hito interno −5 días hábiles (aviso a Ventas China), matriz con responsable, revisión final del CM obligatoria para entregar, adjudicación, KPIs "RFPs a tiempo" y "tasa de adjudicación"; pantalla Preventa | `presales.test.ts`, `rfps/rfps.test.ts`, E2E `presales.spec.ts` |
+| QA-008 | `c155ce5` | P5-04 estimaciones de costo con firma, DASH-05 KPIs por proceso (29; 4 sin datos fuente marcados como pendientes), ADM-04 delegación de aprobaciones con `onBehalfOf` en bitácora | `qa008.test.ts` (shared y API); revisión en navegador |
+
+Suites tras la ronda: lint ✅, typecheck ✅, `npm test` shared **139** · api **67** · web 3 ✅, build ✅,
+i18n ✅, check:no-external ✅, `npm run test:e2e` **24/24** ✅.
+
 ## 7. Recomendación
+
+> Nota (ronda de ingeniería, §6.1): QA-003 a QA-008 están corregidos; la recomendación siguiente es la
+> original de QA y queda pendiente de re-verificación por QA. Las historias Must no implementadas (QA-008)
+> están listadas en `IMPLEMENTATION-NOTES.md` §4 y requieren aceptación explícita del CM/PM.
 
 **NO-GO para producción** mientras sigan abiertos QA-003 a QA-008 (Major), en particular:
 - QA-007 (MFA) y QA-006 (CSV) son requisitos de seguridad del PRD;
