@@ -1,5 +1,6 @@
 import {
   canViewOpportunity,
+  handoffChecklistMissing,
   deriveStageFromMilestones,
   detectConditions,
   type GateContext,
@@ -20,6 +21,7 @@ import {
   approvalRequests,
   attachments,
   businessCases,
+  complianceChecklists,
   contracts,
   handoffs,
   milestones,
@@ -162,6 +164,16 @@ export async function buildGateContext(
     .orderBy(desc(contracts.signedOn))
     .limit(1);
 
+  const [compliance] = await db
+    .select({ id: complianceChecklists.id })
+    .from(complianceChecklists)
+    .where(
+      and(
+        eq(complianceChecklists.opportunityId, opp.id),
+        eq(complianceChecklists.status, 'APPROVED'),
+      ),
+    )
+    .limit(1);
   const [h] = await db.select().from(handoffs).where(eq(handoffs.opportunityId, opp.id));
   let attendeeRoles: UserRole[] = [];
   if (h && h.attendeeUserIds.length) {
@@ -187,7 +199,7 @@ export async function buildGateContext(
     currentNetMargin: sheet?.netMargin ?? null,
     businessCaseApproved: Boolean(bc),
     pendingConditions,
-    complianceApproved: false,
+    complianceApproved: Boolean(compliance),
     cashflowMilestones: ms
       .filter((m) => m.source === 'CASHFLOW')
       .map((m) => ({ seq: m.seq, pct: m.pct, trigger: m.trigger })),
@@ -197,7 +209,13 @@ export async function buildGateContext(
     offerValidityDays: sheet?.offerValidityDays ?? null,
     signedContract: signed[0] ?? null,
     chinaSystemContractId: opp.chinaSystemContractId,
-    handoff: h ? { attendeeRoles, zmpProjectId: h.zmpProjectId } : null,
+    handoff: h
+      ? {
+          attendeeRoles,
+          zmpProjectId: h.zmpProjectId,
+          checklistMissing: handoffChecklistMissing(h),
+        }
+      : null,
     zmpProjectId: opp.zmpProjectId,
   };
 }

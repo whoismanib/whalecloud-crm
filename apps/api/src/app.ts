@@ -9,6 +9,7 @@ import { createDb } from './db/client';
 import { loadSession } from './auth/session';
 import { AppError } from './lib/errors';
 import { dateInTz } from './lib/dates';
+import { createMailer } from './services/mailer';
 import { RulesContextService } from './services/rulesContext';
 import type { AppContext } from './types';
 import { authRoutes } from './modules/auth/routes';
@@ -22,6 +23,16 @@ import { billingRoutes } from './modules/milestones/routes';
 import { ticketRoutes } from './modules/tickets/routes';
 import { dashboardRoutes } from './modules/dashboard/routes';
 import { auditRoutes } from './modules/audit/routes';
+import { postsaleRoutes } from './modules/accounts/postsale.routes';
+import { changeRequestRoutes } from './modules/change-requests/routes';
+import { forecastRoutes } from './modules/forecast/routes';
+import { distributorRoutes } from './modules/distributors/routes';
+import { complianceRoutes } from './modules/compliance/routes';
+import { onboardingRoutes } from './modules/onboarding/routes';
+import { capacityRoutes } from './modules/capacity/routes';
+import { adminRoutes } from './modules/admin/routes';
+import { importExportRoutes } from './modules/imports/routes';
+import { notificationRoutes } from './modules/notifications/routes';
 import './types';
 
 const UNSAFE = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
@@ -60,6 +71,7 @@ export async function buildApp(opts: BuildOptions = {}): Promise<FastifyInstance
     pool,
     config,
     rules: new RulesContextService(db, config.NODE_ENV === 'test' ? 0 : 60_000),
+    mailer: createMailer(config.NODE_ENV === 'test' ? 'none' : config.MAIL_DRIVER),
     routes: [],
   };
   app.decorate('ctx', ctx);
@@ -195,6 +207,16 @@ export async function buildApp(opts: BuildOptions = {}): Promise<FastifyInstance
       await ticketRoutes(api);
       await dashboardRoutes(api);
       await auditRoutes(api);
+      await postsaleRoutes(api);
+      await changeRequestRoutes(api);
+      await forecastRoutes(api);
+      await distributorRoutes(api);
+      await complianceRoutes(api);
+      await onboardingRoutes(api);
+      await capacityRoutes(api);
+      await adminRoutes(api);
+      await importExportRoutes(api);
+      await notificationRoutes(api);
     },
     { prefix: '/api/v1' },
   );

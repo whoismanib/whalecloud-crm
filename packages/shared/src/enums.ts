@@ -366,3 +366,82 @@ export type AuditCategory = (typeof AUDIT_CATEGORIES)[number];
 
 export const LOCALES = ['es-CL', 'en', 'zh-CN'] as const;
 export type Locale = (typeof LOCALES)[number];
+
+// ---------- Phase 2 (P9–P16) ----------
+export const ACCOUNT_REVIEW_KINDS = ['QUARTERLY', 'EDO_MONTHLY'] as const;
+export type AccountReviewKind = (typeof ACCOUNT_REVIEW_KINDS)[number];
+
+export const RENEWAL_STATUSES = [
+  'SCHEDULED',
+  'OPPORTUNITY_CREATED',
+  'QUOTED',
+  'RENEWED',
+  'NOT_RENEWED',
+] as const;
+export type RenewalStatus = (typeof RENEWAL_STATUSES)[number];
+
+export const CR_STATUSES = [
+  'DRAFT',
+  'QUOTED',
+  'PO_RECEIVED',
+  'IN_PROGRESS',
+  'RECEIVED',
+  'INVOICED',
+  'CANCELLED',
+] as const;
+export type CrStatus = (typeof CR_STATUSES)[number];
+
+export const REGISTRATION_STATUSES = [
+  'SUBMITTED',
+  'CONFLICT_REVIEW',
+  'APPROVED',
+  'REJECTED',
+  'EXPIRED',
+] as const;
+export type RegistrationStatus = (typeof REGISTRATION_STATUSES)[number];
+
+export const DISTRIBUTOR_STATUSES = ['PROSPECT', 'ACTIVE', 'INACTIVE'] as const;
+export type DistributorStatus = (typeof DISTRIBUTOR_STATUSES)[number];
+
+export const COMPLIANCE_SECTIONS = [
+  'DATA_PROTECTION',
+  'ANTI_CORRUPTION',
+  'PUBLIC_TENDER',
+  'EXPORT_CONTROL',
+] as const;
+export type ComplianceSection = (typeof COMPLIANCE_SECTIONS)[number];
+
+export const CHECKLIST_STATUSES = [
+  'DRAFT',
+  'IN_REVIEW',
+  'REVIEWED',
+  'APPROVED',
+  'REJECTED',
+] as const;
+export type ChecklistStatus = (typeof CHECKLIST_STATUSES)[number];
+
+export const YES_NO_NA = ['YES', 'NO', 'NA'] as const;
+export type YesNoNa = (typeof YES_NO_NA)[number];
+
+export const ONBOARDING_ITEMS = [
+  'MANUAL',
+  'TEMPLATES',
+  'STANDARD_DEMO',
+  'ACCESS_CRM',
+  'ACCESS_EDO',
+  'ACCESS_ZMP',
+  'ACCESS_FOL',
+] as const;
+export type OnboardingItem = (typeof ONBOARDING_ITEMS)[number];
+
+export const CAPACITY_ALERTS = ['NONE', 'WARN_80', 'CRITICAL_100'] as const;
+export type CapacityAlert = (typeof CAPACITY_ALERTS)[number];
+
+export const IMPORT_KINDS = [
+  'ACCOUNTS',
+  'OPPORTUNITIES',
+  'INVOICES',
+  'LEGACY_TRACKER',
+  'ZMP_HOURS',
+] as const;
+export type ImportKind = (typeof IMPORT_KINDS)[number];

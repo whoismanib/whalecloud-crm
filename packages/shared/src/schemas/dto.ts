@@ -348,6 +348,12 @@ export const HandoffSchema = z.object({
   acceptanceCriteria: zText(4000).optional().nullable(),
   zmpProjectId: zReqText(100),
   plannedStart: zDate.optional().nullable(),
+  actualStart: zDate.optional().nullable(),
+  commercialSheetReviewed: z.boolean().default(false),
+  sowReviewed: z.boolean().default(false),
+  milestonesReviewed: z.boolean().default(false),
+  acceptanceCriteriaReviewed: z.boolean().default(false),
+  sowUrl: zHttpsUrl.optional().nullable(),
   notes: zText(4000).optional().nullable(),
 });
 

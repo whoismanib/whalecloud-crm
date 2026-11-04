@@ -12,7 +12,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/migrate.ts",
     "db:seed": "tsx src/db/seed/seed.ts",
-    "db:reset": "tsx src/db/reset.ts"
+    "db:reset": "tsx src/db/reset.ts",
+    "dev:worker": "tsx watch src/worker.ts",
+    "worker": "node dist/worker.js"
   },
   "dependencies": {
     "@fastify/cookie": "11.0.1",
@@ -23,9 +25,11 @@
     "@wcrm/shared": "*",
     "decimal.js": "10.4.3",
     "drizzle-orm": "0.38.3",
+    "exceljs": "4.4.0",
     "fastify": "5.2.0",
     "otplib": "12.0.1",
     "pg": "8.13.1",
+    "pg-boss": "10.1.6",
     "zod": "3.23.8"
   },
   "devDependencies": {

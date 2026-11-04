@@ -57,6 +57,14 @@ export const SettingsSchema = z.object({
   'kpi.priceTimeWindowWeeks': z.number().int().positive(),
   'digital.verticals': z.array(z.string()),
   'compliance.requiredBeforeProposal': z.boolean(),
+  renewals: z.object({
+    createDaysBefore: z.number().int().positive(),
+    quoteDaysBefore: z.number().int().positive(),
+  }),
+  'capacity.poAlertPct': fraction,
+  'onboarding.productiveDays': z.number().int().positive(),
+  'distributors.blockExpiredAgreement': z.boolean(),
+  'forecast.accuracyTolerance': fraction,
   'auth.sessionIdleHours': z.number().positive(),
   'auth.sessionAbsoluteDays': z.number().positive(),
 });
@@ -122,7 +130,12 @@ export const DEFAULT_SETTINGS: Settings = {
   'kpi.pendingAcceptanceBusinessDays': 10,
   'kpi.priceTimeWindowWeeks': 12,
   'digital.verticals': ['AI', 'FINTECH'],
-  'compliance.requiredBeforeProposal': false,
+  'compliance.requiredBeforeProposal': true,
+  renewals: { createDaysBefore: 90, quoteDaysBefore: 60 },
+  'capacity.poAlertPct': 0.8,
+  'onboarding.productiveDays': 30,
+  'distributors.blockExpiredAgreement': true,
+  'forecast.accuracyTolerance': 0.1,
   'auth.sessionIdleHours': 12,
   'auth.sessionAbsoluteDays': 7,
 };

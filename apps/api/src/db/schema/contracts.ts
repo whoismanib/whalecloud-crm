@@ -136,5 +136,10 @@ export const handoffs = pgTable('handoffs', {
   zmpProjectId: text(),
   plannedStart: date(),
   actualStart: date(),
+  commercialSheetReviewed: boolean().notNull().default(false),
+  sowReviewed: boolean().notNull().default(false),
+  milestonesReviewed: boolean().notNull().default(false),
+  acceptanceCriteriaReviewed: boolean().notNull().default(false),
+  sowAttachmentId: uuid(),
   notes: text(),
 });

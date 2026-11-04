@@ -17,7 +17,7 @@ import {
   validateBusinessCaseSubmission,
   validateClose,
   validateOpportunityCreate,
-  addBusinessDays,
+  handoffDueOn,
   type ContactRole,
 } from '@wcrm/shared';
 import { and, asc, desc, eq, ilike, inArray, or, sql, type SQL } from 'drizzle-orm';
@@ -28,8 +28,10 @@ import {
   accounts,
   approvalRequests,
   auditLog,
+  attachments,
   businessCases,
   contacts,
+  contracts,
   handoffs,
   opportunities,
   opportunityContacts,
@@ -57,6 +59,7 @@ import {
   visibilityFilter,
 } from '../../services/opportunities';
 import { invalidateApproval } from '../approvals/service';
+import { distributorAgreementFailures } from '../distributors/routes';
 
 const OPP_FIELDS = [
   'name',
@@ -144,6 +147,15 @@ export async function opportunityRoutes(app: FastifyInstance) {
       const [contact] = await db.select().from(contacts).where(eq(contacts.id, body.contactId));
       if (!contact || contact.accountId !== body.accountId) {
         throw ruleViolation([{ code: 'CONTACT_NOT_IN_ACCOUNT' }]);
+      }
+      if (body.distributorId) {
+        const agr = await distributorAgreementFailures(db, body.distributorId, {
+          today: req.today,
+          country: body.countryCode,
+          vertical: body.vertical,
+        });
+        if (agr.length && ctx.settings['distributors.blockExpiredAgreement'])
+          throw ruleViolation(agr);
       }
       const registeredLate = isRegisteredLate(
         body.firstContactDate,
@@ -611,8 +623,32 @@ export async function opportunityRoutes(app: FastifyInstance) {
         const o = await lockOpportunity(tx, id);
         await assertVisible(tx, authOf(req), o, ctx.raci);
         if (o.stage < 7) throw ruleViolation([{ code: 'OPPORTUNITY_NOT_WON' }]);
+        // P9-01: SLA counts from the signature date of the signed contract (fallback: won date)
+        const [signed] = await tx
+          .select({ signedOn: contracts.signedOn, id: contracts.id })
+          .from(contracts)
+          .where(and(eq(contracts.opportunityId, id), sql`${contracts.signedOn} IS NOT NULL`))
+          .orderBy(desc(contracts.signedOn))
+          .limit(1);
+        const signedOn = signed?.signedOn ?? o.wonAt?.toISOString().slice(0, 10) ?? null;
+        let sowAttachmentId: string | null = null;
+        if (body.sowUrl) {
+          const [att] = await tx
+            .insert(attachments)
+            .values({
+              externalUrl: body.sowUrl,
+              standardName: body.sowUrl.split('/').pop() ?? 'SOW',
+              docKind: 'SOW',
+              entityType: 'handoff',
+              accountId: o.accountId,
+              opportunityId: id,
+            })
+            .returning({ id: attachments.id });
+          sowAttachmentId = att!.id;
+        }
         const values = {
           opportunityId: id,
+          contractId: signed?.id ?? null,
           meetingAt: new Date(
             body.meetingAt.length === 10 ? `${body.meetingAt}T12:00:00Z` : body.meetingAt,
           ),
@@ -621,13 +657,15 @@ export async function opportunityRoutes(app: FastifyInstance) {
           acceptanceCriteria: body.acceptanceCriteria ?? null,
           zmpProjectId: body.zmpProjectId,
           plannedStart: body.plannedStart ?? null,
+          actualStart: body.actualStart ?? null,
+          commercialSheetReviewed: body.commercialSheetReviewed,
+          sowReviewed: body.sowReviewed,
+          milestonesReviewed: body.milestonesReviewed,
+          acceptanceCriteriaReviewed: body.acceptanceCriteriaReviewed,
+          ...(sowAttachmentId ? { sowAttachmentId } : {}),
           notes: body.notes ?? null,
-          dueOn: o.wonAt
-            ? addBusinessDays(
-                o.wonAt.toISOString().slice(0, 10),
-                ctx.settings['sla.businessDays'].P9_HANDOFF,
-                ctx.calendars.CL!,
-              )
+          dueOn: signedOn
+            ? handoffDueOn(signedOn, ctx.calendars.CL!, ctx.settings['sla.businessDays'].P9_HANDOFF)
             : null,
           createdBy: authOf(req).user.id,
         };

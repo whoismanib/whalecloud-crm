@@ -79,5 +79,6 @@ export function client(app: FastifyInstance, s: Session, today = TODAY) {
       wrap(request(app.server).put(`/api/v1${url}`)).send(body ?? {}),
     patch: (url: string, body?: object) =>
       wrap(request(app.server).patch(`/api/v1${url}`)).send(body ?? {}),
+    delete: (url: string) => wrap(request(app.server).delete(`/api/v1${url}`)),
   };
 }

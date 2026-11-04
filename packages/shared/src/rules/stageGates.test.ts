@@ -43,7 +43,7 @@ function ctx(over: Partial<GateContext> = {}): GateContext {
     currentNetMargin: '0.70',
     businessCaseApproved: false,
     pendingConditions: [],
-    complianceApproved: false,
+    complianceApproved: true,
     cashflowMilestones: ms([30, 50, 20]),
     tcMilestones: ms([30, 50, 20]),
     offerValidityDays: 30,
@@ -224,9 +224,11 @@ describe('stage gates 0–8 (ARCHITECTURE §8.1)', () => {
         evaluateStageGate(ctx({ pendingConditions: ['PAYMENT_TERM_OVER_60'] }), 4, 5, S, TODAY),
       ),
     ).toEqual(['NON_ECONOMIC_PENDING']);
-    const s2 = { ...S, 'compliance.requiredBeforeProposal': true };
-    expect(codes(evaluateStageGate(ctx(), 4, 5, s2, TODAY))).toEqual(['COMPLIANCE_PENDING']);
-    expect(evaluateStageGate(ctx({ complianceApproved: true }), 4, 5, s2, TODAY).ok).toBe(true);
+    expect(codes(evaluateStageGate(ctx({ complianceApproved: false }), 4, 5, S, TODAY))).toEqual([
+      'COMPLIANCE_PENDING',
+    ]);
+    const off = { ...S, 'compliance.requiredBeforeProposal': false };
+    expect(evaluateStageGate(ctx({ complianceApproved: false }), 4, 5, off, TODAY).ok).toBe(true);
   });
 
   it('5→6 keeps validating the approval', () => {
@@ -283,6 +285,22 @@ describe('stage gates 0–8 (ARCHITECTURE §8.1)', () => {
     expect(codes(evaluateStageGate(ctx({ handoff: null }), 7, 8, S, TODAY))).toEqual([
       'HANDOFF_MISSING',
     ]);
+    const partial = {
+      attendeeRoles: ['LOCAL_DELIVERY', 'CHINA_DELIVERY'] as const,
+      zmpProjectId: 'Z',
+      checklistMissing: ['sowReviewed'],
+    };
+    expect(
+      codes(
+        evaluateStageGate(
+          ctx({ handoff: { ...partial, attendeeRoles: [...partial.attendeeRoles] } }),
+          7,
+          8,
+          S,
+          TODAY,
+        ),
+      ),
+    ).toEqual(['HANDOFF_CHECKLIST_INCOMPLETE']);
   });
 
   it('9–11 are derived; jumps evaluate every intermediate gate; backwards needs a reason', () => {

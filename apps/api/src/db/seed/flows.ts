@@ -219,3 +219,30 @@ export async function loadSheet(
     }),
   );
 }
+
+/** P9-01 checklist reviewed in the hand-off meeting. */
+export const HANDOFF_CHECKLIST_OK = {
+  commercialSheetReviewed: true,
+  sowReviewed: true,
+  milestonesReviewed: true,
+  acceptanceCriteriaReviewed: true,
+};
+
+/** P14: checklist answered by the AM, reviewed by China Legal, approved by the CM. */
+export async function approveCompliance(
+  am: ApiClient,
+  legal: ApiClient,
+  cm: ApiClient,
+  oppId: string,
+) {
+  const c = await okData(am.post(`/opportunities/${oppId}/compliance-checklists`));
+  await okData(
+    am.put(
+      `/compliance-checklists/${c.id}/items`,
+      c.items.map((i: { itemCode: string }) => ({ itemCode: i.itemCode, answer: 'NO' })),
+    ),
+  );
+  await okData(am.post(`/compliance-checklists/${c.id}/submit`));
+  await okData(legal.post(`/compliance-checklists/${c.id}/review`, { status: 'REVIEWED' }));
+  return okData(cm.post(`/compliance-checklists/${c.id}/approve`));
+}

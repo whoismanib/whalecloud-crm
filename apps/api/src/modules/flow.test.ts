@@ -2,7 +2,9 @@ import type { FastifyInstance } from 'fastify';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { as, client, createTestApp, uniq } from '../../test/helpers';
 import {
+  approveCompliance,
   createOpportunity,
+  HANDOFF_CHECKLIST_OK,
   lineAt,
   loadSheet,
   milestonesPct,
@@ -20,6 +22,7 @@ let china: ApiClient;
 let president: ApiClient;
 let vp: ApiClient;
 let finance: ApiClient;
+let legal: ApiClient;
 let entityId: string;
 let localDeliveryId: string;
 let chinaDeliveryId: string;
@@ -65,6 +68,7 @@ beforeAll(async () => {
   president = client(app, await as(app, ['LATAM_PRESIDENT']));
   vp = client(app, await as(app, ['VP']));
   finance = client(app, await as(app, ['CHINA_FINANCE']));
+  legal = client(app, await as(app, ['CHINA_LEGAL'], { countryCodes: ['*'] }));
   const ld = await as(app, ['LOCAL_DELIVERY']);
   const cd = await as(app, ['CHINA_DELIVERY']);
   localDeliveryId = ld.userId;
@@ -206,6 +210,7 @@ describe('P6 approval matrix on real sheets', () => {
     const opp = await okData(am.get(`/opportunities/${s.oppId}`));
     expect(opp).toMatchObject({ approvedNetMargin: '0.579607', approvalExpiresOn: '2027-01-03' });
 
+    await approveCompliance(am, legal, cm, s.oppId);
     // 4→5 blocked: cash flow 20/20/50/10 vs T&C 30/50/20 (P7-02)
     const g = await am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 5 });
     expect(g.status).toBe(422);
@@ -270,6 +275,11 @@ describe('P6 approval matrix on real sheets', () => {
       await okData(president.post(`/approval-steps/${st.id}/decision`, { decision: 'APPROVED' }));
     }
     expect((await okData(am.get(`/approval-requests/${ar.id}`))).status).toBe('APPROVED');
+    // P14-02: proposal blocked until the compliance checklist is approved
+    expect(codes(await am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 5 }))).toEqual([
+      'COMPLIANCE_PENDING',
+    ]);
+    await approveCompliance(am, legal, cm, s.oppId);
     // 4 → 5 → 6 now pass
     await okData(am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 5 }));
     await okData(am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 6 }));
@@ -305,6 +315,7 @@ describe('P7 → P8: contract, milestones, invoice, payment, collections', () =>
         comment: 'Acta comité',
       }),
     );
+    await approveCompliance(am, legal, cm, s.oppId);
     await okData(am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 6 }));
 
     // 6→7 needs signed contract with standard name + China system ID
@@ -356,6 +367,7 @@ describe('P7 → P8: contract, milestones, invoice, payment, collections', () =>
         meetingAt: '2026-11-04',
         attendeeUserIds: [localDeliveryId, chinaDeliveryId],
         zmpProjectId: 'ZMP-7788',
+        ...HANDOFF_CHECKLIST_OK,
       }),
     );
     await okData(am.post(`/opportunities/${s.oppId}/transitions`, { toStage: 8 }));

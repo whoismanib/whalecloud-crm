@@ -2,6 +2,7 @@ import type { Action, ActionKey, ProcessCode, UserRole } from '@wcrm/shared';
 import type pg from 'pg';
 import type { Config } from './config';
 import type { Db } from './db/client';
+import type { MailTransport } from './services/mailer';
 import type { RulesContextService } from './services/rulesContext';
 
 export interface AppContext {
@@ -9,6 +10,7 @@ export interface AppContext {
   pool: pg.Pool;
   config: Config;
   rules: RulesContextService;
+  mailer: MailTransport;
   routes: { method: string; url: string; isPublic: boolean; hasGuard: boolean }[];
 }
 

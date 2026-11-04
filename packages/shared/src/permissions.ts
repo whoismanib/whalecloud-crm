@@ -90,6 +90,11 @@ export const ACTION_ROLES = {
   'P8.suspendAccount': ['COUNTRY_MANAGER'],
   'P4.financeComment': ['CHINA_FINANCE'],
   'FX.write': ['CHINA_FINANCE', 'ADMIN'],
+  'P11.exception': ['COUNTRY_MANAGER'],
+  'P13.conflict.decide': ['COUNTRY_MANAGER'],
+  'P14.checklist.review': ['CHINA_LEGAL'],
+  'P14.checklist.approve': ['COUNTRY_MANAGER'],
+  'P16.hours.import': ['LOCAL_DELIVERY', 'ADMIN'],
 } as const satisfies Record<string, readonly UserRole[]>;
 export type ActionKey = keyof typeof ACTION_ROLES;
 

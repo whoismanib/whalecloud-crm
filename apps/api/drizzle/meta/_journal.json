@@ -15,6 +15,20 @@
       "when": 1793799362288,
       "tag": "0001_audit_and_guards",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793802681763,
+      "tag": "0002_phase2",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793802682923,
+      "tag": "0003_phase2_guards",
+      "breakpoints": true
     }
   ]
 }

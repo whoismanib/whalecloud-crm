@@ -42,6 +42,8 @@ const ConfigSchema = z
     LOGIN_LOCK_MINUTES: z.coerce.number().int().default(15),
     ARGON2_MEMORY_KIB: z.coerce.number().int().default(19456),
     ARGON2_TIME_COST: z.coerce.number().int().default(2),
+    MAIL_DRIVER: z.enum(['console', 'none']).default('console'),
+    WORKER_ENABLED: bool,
     SEED_ADMIN_EMAIL: z.string().default('admin@example.com'),
     SEED_ADMIN_PASSWORD: z.string().default('change-me-admin-123'),
     SEED_DEMO_PASSWORD: z.string().default('Demo-Password-2026!'),

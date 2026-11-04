@@ -8,3 +8,4 @@ export * from './contracts';
 export * from './billing';
 export * from './postsale';
 export * from './audit';
+export * from './phase2';

@@ -176,6 +176,7 @@ export const collectionActions = pgTable(
     status: actionStatus().notNull().default('PENDING'),
     doneAt: timestamp({ withTimezone: true }),
     doneBy: uuid(),
+    notifiedAt: timestamp({ withTimezone: true }),
     outcome: text(),
     jobKey: text().notNull().unique(),
   },

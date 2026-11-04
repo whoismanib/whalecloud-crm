@@ -50,7 +50,12 @@ export interface GateContext {
   offerValidityDays: number | null;
   signedContract: { repositoryUrl: string | null; standardName: string | null } | null;
   chinaSystemContractId: string | null;
-  handoff: { attendeeRoles: UserRole[]; zmpProjectId: string | null } | null;
+  handoff: {
+    attendeeRoles: UserRole[];
+    zmpProjectId: string | null;
+    /** Checklist items not reviewed in the meeting (P9-01). */
+    checklistMissing?: string[];
+  } | null;
   zmpProjectId: string | null;
 }
 
@@ -166,6 +171,9 @@ export function gateFor(
         !h.attendeeRoles.includes('CHINA_DELIVERY')
       ) {
         f.push({ code: 'HANDOFF_MISSING' });
+      }
+      if (h?.checklistMissing?.length) {
+        f.push({ code: 'HANDOFF_CHECKLIST_INCOMPLETE', params: { missing: h.checklistMissing } });
       }
       if (blank(ctx.zmpProjectId) && blank(h?.zmpProjectId ?? null))
         f.push({ code: 'ZMP_ID_MISSING' });
