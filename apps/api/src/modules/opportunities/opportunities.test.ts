@@ -51,6 +51,15 @@ afterAll(async () => {
   await app.close();
 });
 
+describe('catalogs', () => {
+  it('returns user roles as a JSON array (QA-002: the hand-off attendee list maps them)', async () => {
+    const { users } = await okData(am.get('/catalogs'));
+    expect(users.length).toBeGreaterThan(0);
+    for (const u of users) expect(Array.isArray(u.roles)).toBe(true);
+    expect(users.some((u: { roles: string[] }) => u.roles.includes('ACCOUNT_MANAGER'))).toBe(true);
+  });
+});
+
 describe('accounts (CORE-01)', () => {
   it('blocks missing mandatory fields with 400 VALIDATION_ERROR', async () => {
     const r = await am.post('/accounts', { name: 'Sin datos' });

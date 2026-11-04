@@ -20,7 +20,7 @@ export async function catalogRoutes(app: FastifyInstance) {
           email: users.email,
           roles: sql<
             string[]
-          >`coalesce(array_agg(${userRoles.role}) filter (where ${userRoles.role} is not null), '{}')`,
+          >`coalesce(array_agg(${userRoles.role}) filter (where ${userRoles.role} is not null), '{}')::text[]`,
         })
         .from(users)
         .leftJoin(userRoles, eq(userRoles.userId, users.id))
