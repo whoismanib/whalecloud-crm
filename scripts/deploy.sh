@@ -2,7 +2,7 @@
 # Host-side deploy helper (runs on the ECS host, in the app directory). Used by deploy.yml and by
 # the runbooks (docs/release/RUNBOOK-DEPLOY.md, RUNBOOK-ROLLBACK.md).
 #
-#   sh scripts/deploy.sh migrate <image-tag>   # set IMAGE_TAG, pull, start db, run one-shot migrate
+#   sh scripts/deploy.sh migrate <image-tag>   # set IMAGE_TAG, pull, start db, backup, run migrate
 #   sh scripts/deploy.sh rollout               # up -d api worker web backup, wait for healthchecks
 #   sh scripts/deploy.sh rollback              # go back to the previous IMAGE_TAG (no migrations)
 #   sh scripts/deploy.sh status                # current/previous tag and container health
@@ -50,6 +50,8 @@ case "$cmd" in
     dc pull
     dc up -d db
     wait_healthy db
+    # Pre-migration backup: the restore point for RUNBOOK-ROLLBACK.md §3 (SKIP_PREDEPLOY_BACKUP=1 skips it).
+    if [ "${SKIP_PREDEPLOY_BACKUP:-0}" != "1" ]; then dc run --rm --no-deps backup backup.sh; fi
     dc run --rm migrate
     ;;
   rollout)
