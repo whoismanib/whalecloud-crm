@@ -392,3 +392,7 @@ GET /api/v1/sheet-versions/…/approval-preview
   asignado (solo `answer`/`comment`). `cm-review` exige decisión PARTICIPATE y matriz completa; `deliver`
   responde 422 `RFP_CM_REVIEW_REQUIRED` / `RFP_REQUIREMENTS_PENDING` / `RFP_DECISION_REQUIRED`;
   `result` exige entrega salvo CANCELLED. Sin `PATCH /rfps/:id` ni demos (P3-05).
+- QA-008: `GET/POST/DELETE /delegations` (propias; Admin todas; `delegatorUserId` solo con ADM:A),
+  `/auth/me.delegatedRoles`, bandeja `/approvals` con `delegated`; `GET/POST /price-requests/:id/cost-estimates`
+  (POST con arreglo), `PATCH /cost-estimates/:id` (responsable o P5:R/A), `POST /cost-estimates/:id/sign`
+  (solo responsable); `GET /dashboard/process-kpis` (`available:false` para KPIs sin datos fuente).

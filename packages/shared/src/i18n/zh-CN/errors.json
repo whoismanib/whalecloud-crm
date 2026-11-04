@@ -109,7 +109,12 @@
     "RFP_REQUIREMENTS_PENDING": "矩阵中有 {{count}} 项要求未回答。",
     "RFP_CM_REVIEW_REQUIRED": "最终答复需国家经理审核。",
     "RFP_ALREADY_DELIVERED": "该 RFP 已提交。",
-    "RFP_NOT_DELIVERED": "请先登记提交，再登记中标结果。"
+    "RFP_NOT_DELIVERED": "请先登记提交，再登记中标结果。",
+    "DELEGATION_SELF": "不能委托给自己。",
+    "DELEGATION_ROLE_NOT_HELD": "委托人不具备角色 {{role}}。",
+    "DELEGATION_IN_PAST": "该委托已结束。",
+    "DELEGATE_NOT_FOUND": "受托人不存在或已停用。",
+    "COST_ESTIMATE_EMPTY": "签字前请填写人月。"
   },
   "validation": {
     "REQUIRED": "必填",

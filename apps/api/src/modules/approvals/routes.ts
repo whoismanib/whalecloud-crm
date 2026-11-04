@@ -12,6 +12,7 @@ import { and, asc, desc, eq, inArray, sql } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { recordAudit } from '../../audit/record';
+import { delegatedFor } from '../../services/delegations';
 import type { DbOrTx } from '../../db/client';
 import {
   accounts,
@@ -218,10 +219,13 @@ export async function approvalRoutes(app: FastifyInstance) {
       req.query,
     );
     const where = [eq(approvalSteps.status, (q.status ?? 'PENDING') as 'PENDING')];
+    // ADM-04: roles delegated to me today also land in my inbox
+    const delegated = await delegatedFor(db, auth.user.id, req.today);
+    const myRoles = [...new Set([...auth.roles, ...delegated.roles])];
     if (q.assignedToMe !== 'false') {
       where.push(
         sql`(${approvalSteps.assigneeUserId} = ${auth.user.id} OR ${approvalSteps.assigneeRole}::text IN (${sql.join(
-          auth.roles.map((r) => sql`${r}`),
+          myRoles.map((r) => sql`${r}`),
           sql`, `,
         )}))`,
       );
@@ -255,6 +259,8 @@ export async function approvalRoutes(app: FastifyInstance) {
         amountUsd: r.amountUsd,
         requestedByName: r.requestedByName,
         overdue: r.step.dueOn !== null && r.step.dueOn < req.today,
+        delegated:
+          r.step.assigneeUserId !== auth.user.id && !auth.roles.includes(r.step.assigneeRole),
       })),
     );
   });
@@ -330,9 +336,15 @@ export async function approvalRoutes(app: FastifyInstance) {
             .where(eq(approvalSteps.id, id))
             .for('update');
           if (!step) throw notFound();
-          if (step.assigneeUserId !== auth.user.id && !auth.roles.includes(step.assigneeRole)) {
-            throw new AppError(403, 'FORBIDDEN');
-          }
+          const own =
+            step.assigneeUserId === auth.user.id || auth.roles.includes(step.assigneeRole);
+          // ADM-04: a delegate acts for the absent role holder; the audit keeps on whose behalf
+          const onBehalfOf = own
+            ? []
+            : (await delegatedFor(tx, auth.user.id, req.today)).onBehalfOf.filter(
+                (x) => x.role === step.assigneeRole,
+              );
+          if (!own && !onBehalfOf.length) throw new AppError(403, 'FORBIDDEN');
           const [ar] = await tx
             .select()
             .from(approvalRequests)
@@ -362,6 +374,9 @@ export async function approvalRoutes(app: FastifyInstance) {
             changes: [
               { field: 'status', old: 'PENDING', new: body.decision },
               { field: 'kind', old: null, new: step.kind },
+              ...(onBehalfOf.length
+                ? [{ field: 'onBehalfOf', old: null, new: onBehalfOf.map((x) => x.userId) }]
+                : []),
             ],
             reason: body.comment ?? null,
           });

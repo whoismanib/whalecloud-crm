@@ -109,7 +109,12 @@
     "RFP_REQUIREMENTS_PENDING": "{{count}} requirements in the matrix are unanswered.",
     "RFP_CM_REVIEW_REQUIRED": "The final answer needs the Country Manager review.",
     "RFP_ALREADY_DELIVERED": "The RFP has already been delivered.",
-    "RFP_NOT_DELIVERED": "Record the delivery before the award."
+    "RFP_NOT_DELIVERED": "Record the delivery before the award.",
+    "DELEGATION_SELF": "You cannot delegate to yourself.",
+    "DELEGATION_ROLE_NOT_HELD": "The holder does not have the role {{role}}.",
+    "DELEGATION_IN_PAST": "The delegation has already ended.",
+    "DELEGATE_NOT_FOUND": "The delegate does not exist or is inactive.",
+    "COST_ESTIMATE_EMPTY": "Record the person-months before signing."
   },
   "validation": {
     "REQUIRED": "Required",

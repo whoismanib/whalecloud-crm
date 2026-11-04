@@ -25,6 +25,7 @@ import { and, eq, inArray, sql } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { Db } from '../../db/client';
+import { computeProcessKpis } from './processKpis';
 import {
   accounts,
   approvalRequests,
@@ -142,6 +143,13 @@ export async function dashboardRoutes(app: FastifyInstance) {
       const ctx = await rules.get();
       return ok(await computeHealth(db, ctx, authOf(req), req.today));
     },
+  );
+
+  /** DASH-05: KPIs per process P1–P16 (KPIS.md §4). */
+  app.get(
+    '/dashboard/process-kpis',
+    { config: { guard: { process: 'DASH', action: 'view' } } },
+    async (req) => ok(await computeProcessKpis(db, await rules.get(), authOf(req), req.today)),
   );
 
   app.get(

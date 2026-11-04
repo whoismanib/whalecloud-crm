@@ -142,6 +142,56 @@ const toItem = (i: typeof forecastSnapshotItems.$inferSelect): ForecastItem => (
   expectedCloseDate: i.expectedCloseDate,
 });
 
+/** P12-05 accuracy for a quarter: first snapshot of the period vs S&S signed (also DASH-05). */
+export async function forecastAccuracyFor(db: Db, ctx: RulesContext, period: string) {
+  const { from, to } = quarterRange(period);
+  const [snap] = await db
+    .select()
+    .from(forecastSnapshots)
+    .where(lte(forecastSnapshots.takenOn, to))
+    .orderBy(sql`abs(${forecastSnapshots.takenOn} - ${from}::date)`, asc(forecastSnapshots.takenOn))
+    .limit(1);
+  const items = snap
+    ? await db
+        .select()
+        .from(forecastSnapshotItems)
+        .where(eq(forecastSnapshotItems.snapshotId, snap.id))
+    : [];
+  const forecast = forecastTotals(
+    items.map(toItem),
+    ctx.settings['forecast.stageProbabilities'],
+    from,
+    to,
+  ).commitPlusProbable;
+  const rows = await db
+    .select({
+      type: contracts.type,
+      countsForSs: contracts.countsForSs,
+      signedOn: contracts.signedOn,
+      amount: sql<string>`coalesce(${contracts.amountCny},0)::text`,
+      stage: opportunities.stage,
+      status: opportunities.status,
+      customerTypeFrozen: opportunities.customerTypeFrozen,
+      countsAsDigital: opportunities.countsAsDigital,
+    })
+    .from(contracts)
+    .innerJoin(opportunities, eq(opportunities.id, contracts.opportunityId))
+    .where(inArray(contracts.status, ['SIGNED', 'ACTIVE', 'EXPIRED']));
+  const actual = ssSigned(
+    rows.map((r) => ({ ...r, opportunityWon: r.stage >= 7 && r.status === 'OPEN' })),
+    from,
+    to,
+  ).total;
+  return {
+    period,
+    snapshotId: snap?.id ?? null,
+    snapshotOn: snap?.takenOn ?? null,
+    forecast,
+    actual,
+    ...forecastAccuracy(actual, forecast, ctx.settings['forecast.accuracyTolerance']),
+  };
+}
+
 /** P12 forecast: categories, cadence Mon/Tue/Wed, weekly snapshot, changes and accuracy. */
 export async function forecastRoutes(app: FastifyInstance) {
   const { db, rules } = app.ctx;
@@ -333,56 +383,7 @@ export async function forecastRoutes(app: FastifyInstance) {
     { config: { guard: { process: 'P12', action: 'view' } } },
     async (req) => {
       const { period } = parse(z.object({ period: z.string().regex(/^\d{4}Q[1-4]$/) }), req.query);
-      const ctx = await rules.get();
-      const { from, to } = quarterRange(period);
-      const [snap] = await db
-        .select()
-        .from(forecastSnapshots)
-        .where(lte(forecastSnapshots.takenOn, to))
-        .orderBy(
-          sql`abs(${forecastSnapshots.takenOn} - ${from}::date)`,
-          asc(forecastSnapshots.takenOn),
-        )
-        .limit(1);
-      const items = snap
-        ? await db
-            .select()
-            .from(forecastSnapshotItems)
-            .where(eq(forecastSnapshotItems.snapshotId, snap.id))
-        : [];
-      const forecast = forecastTotals(
-        items.map(toItem),
-        ctx.settings['forecast.stageProbabilities'],
-        from,
-        to,
-      ).commitPlusProbable;
-      const rows = await db
-        .select({
-          type: contracts.type,
-          countsForSs: contracts.countsForSs,
-          signedOn: contracts.signedOn,
-          amount: sql<string>`coalesce(${contracts.amountCny},0)::text`,
-          stage: opportunities.stage,
-          status: opportunities.status,
-          customerTypeFrozen: opportunities.customerTypeFrozen,
-          countsAsDigital: opportunities.countsAsDigital,
-        })
-        .from(contracts)
-        .innerJoin(opportunities, eq(opportunities.id, contracts.opportunityId))
-        .where(inArray(contracts.status, ['SIGNED', 'ACTIVE', 'EXPIRED']));
-      const actual = ssSigned(
-        rows.map((r) => ({ ...r, opportunityWon: r.stage >= 7 && r.status === 'OPEN' })),
-        from,
-        to,
-      ).total;
-      return ok({
-        period,
-        snapshotId: snap?.id ?? null,
-        snapshotOn: snap?.takenOn ?? null,
-        forecast,
-        actual,
-        ...forecastAccuracy(actual, forecast, ctx.settings['forecast.accuracyTolerance']),
-      });
+      return ok(await forecastAccuracyFor(db, await rules.get(), period));
     },
   );
 

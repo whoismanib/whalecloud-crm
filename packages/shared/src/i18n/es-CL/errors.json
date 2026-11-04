@@ -109,7 +109,12 @@
     "RFP_REQUIREMENTS_PENDING": "Hay {{count}} requisitos sin responder en la matriz.",
     "RFP_CM_REVIEW_REQUIRED": "La respuesta final necesita la revisión del Country Manager.",
     "RFP_ALREADY_DELIVERED": "La RFP ya fue entregada.",
-    "RFP_NOT_DELIVERED": "Registra la entrega antes de la adjudicación."
+    "RFP_NOT_DELIVERED": "Registra la entrega antes de la adjudicación.",
+    "DELEGATION_SELF": "No puedes delegarte a ti mismo.",
+    "DELEGATION_ROLE_NOT_HELD": "El titular no tiene el rol {{role}}.",
+    "DELEGATION_IN_PAST": "La delegación ya terminó.",
+    "DELEGATE_NOT_FOUND": "El delegado no existe o está inactivo.",
+    "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar."
   },
   "validation": {
     "REQUIRED": "Obligatorio",

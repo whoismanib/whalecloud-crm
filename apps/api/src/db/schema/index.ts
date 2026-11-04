@@ -10,3 +10,4 @@ export * from './postsale';
 export * from './audit';
 export * from './phase2';
 export * from './presales';
+export * from './qa008';

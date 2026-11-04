@@ -814,3 +814,8 @@ Implementado en `apps/api/src/db/schema/phase2.ts` + `drizzle/0002_phase2.sql` y
 KPI), `cm_review_comment`, `delivered_on date` además de `delivered_at`, `compliance_pct numeric(7,4)`
 como fracción (0–1). CHECK `client_deadline >= received_on` y `delivered_at IS NULL OR cm_reviewed_at IS NOT NULL`.
 Migración `0004_blank_tax_id_null.sql`: `accounts.tax_id = ''` → NULL (QA-001).
+
+### 10.2 QA-008 (`drizzle/0006_delegations_cost_estimates.sql`)
+
+`approval_delegations` según §4.1 más `revoked_by`; `cost_estimates` según §4.6 con `person_months`
+nullable hasta que el responsable lo registra y CHECK `>= 0`; enum `resource_type`.

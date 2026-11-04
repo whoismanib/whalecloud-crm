@@ -47,7 +47,9 @@
         "INTERNAL_DUE": "Hito interno de RFP hoy: {{title}}",
         "INTERNAL_OVERDUE": "Hito interno de RFP vencido: {{title}} ({{due}})",
         "CLIENT_DEADLINE_MISSED": "RFP no entregada al cierre del cliente: {{title}} ({{due}})"
-      }
+      },
+      "delegationReceived": "Recibiste una delegación de aprobaciones ({{role}}) del {{startsOn}} al {{endsOn}}",
+      "costEstimateAssigned": "Estimación de costo asignada: {{name}} ({{area}})"
     }
   },
   "handoff": {

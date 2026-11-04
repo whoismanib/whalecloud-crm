@@ -47,7 +47,9 @@
         "INTERNAL_DUE": "RFP internal milestone today: {{title}}",
         "INTERNAL_OVERDUE": "RFP internal milestone overdue: {{title}} ({{due}})",
         "CLIENT_DEADLINE_MISSED": "RFP not delivered by the client deadline: {{title}} ({{due}})"
-      }
+      },
+      "delegationReceived": "You received an approval delegation ({{role}}) from {{startsOn}} to {{endsOn}}",
+      "costEstimateAssigned": "Cost estimate assigned: {{name}} ({{area}})"
     }
   },
   "handoff": {

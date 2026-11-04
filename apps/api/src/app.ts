@@ -30,6 +30,8 @@ import { distributorRoutes } from './modules/distributors/routes';
 import { complianceRoutes } from './modules/compliance/routes';
 import { onboardingRoutes } from './modules/onboarding/routes';
 import { rfpRoutes } from './modules/rfps/routes';
+import { delegationRoutes } from './modules/delegations/routes';
+import { costEstimateRoutes } from './modules/price-requests/costEstimates.routes';
 import { capacityRoutes } from './modules/capacity/routes';
 import { adminRoutes } from './modules/admin/routes';
 import { importExportRoutes } from './modules/imports/routes';
@@ -215,6 +217,8 @@ export async function buildApp(opts: BuildOptions = {}): Promise<FastifyInstance
       await complianceRoutes(api);
       await onboardingRoutes(api);
       await rfpRoutes(api);
+      await delegationRoutes(api);
+      await costEstimateRoutes(api);
       await capacityRoutes(api);
       await adminRoutes(api);
       await importExportRoutes(api);

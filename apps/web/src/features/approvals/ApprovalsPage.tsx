@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
 import { EnumBadge, PageHeader } from '../../components/ui';
+import { DelegationsPanel } from './DelegationsPanel';
 import { fmtDate, fmtMoney, fmtPct } from '../../lib/format';
 import { StepDecision } from '../opportunities/tabs/ApprovalTab';
 
@@ -21,6 +22,7 @@ interface InboxItem {
   consultedRoles: string[];
   informedRoles: string[];
   overdue: boolean;
+  delegated?: boolean;
   opportunityId: string;
   opportunityName: string;
   opportunityCode: string;
@@ -58,6 +60,11 @@ export default function ApprovalsPage() {
             </Text>
             <Stack gap={4} mt="xs">
               <Text size="sm">
+                {s.delegated && (
+                  <Badge color="orange" size="xs" mr={4}>
+                    {t('p3:delegation.onBehalf')}
+                  </Badge>
+                )}
                 {t(`enums:stepKind.${s.kind}`)}{' '}
                 {s.condition ? `· ${t(`enums:condition.${s.condition}`)}` : ''}
               </Text>
@@ -91,6 +98,7 @@ export default function ApprovalsPage() {
           </Paper>
         ))}
       </SimpleGrid>
+      <DelegationsPanel />
     </Stack>
   );
 }

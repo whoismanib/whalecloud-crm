@@ -22,3 +22,5 @@ export * from './channel';
 export * from './forecast';
 export * from './importing';
 export * from './presales';
+export * from './delegation';
+export * from './processKpis';

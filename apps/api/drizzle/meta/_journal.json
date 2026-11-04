@@ -43,6 +43,13 @@
       "when": 1793808702292,
       "tag": "0005_p3_presales",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793809248740,
+      "tag": "0006_delegations_cost_estimates",
+      "breakpoints": true
     }
   ]
 }

@@ -17,6 +17,7 @@ import { sessions, userRoles, users } from '../../db/schema/index';
 import { AppError } from '../../lib/errors';
 import { actorOf, authOf, ok } from '../../lib/http';
 import { parse } from '../../lib/validate';
+import { delegatedFor } from '../../services/delegations';
 
 export async function authRoutes(app: FastifyInstance) {
   const { db, config, rules } = app.ctx;
@@ -157,6 +158,7 @@ export async function authRoutes(app: FastifyInstance) {
       permissions,
       actionRoles,
       visibleStages: visibleStages(auth.roles, raci),
+      delegatedRoles: (await delegatedFor(db, auth.user.id, req.today)).roles,
     });
   });
 

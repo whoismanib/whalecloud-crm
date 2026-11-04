@@ -455,3 +455,13 @@ export const RFP_RESULTS = ['PENDING', 'WON', 'LOST', 'CANCELLED'] as const;
 export type RfpResult = (typeof RFP_RESULTS)[number];
 export const COMPLIANCE_ANSWERS = ['COMPLIES', 'PARTIAL', 'NOT_COMPLIES', 'PENDING'] as const;
 export type ComplianceAnswer = (typeof COMPLIANCE_ANSWERS)[number];
+
+// ---------- P5-04 cost estimates (QA-008) ----------
+export const RESOURCE_TYPES = [
+  'CN_ONSITE_RD',
+  'CN_INTERNAL_RD',
+  'CN_REMOTE',
+  'LOCAL',
+  'TRAVEL',
+] as const;
+export type ResourceType = (typeof RESOURCE_TYPES)[number];

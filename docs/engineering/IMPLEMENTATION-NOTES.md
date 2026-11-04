@@ -48,6 +48,9 @@ TLS, backups y documentación de release quedan a cargo del Release Manager.
 | Notificaciones | ✅ in-app con deduplicación (`dedupe_key`), campana con no leídas, marcar leído / todo; correo vía transporte enchufable (`MAIL_DRIVER=console\|none`) | `services/notify.ts`, `services/mailer.ts`, `NotificationBell.tsx` |
 | Administración | ✅ usuarios y roles (revoca sesiones al cambiar), RACI editable por versión (protección contra dejar sin ADM al Admin), parámetros con validación e historial, TC mensual, feriados por calendario, importación, tareas | `admin/routes.ts`, web `/administracion` |
 | Importación | ✅ CSV de cuentas / oportunidades / facturas (plantillas descargables) y `tracker_data.json` (wom[], new_clients[], billing[], estado con el mapeo legado), con simulación (rollback) y reporte por fila | `imports/service.ts`, `rules/importing.ts` |
+| P5-04 Estimaciones de costo | ✅ (QA-008) Ventas China asigna estimaciones (área, tipo de recurso) a I+D/delivery China con aviso in-app (texto en el idioma de cada usuario); el responsable registra meses-persona y firma (autor + fecha); un cambio posterior borra la firma; la solicitud pasa a COSTING | `price-requests/costEstimates.routes.ts`, `CostEstimates.tsx` |
+| ADM-04 Delegación de aprobaciones | ✅ (QA-008) delegación por rol y fechas (propia, o de cualquiera por Admin), revocable; el delegado ve los pasos en su bandeja y decide; la bitácora guarda `onBehalfOf` | `modules/delegations`, `services/delegations.ts`, `DelegationsPanel.tsx` |
+| DASH-05 KPIs por proceso | ✅ (QA-008) `GET /dashboard/process-kpis` con 29 KPIs de `KPIS.md` §4 y semáforo; **pendientes por falta de datos fuente**: P2 conversión por etapa (cohortes), P7 revisión Legal a tiempo (no hay tarea Legal), P10 crecimiento por cuenta, P14 hallazgos de auditoría (sin tabla) | `dashboard/processKpis.ts`, `ProcessKpis.tsx` (Resumen) |
 | Exportación | ✅ CSV/XLSX de cuentas, oportunidades (con visibilidad), facturas, incidentes y Resumen; auditada como `EXPORT` | `imports/routes.ts`, `ExportButtons.tsx` |
 
 Pruebas: 129 unitarias (shared, cobertura ≈ 99,6 % de líneas en reglas), 57 de integración API
@@ -92,6 +95,7 @@ y simulación de importación del tracker legado), sin errores de consola salvo 
 | P15: días a la primera oportunidad, atraso | `postsales.ts` `daysToFirstOpportunity`, `onboardingOverdue` | `phase2.test.ts` |
 | P16: consumo de OC, 80 %/100 %, exceso, proyección | `postsales.ts` `poConsumption`, `exhaustionProjection` | `phase2.test.ts`, API P16 |
 | P3: decisión +2 d háb., hito interno −5 d háb., % de cumplimiento, bloqueo de entrega, alertas, KPIs | `presales.ts` `rfpDates`, `rfpCompliance`, `rfpDeliverFailures`, `rfpAlerts`, `rfpKpis` | `presales.test.ts`, `rfps/rfps.test.ts`, E2E `presales.spec.ts` |
+| ADM-04: delegación vigente, validación, autoridad del delegado; DASH-05: semáforo por dirección | `delegation.ts`, `processKpis.ts` | `qa008.test.ts` (shared y API) |
 | Importación: CSV RFC 4180 (`;`/`,`, BOM), fechas y montos laxos, tracker legado | `importing.ts` | `phase2.test.ts`, API import |
 
 ## 3. Desviaciones respecto de `docs/architecture` (y por qué)
@@ -154,5 +158,6 @@ y simulación de importación del tracker legado), sin errores de consola salvo 
 - PDF del informe semanal y envío por correo (P12-04), SMTP real en el idioma del destinatario.
 - P11-03 (CR sin tarifa vía P5), P14-03/04 (hallazgos de auditoría, solicitudes de titulares Ley 21.719 y anonimización), P15-03/04 (clonado de país, plantillas).
 - Subida de archivos (multipart, lista blanca, S3/OSS), propuestas desde plantilla por motor (P7-01), revisión Legal (P7-04), firma separada con 2 entidades por hito (P7-07).
-- Admin: reasignación al desactivar, reinicio MFA, catálogos, metas, delegaciones, exportación completa (ADM-13).
+- Admin: reasignación al desactivar, reinicio MFA, catálogos (ADM-09), metas, exportación completa (ADM-13).
+- Historias Must aún pendientes (QA-008), requieren aceptación del CM/PM para salir sin ellas: P7-01 propuestas desde plantilla, P7-04 revisión Legal, P11-03 CR sin tarifa vía P5, P12-04 PDF del informe semanal, DASH-04 drill-down, ADM-09 catálogos. KPIs de DASH-05 sin datos fuente: P2 conversión por etapa, P7 revisión Legal a tiempo, P10 crecimiento por cuenta, P14 hallazgos.
 - Drill-down y filtros del tablero, exportación PDF; OpenAPI/Swagger, métricas Prometheus; e2e Playwright versionados en `apps/web/e2e`.

@@ -60,3 +60,4 @@ export const rfpType = pgEnum('rfp_type', E.RFP_TYPES);
 export const rfpDecision = pgEnum('rfp_decision', E.RFP_DECISIONS);
 export const rfpResult = pgEnum('rfp_result', E.RFP_RESULTS);
 export const complianceAnswer = pgEnum('compliance_answer', E.COMPLIANCE_ANSWERS);
+export const resourceType = pgEnum('resource_type', E.RESOURCE_TYPES);

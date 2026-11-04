@@ -27,6 +27,7 @@ import {
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
 import { ExportButtons } from '../../components/ExportButtons';
+import { ProcessKpis } from './ProcessKpis';
 import { EnumBadge, PageHeader } from '../../components/ui';
 import { fmtMoney, fmtNumber, fmtPct } from '../../lib/format';
 
@@ -365,6 +366,7 @@ export default function ResumenPage() {
           </Paper>
         </SimpleGrid>
       )}
+      <ProcessKpis />
     </Stack>
   );
 }

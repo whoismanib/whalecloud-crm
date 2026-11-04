@@ -9,6 +9,7 @@ import {
   ONBOARDING_ITEMS,
   PROCESS_CODES,
   RACI_LETTERS,
+  RESOURCE_TYPES,
   RFP_DECISIONS,
   RFP_RESULTS,
   RFP_TYPES,
@@ -274,4 +275,29 @@ export const RfpResultSchema = z.object({
   winningCompetitor: zText(200).optional().nullable(),
   winningPrice: zMoney.optional().nullable(),
   winningCurrency: z.enum(CURRENCIES).optional().nullable(),
+});
+
+// ---------- P5-04 cost estimates and ADM-04 delegations (QA-008) ----------
+export const CostEstimateAssignSchema = z
+  .array(
+    z.object({
+      area: zReqText(100),
+      resourceType: z.enum(RESOURCE_TYPES),
+      assigneeUserId: zUuid,
+      mandatory: z.boolean().default(true),
+      notes: zText(2000).optional().nullable(),
+    }),
+  )
+  .min(1);
+export const CostEstimateUpdateSchema = z.object({
+  personMonths: zDecimal.refine((v) => Number(v) >= 0, 'AMOUNT_NEGATIVE').optional(),
+  notes: zText(2000).optional().nullable(),
+});
+export const DelegationCreateSchema = z.object({
+  delegatorUserId: zUuid.optional(),
+  delegateUserId: zUuid,
+  role: z.enum(USER_ROLES),
+  startsOn: zDate,
+  endsOn: zDate,
+  reason: zReqText(500),
 });

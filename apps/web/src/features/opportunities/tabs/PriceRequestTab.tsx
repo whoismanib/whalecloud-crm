@@ -40,6 +40,7 @@ import { EnumBadge, EnumSelect, ScrollTable, useFieldError } from '../../../comp
 import { fmtDate } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
+import { CostEstimates } from './CostEstimates';
 
 interface ExpectedMs {
   seq: number;
@@ -395,6 +396,9 @@ export function PriceRequestTab({ opp }: TabProps) {
           </Button>
           <RuleErrors error={setStatus.error} />
         </Group>
+      )}
+      {pr.data && pr.data.status !== 'DRAFT' && (
+        <CostEstimates priceRequestId={pr.data.id} status={pr.data.status} />
       )}
     </Stack>
   );

@@ -327,7 +327,10 @@ export function ApprovalTab({ opp }: TabProps) {
                 {s.comment && <Text size="xs">{s.comment}</Text>}
                 {s.status === 'PENDING' &&
                   r.status === 'PENDING' &&
-                  me?.roles.includes(s.assigneeRole) && <StepDecision step={s} invalidate={inv} />}
+                  (me?.roles.includes(s.assigneeRole) ||
+                    me?.delegatedRoles?.includes(s.assigneeRole)) && (
+                    <StepDecision step={s} invalidate={inv} />
+                  )}
               </Paper>
             ))}
           </Paper>

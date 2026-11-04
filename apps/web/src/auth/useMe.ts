@@ -14,6 +14,8 @@ export interface Me {
   permissions: Record<ProcessCode, RaciLetter[]>;
   actionRoles: Record<string, boolean>;
   visibleStages: number[];
+  /** ADM-04: roles delegated to this user today. */
+  delegatedRoles?: UserRole[];
 }
 
 export function useMe() {
