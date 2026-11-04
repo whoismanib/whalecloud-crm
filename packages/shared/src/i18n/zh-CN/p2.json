@@ -39,6 +39,14 @@
         "D_PLUS_7": "催收 D+7：{{invoice}}（余额 {{balance}}）",
         "D_PLUS_15": "催收 D+15：{{invoice}}（余额 {{balance}}）",
         "D_PLUS_30": "催收 D+30：{{invoice}}（余额 {{balance}}）"
+      },
+      "rfpRegistered": "新 RFI/RFP：{{title}}（{{decisionDueOn}} 前决策，内部里程碑 {{internalDeadline}}）",
+      "rfpRequirementAssigned": "{{title}} 的一项要求已分配给你",
+      "rfp": {
+        "DECISION_OVERDUE": "RFP 未决策：{{title}}（截止 {{due}}）",
+        "INTERNAL_DUE": "RFP 内部里程碑今天到期：{{title}}",
+        "INTERNAL_OVERDUE": "RFP 内部里程碑逾期：{{title}}（{{due}}）",
+        "CLIENT_DEADLINE_MISSED": "RFP 未在客户截止日前提交：{{title}}（{{due}}）"
       }
     }
   },

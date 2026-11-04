@@ -809,6 +809,53 @@ export async function seedDemo(app: FastifyInstance, db: Db, config: Config, tod
     `UPDATE tickets SET last_update_at = now() - interval '6 days' WHERE number IN ('EDO-24702','EDO-24790')`,
   );
 
+  // ---------- P3 Preventa: RFI Entel en curso; RFP GTD entregada y perdida (QA-004) ----------
+  const linId = ids.lin;
+  const rfi = await okData(
+    am.post(`/opportunities/${entelOpp.oppId}/rfps`, {
+      type: 'RFI',
+      title: 'RFI Digital OSS / iNOC',
+      receivedOn: '2026-10-28',
+      clientDeadline: '2026-11-27',
+      documentsUrl: 'https://repo.example.com/entel/rfi-digital-oss.pdf',
+    }),
+  );
+  await okData(am.post(`/rfps/${rfi.id}/decision`, { decision: 'PARTICIPATE' }));
+  const rfiReqs = await okData(
+    am.post(`/rfps/${rfi.id}/requirements`, [
+      { ref: '2.1', requirement: 'Inventario de red multi-vendor', assigneeUserId: linId },
+      { ref: '2.4', requirement: 'NOC 24x7 con SLA P1 de 30 minutos' },
+      { ref: '3.2', requirement: 'Integración TMF Open APIs (TMF638/639)', assigneeUserId: linId },
+    ]),
+  );
+  await okData(c.lin!.patch(`/rfp-requirements/${rfiReqs[0].id}`, { answer: 'COMPLIES' }));
+  await okData(
+    am.patch(`/rfp-requirements/${rfiReqs[1].id}`, {
+      answer: 'PARTIAL',
+      comment: 'NOC compartido con Lima',
+    }),
+  );
+  const rfpGtd = await okData(
+    am.post(`/opportunities/${gtdLpc.oppId}/rfps`, {
+      type: 'RFP',
+      title: 'RFP nube soberana GTD',
+      receivedOn: '2026-09-01',
+      clientDeadline: '2026-09-30',
+    }),
+  );
+  await okData(am.post(`/rfps/${rfpGtd.id}/decision`, { decision: 'PARTICIPATE' }));
+  const gtdReq = await okData(
+    am.post(`/rfps/${rfpGtd.id}/requirements`, [
+      { ref: '1', requirement: 'Datos alojados en Chile' },
+    ]),
+  );
+  await okData(am.patch(`/rfp-requirements/${gtdReq[0].id}`, { answer: 'COMPLIES' }));
+  await okData(c.cm!.post(`/rfps/${rfpGtd.id}/cm-review`, { comment: 'OK' }));
+  await okData(am.post(`/rfps/${rfpGtd.id}/deliver`, { deliveredOn: '2026-09-29' }));
+  await okData(
+    am.post(`/rfps/${rfpGtd.id}/result`, { result: 'LOST', winningCompetitor: 'Huawei Cloud' }),
+  );
+
   // ---------- Phase 2 demo data (P10–P16) ----------
   await phase2Demo(app, c, ids, { wom, be, gtd, spa, crContract, womV9: womV9.oppId, today });
   console.log('demo data created');

@@ -1,0 +1,59 @@
+{
+  "nav": "Presales RFI/RFP",
+  "title": "Presales: RFI / RFP",
+  "new": "New RFI/RFP",
+  "kpi": {
+    "onTime": "RFPs delivered on time",
+    "decisionOnTime": "Decision in ≤ 2 business days",
+    "winRate": "Win rate",
+    "delivered": "{{count}} delivered",
+    "decided": "{{count}} decided",
+    "withResult": "{{count}} with result"
+  },
+  "rfp": {
+    "receivedOn": "Received",
+    "decisionDueOn": "Decide by",
+    "internalDeadline": "Internal milestone (−5 bus. days)",
+    "clientDeadline": "Client deadline",
+    "documents": "Documents (https link)",
+    "decision": "Participate / decline",
+    "matrix": "Compliance matrix",
+    "requirement": "Requirement",
+    "answer": "Complies",
+    "assignee": "Owner",
+    "delivery": "Review and delivery",
+    "cmReview": "CM final review",
+    "notReviewed": "pending",
+    "deliveredOn": "Delivered on",
+    "approveFinal": "Approve final answer",
+    "markDelivered": "Mark delivered",
+    "result": "Award",
+    "compliance": "Compliance",
+    "delivered": "Delivered",
+    "reviewed": "Reviewed by CM",
+    "datesHint": "The decision is due 2 business days after reception and the internal milestone is set 5 business days before the deadline (Chile calendar)."
+  },
+  "decision": {
+    "PENDING": "Undecided",
+    "PARTICIPATE": "Participate",
+    "DECLINE": "Decline"
+  },
+  "answer": {
+    "COMPLIES": "Complies",
+    "PARTIAL": "Partial",
+    "NOT_COMPLIES": "Does not comply",
+    "PENDING": "Pending"
+  },
+  "result": {
+    "PENDING": "Pending",
+    "WON": "Won",
+    "LOST": "Lost",
+    "CANCELLED": "Cancelled"
+  },
+  "alert": {
+    "DECISION_OVERDUE": "Decision overdue",
+    "INTERNAL_DUE": "Internal milestone today",
+    "INTERNAL_OVERDUE": "Internal milestone overdue",
+    "CLIENT_DEADLINE_MISSED": "Client deadline missed"
+  }
+}

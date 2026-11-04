@@ -21,3 +21,4 @@ export * from './postsales';
 export * from './channel';
 export * from './forecast';
 export * from './importing';
+export * from './presales';

@@ -806,3 +806,11 @@ Implementado en `apps/api/src/db/schema/phase2.ts` + `drizzle/0002_phase2.sql` y
 - `compliance.requiredBeforeProposal` = **true** (gate 4→5 activo). Parámetros nuevos:
   `renewals`, `capacity.poAlertPct` (0,8), `onboarding.productiveDays` (30),
   `distributors.blockExpiredAgreement`, `forecast.accuracyTolerance` (0,1).
+
+### 10.1 P3 Preventa (QA-004)
+
+`rfps` y `rfp_requirements` según §4.4 (`drizzle/0005_p3_presales.sql`), con estas diferencias:
+`documents_url` (enlace https en vez de adjuntos), `notes`, `decision_reason`, `decided_on date` (para el
+KPI), `cm_review_comment`, `delivered_on date` además de `delivered_at`, `compliance_pct numeric(7,4)`
+como fracción (0–1). CHECK `client_deadline >= received_on` y `delivered_at IS NULL OR cm_reviewed_at IS NOT NULL`.
+Migración `0004_blank_tax_id_null.sql`: `accounts.tax_id = ''` → NULL (QA-001).

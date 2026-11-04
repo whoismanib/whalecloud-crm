@@ -445,3 +445,13 @@ export const IMPORT_KINDS = [
   'ZMP_HOURS',
 ] as const;
 export type ImportKind = (typeof IMPORT_KINDS)[number];
+
+// ---------- P3 Preventa (QA-004) ----------
+export const RFP_TYPES = ['RFI', 'RFP', 'RFQ'] as const;
+export type RfpType = (typeof RFP_TYPES)[number];
+export const RFP_DECISIONS = ['PENDING', 'PARTICIPATE', 'DECLINE'] as const;
+export type RfpDecision = (typeof RFP_DECISIONS)[number];
+export const RFP_RESULTS = ['PENDING', 'WON', 'LOST', 'CANCELLED'] as const;
+export type RfpResult = (typeof RFP_RESULTS)[number];
+export const COMPLIANCE_ANSWERS = ['COMPLIES', 'PARTIAL', 'NOT_COMPLIES', 'PENDING'] as const;
+export type ComplianceAnswer = (typeof COMPLIANCE_ANSWERS)[number];

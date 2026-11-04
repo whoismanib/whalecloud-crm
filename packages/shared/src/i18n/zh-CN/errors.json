@@ -104,7 +104,12 @@
     "ROW_INVALID": "行无效。",
     "SNAPSHOT_EXISTS": "第 {{week}} 周的快照已存在。",
     "CATEGORY_REQUIRED": "缺少预测类别。",
-    "CATEGORY_INCONSISTENT": "仅在方案阶段及以后才可标记为承诺。"
+    "CATEGORY_INCONSISTENT": "仅在方案阶段及以后才可标记为承诺。",
+    "RFP_DECISION_REQUIRED": "尚未作出参与决策。",
+    "RFP_REQUIREMENTS_PENDING": "矩阵中有 {{count}} 项要求未回答。",
+    "RFP_CM_REVIEW_REQUIRED": "最终答复需国家经理审核。",
+    "RFP_ALREADY_DELIVERED": "该 RFP 已提交。",
+    "RFP_NOT_DELIVERED": "请先登记提交，再登记中标结果。"
   },
   "validation": {
     "REQUIRED": "必填",

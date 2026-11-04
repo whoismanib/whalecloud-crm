@@ -387,3 +387,8 @@ GET /api/v1/sheet-versions/…/approval-preview
   `/admin/countries/:code/clone-from/:source`, `/resident-pos/consumption` (incluido en
   `GET /resident-pos`), `/admin/users/:id/{deactivate,reassign,mfa-reset}`, catálogos, metas,
   delegaciones, `/admin/exports/full`, `/admin/ops`.
+- P3 (QA-004): implementado según §7 más `GET /rfps` (lista con `meta.kpis`) y `POST /rfps/:id/requirements`
+  con un arreglo JSON (sin carga CSV). `PATCH /rfp-requirements/:id` es de sesión: P3:R/A o el responsable
+  asignado (solo `answer`/`comment`). `cm-review` exige decisión PARTICIPATE y matriz completa; `deliver`
+  responde 422 `RFP_CM_REVIEW_REQUIRED` / `RFP_REQUIREMENTS_PENDING` / `RFP_DECISION_REQUIRED`;
+  `result` exige entrega salvo CANCELLED. Sin `PATCH /rfps/:id` ni demos (P3-05).

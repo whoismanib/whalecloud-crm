@@ -39,6 +39,14 @@
         "D_PLUS_7": "Collections D+7: {{invoice}} (balance {{balance}})",
         "D_PLUS_15": "Collections D+15: {{invoice}} (balance {{balance}})",
         "D_PLUS_30": "Collections D+30: {{invoice}} (balance {{balance}})"
+      },
+      "rfpRegistered": "New RFI/RFP: {{title}} (decide by {{decisionDueOn}}, internal milestone {{internalDeadline}})",
+      "rfpRequirementAssigned": "A requirement of {{title}} was assigned to you",
+      "rfp": {
+        "DECISION_OVERDUE": "RFP without decision: {{title}} (due {{due}})",
+        "INTERNAL_DUE": "RFP internal milestone today: {{title}}",
+        "INTERNAL_OVERDUE": "RFP internal milestone overdue: {{title}} ({{due}})",
+        "CLIENT_DEADLINE_MISSED": "RFP not delivered by the client deadline: {{title}} ({{due}})"
       }
     }
   },

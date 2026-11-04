@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   ACCOUNT_REVIEW_KINDS,
+  COMPLIANCE_ANSWERS,
   CURRENCIES,
   DISTRIBUTOR_STATUSES,
   FORECAST_CATEGORIES,
@@ -8,6 +9,9 @@ import {
   ONBOARDING_ITEMS,
   PROCESS_CODES,
   RACI_LETTERS,
+  RFP_DECISIONS,
+  RFP_RESULTS,
+  RFP_TYPES,
   USER_ROLES,
   VERTICALS,
   YES_NO_NA,
@@ -234,4 +238,40 @@ export const LegacyImportSchema = z.object({
     billing: z.array(z.record(z.unknown())).optional(),
   }),
   dryRun: z.boolean().default(false),
+});
+
+// ---------- P3 Preventa (QA-004) ----------
+export const RfpCreateSchema = z.object({
+  type: z.enum(RFP_TYPES).default('RFP'),
+  title: zReqText(300),
+  receivedOn: zDate,
+  clientDeadline: zDate,
+  documentsUrl: zHttpsUrl.optional().nullable(),
+  notes: zText(4000).optional().nullable(),
+});
+export type RfpCreate = z.input<typeof RfpCreateSchema>;
+export const RfpDecisionSchema = z.object({
+  decision: z.enum(RFP_DECISIONS).exclude(['PENDING']),
+  reason: zText(2000).optional().nullable(),
+});
+export const RfpRequirementsSchema = z
+  .array(
+    z.object({
+      ref: zText(40).optional().nullable(),
+      requirement: zReqText(2000),
+      assigneeUserId: zUuid.optional().nullable(),
+    }),
+  )
+  .min(1);
+export const RfpRequirementUpdateSchema = z.object({
+  answer: z.enum(COMPLIANCE_ANSWERS).optional(),
+  comment: zText(2000).optional().nullable(),
+  assigneeUserId: zUuid.optional().nullable(),
+});
+export const RfpDeliverSchema = z.object({ deliveredOn: zDate.optional() });
+export const RfpResultSchema = z.object({
+  result: z.enum(RFP_RESULTS).exclude(['PENDING']),
+  winningCompetitor: zText(200).optional().nullable(),
+  winningPrice: zMoney.optional().nullable(),
+  winningCurrency: z.enum(CURRENCIES).optional().nullable(),
 });

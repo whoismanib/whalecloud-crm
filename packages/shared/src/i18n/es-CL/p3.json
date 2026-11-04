@@ -1,0 +1,59 @@
+{
+  "nav": "Preventa RFI/RFP",
+  "title": "Preventa: RFI / RFP",
+  "new": "Nueva RFI/RFP",
+  "kpi": {
+    "onTime": "RFPs entregadas a tiempo",
+    "decisionOnTime": "Decisión en ≤ 2 días hábiles",
+    "winRate": "Tasa de adjudicación",
+    "delivered": "{{count}} entregadas",
+    "decided": "{{count}} decididas",
+    "withResult": "{{count}} con resultado"
+  },
+  "rfp": {
+    "receivedOn": "Recepción",
+    "decisionDueOn": "Decidir antes de",
+    "internalDeadline": "Hito interno (−5 d háb.)",
+    "clientDeadline": "Cierre del cliente",
+    "documents": "Documentos (enlace https)",
+    "decision": "Participar / no participar",
+    "matrix": "Matriz de cumplimiento",
+    "requirement": "Requisito",
+    "answer": "Cumple",
+    "assignee": "Responsable",
+    "delivery": "Revisión y entrega",
+    "cmReview": "Revisión final del CM",
+    "notReviewed": "pendiente",
+    "deliveredOn": "Entregada el",
+    "approveFinal": "Aprobar respuesta final",
+    "markDelivered": "Marcar entregada",
+    "result": "Adjudicación",
+    "compliance": "Cumplimiento",
+    "delivered": "Entregada",
+    "reviewed": "Revisada por CM",
+    "datesHint": "La decisión vence 2 días hábiles después de la recepción y el hito interno se fija 5 días hábiles antes del cierre (calendario Chile)."
+  },
+  "decision": {
+    "PENDING": "Sin decidir",
+    "PARTICIPATE": "Participar",
+    "DECLINE": "No participar"
+  },
+  "answer": {
+    "COMPLIES": "Cumple",
+    "PARTIAL": "Parcial",
+    "NOT_COMPLIES": "No cumple",
+    "PENDING": "Pendiente"
+  },
+  "result": {
+    "PENDING": "Pendiente",
+    "WON": "Ganada",
+    "LOST": "Perdida",
+    "CANCELLED": "Cancelada"
+  },
+  "alert": {
+    "DECISION_OVERDUE": "Decisión vencida",
+    "INTERNAL_DUE": "Hito interno hoy",
+    "INTERNAL_OVERDUE": "Hito interno vencido",
+    "CLIENT_DEADLINE_MISSED": "Cierre del cliente vencido"
+  }
+}

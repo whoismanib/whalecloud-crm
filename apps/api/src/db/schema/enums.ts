@@ -56,3 +56,7 @@ export const yesNoNa = pgEnum('yes_no_na', E.YES_NO_NA);
 export const onboardingItem = pgEnum('onboarding_item', E.ONBOARDING_ITEMS);
 export const capacityAlert = pgEnum('capacity_alert', E.CAPACITY_ALERTS);
 export const importKind = pgEnum('import_kind', E.IMPORT_KINDS);
+export const rfpType = pgEnum('rfp_type', E.RFP_TYPES);
+export const rfpDecision = pgEnum('rfp_decision', E.RFP_DECISIONS);
+export const rfpResult = pgEnum('rfp_result', E.RFP_RESULTS);
+export const complianceAnswer = pgEnum('compliance_answer', E.COMPLIANCE_ANSWERS);

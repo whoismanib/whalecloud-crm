@@ -18,6 +18,7 @@ TLS, backups y documentación de release quedan a cargo del Release Manager.
 | RBAC | ✅ guard por proceso/letra RACI + `ACTION_ROLES`; visibilidad por etapa/país/asignación; test de contrato "ninguna ruta sin guard" | `app.ts`, `services/opportunities.ts`, `rbac/routes.guard.test.ts` |
 | P1 Prospección | ✅ cuentas (duplicados 409), contactos, oportunidad etapa 0 con código, motor obligatorio, distribuidor, registro tardío 48 h, actividades | `modules/accounts`, `modules/opportunities` |
 | P2 Calificación | ✅ BANT/MEDDPICC, contactos con roles, gates 0→1→2→3, cierre con motivo | `modules/opportunities` |
+| P3 Preventa RFI/RFP | ✅ (QA-004) registro con recepción, cierre y enlace a documentos; decisión participar/no participar con vencimiento a 2 días hábiles ⚙ (alerta al AM y CM en `sla.scan`); hito interno 5 días hábiles ⚙ antes del cierre (aviso a Ventas China); matriz de cumplimiento con responsable (responde el asignado aunque su rol sea "C"), % recalculado; revisión final del CM (se invalida si cambia la matriz) obligatoria para marcar "entregada"; adjudicación; KPIs "RFPs a tiempo", "decisión ≤ 2 días" y "tasa de adjudicación" | `modules/rfps`, `rules/presales.ts`, web `/preventa` |
 | P4 Caso de negocio | ✅ versión, envío (TCO 3–5), decisión CM | `modules/opportunities` |
 | P5 Solicitud de precio | ✅ A1 + 4 datos, hitos = 100 %, envío con gate 3→4 y SLA 10/5 días hábiles CN, estado China, versiones de planilla con márgenes por partida | `modules/price-requests` |
 | P6 Aprobación | ✅ vista previa, solicitud (justificación / caso), pasos por banda + no económicas, bandeja, decisión con comentario, vigencia 60 días, invalidación por alcance/versión | `modules/approvals` |
@@ -90,6 +91,7 @@ y simulación de importación del tracker legado), sin errores de consola salvo 
 | P14: secciones obligatorias (export si motor E u hardware), ítems sin responder | `channel.ts` `requiredComplianceSections`, `complianceFailures`, `COMPLIANCE_ITEMS` | `phase2.test.ts`, API P14 |
 | P15: días a la primera oportunidad, atraso | `postsales.ts` `daysToFirstOpportunity`, `onboardingOverdue` | `phase2.test.ts` |
 | P16: consumo de OC, 80 %/100 %, exceso, proyección | `postsales.ts` `poConsumption`, `exhaustionProjection` | `phase2.test.ts`, API P16 |
+| P3: decisión +2 d háb., hito interno −5 d háb., % de cumplimiento, bloqueo de entrega, alertas, KPIs | `presales.ts` `rfpDates`, `rfpCompliance`, `rfpDeliverFailures`, `rfpAlerts`, `rfpKpis` | `presales.test.ts`, `rfps/rfps.test.ts`, E2E `presales.spec.ts` |
 | Importación: CSV RFC 4180 (`;`/`,`, BOM), fechas y montos laxos, tracker legado | `importing.ts` | `phase2.test.ts`, API import |
 
 ## 3. Desviaciones respecto de `docs/architecture` (y por qué)

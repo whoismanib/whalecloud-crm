@@ -18,6 +18,7 @@ import {
   IconChecklist,
   IconClockHour4,
   IconFileDiff,
+  IconFileSearch,
   IconSettings,
   IconTruckDelivery,
   IconUsersGroup,
@@ -57,6 +58,12 @@ export function AppLayout() {
     },
     { to: '/cuentas', label: t('nav.accounts'), icon: IconBuilding, show: canDo(me, 'P1', 'view') },
     { to: '/oportunidades', label: t('nav.opportunities'), icon: IconTargetArrow, show: true },
+    {
+      to: '/preventa',
+      label: t('p3:nav'),
+      icon: IconFileSearch,
+      show: canDo(me, 'P3', 'view'),
+    },
     { to: '/aprobaciones', label: t('nav.approvals'), icon: IconChecklist, show: true },
     {
       to: '/facturacion',

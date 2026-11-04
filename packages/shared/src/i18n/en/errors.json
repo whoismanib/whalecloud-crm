@@ -104,7 +104,12 @@
     "ROW_INVALID": "Invalid row.",
     "SNAPSHOT_EXISTS": "The snapshot for week {{week}} already exists.",
     "CATEGORY_REQUIRED": "Forecast category missing.",
-    "CATEGORY_INCONSISTENT": "Commit is only allowed from the proposal stage onwards."
+    "CATEGORY_INCONSISTENT": "Commit is only allowed from the proposal stage onwards.",
+    "RFP_DECISION_REQUIRED": "The participate decision is missing.",
+    "RFP_REQUIREMENTS_PENDING": "{{count}} requirements in the matrix are unanswered.",
+    "RFP_CM_REVIEW_REQUIRED": "The final answer needs the Country Manager review.",
+    "RFP_ALREADY_DELIVERED": "The RFP has already been delivered.",
+    "RFP_NOT_DELIVERED": "Record the delivery before the award."
   },
   "validation": {
     "REQUIRED": "Required",

@@ -23,6 +23,7 @@ const DistributorsPage = lazy(() => import('../features/distributors/Distributor
 const OnboardingPage = lazy(() => import('../features/onboarding/OnboardingPage'));
 const CapacityPage = lazy(() => import('../features/capacity/CapacityPage'));
 const AdminPage = lazy(() => import('../features/admin/AdminPage'));
+const PresalesPage = lazy(() => import('../features/presales/PresalesPage'));
 
 const Loading = () => (
   <Center mih={240}>
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
         { path: 'salud', element: page(<HealthPage />) },
         { path: 'incidentes', element: page(<TicketsPage />) },
         { path: 'bitacora', element: page(<AuditPage />) },
+        { path: 'preventa', element: page(<PresalesPage />) },
         { path: 'traspasos', element: page(<HandoffsPage />) },
         { path: 'renovaciones', element: page(<RenewalsPage />) },
         { path: 'crs', element: page(<ChangeRequestsPage />) },

@@ -39,6 +39,14 @@
         "D_PLUS_7": "Cobranza D+7: {{invoice}} (saldo {{balance}})",
         "D_PLUS_15": "Cobranza D+15: {{invoice}} (saldo {{balance}})",
         "D_PLUS_30": "Cobranza D+30: {{invoice}} (saldo {{balance}})"
+      },
+      "rfpRegistered": "Nueva RFI/RFP: {{title}} (decidir antes de {{decisionDueOn}}, hito interno {{internalDeadline}})",
+      "rfpRequirementAssigned": "Te asignaron un requisito de {{title}}",
+      "rfp": {
+        "DECISION_OVERDUE": "RFP sin decisión: {{title}} (vencía {{due}})",
+        "INTERNAL_DUE": "Hito interno de RFP hoy: {{title}}",
+        "INTERNAL_OVERDUE": "Hito interno de RFP vencido: {{title}} ({{due}})",
+        "CLIENT_DEADLINE_MISSED": "RFP no entregada al cierre del cliente: {{title}} ({{due}})"
       }
     }
   },

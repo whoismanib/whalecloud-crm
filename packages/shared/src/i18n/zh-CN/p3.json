@@ -1,0 +1,59 @@
+{
+  "nav": "售前 RFI/RFP",
+  "title": "售前：RFI / RFP",
+  "new": "新建 RFI/RFP",
+  "kpi": {
+    "onTime": "按时提交的 RFP",
+    "decisionOnTime": "≤ 2 个工作日内决策",
+    "winRate": "中标率",
+    "delivered": "已提交 {{count}} 个",
+    "decided": "已决策 {{count}} 个",
+    "withResult": "有结果 {{count}} 个"
+  },
+  "rfp": {
+    "receivedOn": "收到日期",
+    "decisionDueOn": "决策截止",
+    "internalDeadline": "内部里程碑（提前 5 个工作日）",
+    "clientDeadline": "客户截止日",
+    "documents": "文件（https 链接）",
+    "decision": "参与 / 不参与",
+    "matrix": "符合性矩阵",
+    "requirement": "要求",
+    "answer": "是否符合",
+    "assignee": "负责人",
+    "delivery": "审核与提交",
+    "cmReview": "国家经理终审",
+    "notReviewed": "待审",
+    "deliveredOn": "提交日期",
+    "approveFinal": "批准最终答复",
+    "markDelivered": "标记为已提交",
+    "result": "中标结果",
+    "compliance": "符合度",
+    "delivered": "已提交",
+    "reviewed": "国家经理已审",
+    "datesHint": "决策须在收到后 2 个工作日内完成；内部里程碑设在截止日前 5 个工作日（智利日历）。"
+  },
+  "decision": {
+    "PENDING": "未决策",
+    "PARTICIPATE": "参与",
+    "DECLINE": "不参与"
+  },
+  "answer": {
+    "COMPLIES": "符合",
+    "PARTIAL": "部分符合",
+    "NOT_COMPLIES": "不符合",
+    "PENDING": "待定"
+  },
+  "result": {
+    "PENDING": "待定",
+    "WON": "中标",
+    "LOST": "未中标",
+    "CANCELLED": "取消"
+  },
+  "alert": {
+    "DECISION_OVERDUE": "决策逾期",
+    "INTERNAL_DUE": "今日内部里程碑",
+    "INTERNAL_OVERDUE": "内部里程碑逾期",
+    "CLIENT_DEADLINE_MISSED": "已过客户截止日"
+  }
+}

@@ -1,4 +1,4 @@
-import { addBusinessDays, isoWeek, previousFriday, renewalAlert } from '@wcrm/shared';
+import { addBusinessDays, isoWeek, previousFriday, renewalAlert, rfpAlerts } from '@wcrm/shared';
 import { and, eq, inArray, isNull, lt, lte, sql } from 'drizzle-orm';
 import type { Actor } from '../audit/record';
 import {
@@ -12,6 +12,7 @@ import {
   opportunities,
   priceRequests,
   renewals,
+  rfps,
 } from '../db/schema/index';
 import { notify } from '../services/notify';
 import type { AppContext, AuthInfo } from '../types';
@@ -40,7 +41,7 @@ const SYSTEM_AUTH: AuthInfo = {
 
 type JobFn = (ctx: AppContext, today: string) => Promise<Record<string, unknown>>;
 
-/** SLA breach / due-soon alerts (ADM-11) for P5, P6, P8 (AC, invoice) and P9. */
+/** SLA breach / due-soon alerts (ADM-11) for P3, P5, P6, P8 (AC, invoice) and P9. */
 const slaScan: JobFn = async ({ db, rules, mailer }, today) => {
   const r = await rules.get();
   const soon = addBusinessDays(today, 1, r.calendars.CL!);
@@ -197,6 +198,39 @@ const slaScan: JobFn = async ({ db, rules, mailer }, today) => {
       },
       mailer,
     );
+  }
+  // P3-01 decision not taken in 2 business days → AM + CM; P3-02 internal milestone → AM + China Sales
+  const open = await db
+    .select({ r: rfps, ownerId: opportunities.ownerId })
+    .from(rfps)
+    .innerJoin(opportunities, eq(opportunities.id, rfps.opportunityId))
+    .where(and(isNull(rfps.deliveredOn), inArray(rfps.decision, ['PENDING', 'PARTICIPATE'])));
+  for (const { r: x, ownerId } of open) {
+    for (const alert of rfpAlerts(x, today)) {
+      n += await notify(
+        db,
+        {
+          userIds: [ownerId],
+          roles: alert === 'DECISION_OVERDUE' ? ['COUNTRY_MANAGER'] : ['CHINA_SALES'],
+          type: 'SLA',
+          titleKey: `rfp.${alert}`,
+          params: {
+            title: x.title,
+            due:
+              alert === 'DECISION_OVERDUE'
+                ? x.decisionDueOn
+                : alert === 'CLIENT_DEADLINE_MISSED'
+                  ? x.clientDeadline
+                  : x.internalDeadline,
+          },
+          entityType: 'rfp',
+          entityId: x.id,
+          link: '/preventa',
+          dedupeKey: `sla:rfp:${x.id}:${alert}`,
+        },
+        mailer,
+      );
+    }
   }
   return { notifications: n };
 };

@@ -104,7 +104,12 @@
     "ROW_INVALID": "Fila inválida.",
     "SNAPSHOT_EXISTS": "Ya existe el snapshot de la semana {{week}}.",
     "CATEGORY_REQUIRED": "Falta la categoría de pronóstico.",
-    "CATEGORY_INCONSISTENT": "Commit solo desde la etapa de propuesta en adelante."
+    "CATEGORY_INCONSISTENT": "Commit solo desde la etapa de propuesta en adelante.",
+    "RFP_DECISION_REQUIRED": "Falta la decisión de participar.",
+    "RFP_REQUIREMENTS_PENDING": "Hay {{count}} requisitos sin responder en la matriz.",
+    "RFP_CM_REVIEW_REQUIRED": "La respuesta final necesita la revisión del Country Manager.",
+    "RFP_ALREADY_DELIVERED": "La RFP ya fue entregada.",
+    "RFP_NOT_DELIVERED": "Registra la entrega antes de la adjudicación."
   },
   "validation": {
     "REQUIRED": "Obligatorio",
