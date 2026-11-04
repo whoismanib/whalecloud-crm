@@ -323,6 +323,33 @@ export const HEALTH_STATUSES = [
 ] as const;
 export type HealthStatus = (typeof HEALTH_STATUSES)[number];
 
+// ---------- Mail / calendar sync (ADR 0008) ----------
+/** Where an activity came from: typed by a user, the legacy `crm_cache.json`, or a mail sync. */
+export const ACTIVITY_SOURCES = ['MANUAL', 'LEGACY_MAIL_CACHE', 'MAIL_SYNC'] as const;
+export type ActivitySource = (typeof ACTIVITY_SOURCES)[number];
+
+export const ACTIVITY_DIRECTIONS = ['IN', 'OUT'] as const;
+export type ActivityDirection = (typeof ACTIVITY_DIRECTIONS)[number];
+
+/** State of an engagement topic (legacy taxonomy project): only ACTIVE topics count for the score. */
+export const TOPIC_STATES = ['ACTIVE', 'ON_HOLD', 'CLOSED'] as const;
+export type TopicState = (typeof TOPIC_STATES)[number];
+
+/** Labels of the legacy "Salud CRM" per project (crm_scoring.py `status_label`). */
+export const ENGAGEMENT_STATUSES = [
+  'HEALTHY',
+  'AT_RISK',
+  'CRITICAL',
+  'STALE',
+  'DORMANT',
+  'SCHEDULED',
+  'IN_PROGRESS',
+  'ON_HOLD',
+  'RESOLVED',
+  'CLOSED',
+] as const;
+export type EngagementStatus = (typeof ENGAGEMENT_STATUSES)[number];
+
 export const AUDIT_ACTIONS = [
   'CREATE',
   'UPDATE',
@@ -443,6 +470,7 @@ export const IMPORT_KINDS = [
   'INVOICES',
   'LEGACY_TRACKER',
   'ZMP_HOURS',
+  'LEGACY_MAIL_CACHE',
 ] as const;
 export type ImportKind = (typeof IMPORT_KINDS)[number];
 

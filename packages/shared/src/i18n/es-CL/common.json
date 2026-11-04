@@ -159,7 +159,14 @@
       "toCollect": "Por cobrar",
       "overdue": "Vencido ({{count}})",
       "incidents": "Incidentes eDo abiertos",
-      "ballInWhale": "{{count}} con la pelota en Whale"
+      "ballInWhale": "{{count}} con la pelota en Whale",
+      "mail30d": "Correos (30d)",
+      "mailDetail": "{{meetings}} reuniones · {{upcoming}} agendadas",
+      "staleOnHold": "Stale / On Hold",
+      "staleOnHoldHint": "temas sin movimiento / pausados",
+      "clientHealth": "Salud por cliente",
+      "activeTopics": "Temas activos",
+      "noMail": "Sin correo importado"
     },
     "charts": {
       "pipelineByStage": "Pipeline abierto por etapa (MM {{currency}})",
@@ -386,7 +393,38 @@
       "CLOSE_DATE_PASSED": "Fecha de cierre vencida ({{date}})",
       "SLA_OVERDUE": "{{count}} SLA vencido(s)",
       "RISK_HIGH": "Riesgo alto",
-      "RISK_MEDIUM": "Riesgo medio"
+      "RISK_MEDIUM": "Riesgo medio",
+      "NO_ENGAGEMENT_30D": "Sin correos ni reuniones en 30 días",
+      "ONE_WAY": "Solo correo entrante ({{count}})",
+      "MEETING_30D": "{{count}} reunión(es) en 30 días"
+    },
+    "mail30d": "Correos 30 d",
+    "meetings30d": "Reuniones 30 d",
+    "nextMeeting": "Próxima reunión {{date}}",
+    "byClient": "Salud por cliente",
+    "opportunities": "Oportunidades",
+    "clientLine": "{{active}}/{{total}} temas · {{emails}} correos · {{meetings}} reuniones",
+    "topic": "Tema",
+    "lastMove": "Último movimiento",
+    "daysAgo": "hace {{days}} d",
+    "noMail": "Aún no hay correo importado. Importa tu crm_cache.json del tablero legado.",
+    "mailbox": "Buzón: {{emails}} correos (30 d) · {{meetings}} reuniones · {{upcoming}} agendadas · {{unmatched}} sin clasificar · al {{date}}",
+    "allMailboxes": "Todos los buzones",
+    "topicReason": {
+      "TICKETS_CLOSED": "Tickets eDo cerrados",
+      "TICKETS_RESOLVED": "Tickets eDo resueltos; falta que el cliente los cierre",
+      "TICKET_OPEN": "eDo {{number}} abierto, último movimiento hace {{days}} d",
+      "TOPIC_CLOSED": "Tema cerrado",
+      "TOPIC_ON_HOLD": "Tema en pausa",
+      "NO_INTERACTION_WINDOW": "Sin correos ni reuniones en 30 días",
+      "IDLE_DAYS": "Último movimiento hace {{days}} días (más de 14)"
+    },
+    "import": {
+      "button": "Importar correo",
+      "title": "Importar correo y reuniones (crm_cache.json)",
+      "hint": "Archivo crm_cache.json del tablero legado (~/Documents/Dashboards). Solo se guardan metadatos: conteos, fechas y asuntos recientes; nunca el cuerpo del correo. Un cache más nuevo reemplaza al anterior.",
+      "linked": "{{count}} temas vinculados a oportunidades",
+      "replaced": "{{count}} actividades del cache anterior reemplazadas"
     }
   },
   "tickets": {

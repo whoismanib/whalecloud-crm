@@ -1,4 +1,4 @@
-import { Group, SegmentedControl, Stack, Table, Text, TextInput } from '@mantine/core';
+import { Group, SegmentedControl, Stack, Table, Text, TextInput, Title } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { HEALTH_STATUSES } from '@wcrm/shared';
 import { useState } from 'react';
@@ -7,7 +7,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
 import { EnumBadge, PageHeader, ScrollTable, StageBadge } from '../../components/ui';
-import { fmtMoney } from '../../lib/format';
+import { fmtDate, fmtMoney } from '../../lib/format';
+import { ClientEngagement } from './ClientEngagement';
 
 interface HealthRow {
   id: string;
@@ -22,6 +23,10 @@ interface HealthRow {
   score: number | null;
   status: string;
   idleBusinessDays: number;
+  emails30d: number;
+  meetings30d: number;
+  upcomingMeetings: number;
+  nextMeetingAt: string | null;
   reasons: { code: string; params?: Record<string, unknown> }[];
 }
 
@@ -66,6 +71,10 @@ export default function HealthPage() {
           </>
         }
       />
+      <ClientEngagement />
+      <Title order={4} mt="sm">
+        {t('health.opportunities')}
+      </Title>
       <RuleErrors error={data.error} />
       {accounts.map((acc) => (
         <Stack key={acc} gap={4}>
@@ -78,6 +87,9 @@ export default function HealthPage() {
                 <Table.Th>{t('fields.stage')}</Table.Th>
                 <Table.Th>{t('health.score')}</Table.Th>
                 <Table.Th>{t('fields.status')}</Table.Th>
+                <Table.Th>
+                  {t('health.mail30d')} · {t('health.meetings30d')}
+                </Table.Th>
                 <Table.Th>{t('health.reasons')}</Table.Th>
                 <Table.Th>{t('fields.amount')}</Table.Th>
               </Table.Tr>
@@ -117,6 +129,16 @@ export default function HealthPage() {
                     </Table.Td>
                     <Table.Td>
                       <EnumBadge ns="health" value={r.status} />
+                    </Table.Td>
+                    <Table.Td>
+                      <Text size="xs">
+                        {r.emails30d} · {r.meetings30d}
+                      </Text>
+                      {r.nextMeetingAt && (
+                        <Text size="xs" c="dimmed">
+                          {t('health.nextMeeting', { date: fmtDate(r.nextMeetingAt) })}
+                        </Text>
+                      )}
                     </Table.Td>
                     <Table.Td>
                       <Group gap={4}>

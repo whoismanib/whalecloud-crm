@@ -26,6 +26,7 @@ import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { Db } from '../../db/client';
 import { computeProcessKpis } from './processKpis';
+import { opportunityEngagementCounts } from '../mail/service';
 import {
   accounts,
   approvalRequests,
@@ -89,7 +90,13 @@ async function overdueSlaByOpp(db: Db, today: string): Promise<Map<string, numbe
   return new Map(r.rows.map((x) => [x.opportunity_id, x.n]));
 }
 
-export async function computeHealth(db: Db, ctx: RulesContext, auth: AuthInfo, today: string) {
+export async function computeHealth(
+  db: Db,
+  ctx: RulesContext,
+  auth: AuthInfo,
+  today: string,
+  now: Date = new Date(`${today}T${new Date().toISOString().slice(11)}`),
+) {
   const rows = await db
     .select({ o: opportunities, accountName: accounts.name, ownerName: users.fullName })
     .from(opportunities)
@@ -97,7 +104,20 @@ export async function computeHealth(db: Db, ctx: RulesContext, auth: AuthInfo, t
     .innerJoin(users, eq(users.id, opportunities.ownerId))
     .where(and(eq(opportunities.status, 'OPEN'), visibilityFilter(auth, ctx.raci)));
   const sla = await overdueSlaByOpp(db, today);
+  // ADR 0008: e-mails and meetings of the last 30 days (manual, imported or synced activities).
+  const mail = await opportunityEngagementCounts(
+    db,
+    rows.map((r) => r.o.id),
+    now,
+  );
   return rows.map((r) => {
+    const m = mail.get(r.o.id);
+    const engagement = {
+      emailsIn: m?.inbox ?? 0,
+      emailsOut: m?.sent ?? 0,
+      meetings: m?.meetings ?? 0,
+      upcoming: m?.upcoming ?? 0,
+    };
     const h = healthScore(
       {
         status: r.o.status,
@@ -109,6 +129,7 @@ export async function computeHealth(db: Db, ctx: RulesContext, auth: AuthInfo, t
         overdueSlaCount: sla.get(r.o.id) ?? 0,
         risk: r.o.risk,
         today,
+        engagement,
       },
       ctx.calendars.CL!,
       ctx.settings,
@@ -128,6 +149,10 @@ export async function computeHealth(db: Db, ctx: RulesContext, auth: AuthInfo, t
       legacyStatus: stageToLegacyStatus(r.o.stage, r.o.status),
       section: r.o.stage >= 7 ? 'DELIVERY' : 'PIPELINE',
       overdueSlaCount: sla.get(r.o.id) ?? 0,
+      emails30d: engagement.emailsIn + engagement.emailsOut,
+      meetings30d: engagement.meetings,
+      upcomingMeetings: engagement.upcoming,
+      nextMeetingAt: m?.nextMeetingAt ?? null,
       ...h,
     };
   });

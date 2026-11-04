@@ -389,7 +389,12 @@
       "contracts": "Contracts",
       "milestones": "Milestones",
       "invoices": "Invoices",
-      "payments": "Payments"
+      "payments": "Payments",
+      "topics": "Topics",
+      "activities": "Activities",
+      "emails": "E-mails",
+      "meetings": "Meetings",
+      "snapshots": "Mailbox snapshots"
     }
   }
 }

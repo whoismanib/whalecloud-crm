@@ -301,3 +301,58 @@ export const DelegationCreateSchema = z.object({
   endsOn: zDate,
   reason: zReqText(500),
 });
+
+// ---------- Mail sync, phase 0: legacy crm_cache.json (ADR 0008) ----------
+const zCount = z.coerce.number().int().min(0).catch(0);
+const zIsoOrNull = z
+  .string()
+  .refine((s) => !Number.isNaN(Date.parse(s)), 'INVALID_DATE')
+  .nullable()
+  .catch(null);
+export const LegacyMailProjectSchema = z.object({
+  client: z.string().default(''),
+  section: z.string().max(300).default(''),
+  project: z.string().min(1).max(300),
+  inbox: zCount,
+  sent: zCount,
+  meetings: zCount,
+  upcoming: zCount,
+  last_date: zIsoOrNull,
+  next_meeting: zIsoOrNull,
+  recent_subjects: z.array(z.string().max(1000)).max(20).catch([]),
+  hold: z.string().catch(''),
+  closed: z.string().catch(''),
+  edo: z.array(z.coerce.string()).max(50).catch([]),
+  status: z.string().catch(''),
+  seen_date: zIsoOrNull,
+  last_days: z.coerce.number().int().min(0).catch(999),
+});
+export const LegacyMailCacheSchema = z.object({
+  /** Local time of the mailbox owner's Mac, "YYYY-MM-DD HH:MM:SS" (or ISO with offset). */
+  generated_at: z.string().regex(/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(:\d{2})?/, 'INVALID_DATE'),
+  window_days: z.coerce.number().int().min(1).max(365).default(30),
+  inbox_count: zCount,
+  sent_count: zCount,
+  calendar_count: zCount,
+  matched: zCount,
+  meetings_matched: zCount,
+  upcoming_matched: zCount,
+  unmatched_count: zCount,
+  unmatched_events: zCount,
+  clients: z.record(
+    z.object({
+      sections: z.record(z.object({ projects: z.array(LegacyMailProjectSchema).max(500) })),
+    }),
+  ),
+});
+export const LegacyMailImportSchema = z.object({
+  data: LegacyMailCacheSchema,
+  dryRun: z.boolean().default(false),
+  /** Admins may import a cache on behalf of another user (recorded in the audit log). */
+  userId: zUuid.optional(),
+  /** Legacy client label → CRM account name, for clients the name matcher cannot resolve. */
+  aliases: z.record(z.string().max(200)).optional(),
+});
+export const EngagementQuerySchema = z.object({
+  scope: z.enum(['mine', 'all']).default('mine'),
+});

@@ -389,7 +389,12 @@
       "contracts": "Contratos",
       "milestones": "Hitos",
       "invoices": "Facturas",
-      "payments": "Pagos"
+      "payments": "Pagos",
+      "topics": "Temas",
+      "activities": "Actividades",
+      "emails": "Correos",
+      "meetings": "Reuniones",
+      "snapshots": "Resúmenes de buzón"
     }
   }
 }

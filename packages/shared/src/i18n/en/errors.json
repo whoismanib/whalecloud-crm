@@ -16,7 +16,8 @@
     "INVALID_CREDENTIALS": "Wrong email or password.",
     "MFA_INVALID": "Wrong verification code.",
     "MFA_ALREADY_ENROLLED": "Two-step verification is already set up.",
-    "MFA_NOT_SETUP": "Set up two-step verification first."
+    "MFA_NOT_SETUP": "Set up two-step verification first.",
+    "MAIL_CACHE_OLDER": "You already imported a newer mail cache."
   },
   "rules": {
     "PAIN_MISSING": "Customer pain not identified.",
@@ -114,7 +115,10 @@
     "DELEGATION_ROLE_NOT_HELD": "The holder does not have the role {{role}}.",
     "DELEGATION_IN_PAST": "The delegation has already ended.",
     "DELEGATE_NOT_FOUND": "The delegate does not exist or is inactive.",
-    "COST_ESTIMATE_EMPTY": "Record the person-months before signing."
+    "COST_ESTIMATE_EMPTY": "Record the person-months before signing.",
+    "MAIL_CACHE_OLDER": "The cache ({{received}}) is older than the last one imported ({{latest}}).",
+    "CLIENT_NOT_MAPPED": "Client \"{{ref}}\" matches no CRM account ({{projects}} topics, {{emails}} e-mails, {{meetings}} meetings). Not imported.",
+    "CLIENT_AMBIGUOUS": "Client \"{{ref}}\" matches more than one account; provide an alias."
   },
   "validation": {
     "REQUIRED": "Required",

@@ -62,6 +62,18 @@ precisión, distribuidores con conflicto, plan de cuenta, pestaña Cumplimiento,
 capacidad 80 %, incorporación propia, admin: usuarios, RACI, parámetros, feriados, `audit.verify`
 y simulación de importación del tracker legado), sin errores de consola salvo el 401 esperado antes del login.
 
+### 1.2 Correo y calendario, fase 0 (ADR 0008)
+
+| Área | Estado | Dónde |
+|---|---|---|
+| Regla `engagementScore`, port de `crm_scoring.py`, con `accountEngagement` y `engagementSummary` | ✅ con tests de tabla. Con el `crm_cache.json` real a la hora del cache da exactamente la salud del legado: WOM 57/100, 17/38, 151 correos, 5 reuniones; 24 activos 11/7/6; Stale/On Hold 7/2 | `packages/shared/src/rules/engagement.ts` |
+| Mapeo del cache: cuenta por nombre o alias, sin crear cuentas; oportunidad solo con un calce único; filas de resumen con `item_count` | ✅ | `packages/shared/src/rules/mailCache.ts` |
+| `healthScore` con correos y reuniones de 30 días (`NO_ENGAGEMENT_30D` −10, `ONE_WAY` −5, `MEETING_30D` +5; una reunión agendada evita STALE) | ✅ entrada opcional, compatible con lo anterior | `rules/health.ts`, `modules/dashboard/routes.ts` |
+| `POST /mail/legacy-cache` con dry-run e idempotencia: el mismo cache no hace nada, uno más nuevo reemplaza y uno más antiguo da 409; queda en la bitácora | ✅ test de integración | `apps/api/src/modules/mail` |
+| `GET /dashboard/engagement` con alcance por buzón | ✅ | idem |
+| Web: Salud CRM → "Salud por cliente" con detalle por tema, botón "Importar correo" y columnas de correos y reuniones de 30 días; tarjetas de Resumen | ✅ | `features/health/ClientEngagement.tsx`, `ResumenPage.tsx` |
+| Fase 1: conector local con `POST /mail/messages` y token personal; job de retención de 1 año | ⏳ propuesta en el ADR | — |
+
 ## 2. Reglas → código
 
 | Regla (fuente / backlog) | Función | Test |

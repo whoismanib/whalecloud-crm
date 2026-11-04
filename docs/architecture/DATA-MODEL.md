@@ -819,3 +819,29 @@ Migración `0004_blank_tax_id_null.sql`: `accounts.tax_id = ''` → NULL (QA-001
 
 `approval_delegations` según §4.1 más `revoked_by`; `cost_estimates` según §4.6 con `person_months`
 nullable hasta que el responsable lo registra y CHECK `>= 0`; enum `resource_type`.
+
+### 10.3 Correo y calendario (ADR 0008, `drizzle/0007_mail_engagement.sql`)
+
+- Enums nuevos: `activity_source` (`MANUAL`, `LEGACY_MAIL_CACHE`, `MAIL_SYNC`) y `topic_state` (`ACTIVE`,
+  `ON_HOLD`, `CLOSED`). Además, `import_kind` suma `LEGACY_MAIL_CACHE`.
+- `activities` suma estas columnas:
+  - `source activity_source NOT NULL DEFAULT 'MANUAL'`.
+  - `external_key text`, con UNIQUE (`source`, `external_key`) cuando no es NULL.
+  - `direction text` con CHECK `IN`/`OUT`.
+  - `item_count int NOT NULL DEFAULT 1` con CHECK `>= 1`: cuántos mensajes resume la fila.
+  - `topic_id` con FK a `engagement_topics` y `ON DELETE SET NULL`.
+  - `user_ids` guarda al dueño del buzón.
+- **`engagement_topics`** (+BASE) son los temas de seguimiento por buzón; en el legado, los proyectos de la
+  taxonomía.
+  - Columnas: `owner_user_id` FK users, `source`, `external_key` (`cliente|sección|proyecto`),
+    `account_id` FK, `opportunity_id` (sin FK, la coherencia la mantiene la app), `client_label`,
+    `section`, `name`, `state topic_state`, `state_reason`, `edo_refs text[]`, `edo_last_update_at` (edad
+    del ticket eDo vista por el legado, para temas sin correo) y `last_seen_at`.
+  - Índices: UNIQUE (`owner_user_id`, `source`, `external_key`) y (`account_id`).
+- **`mail_snapshots`** guarda los totales del buzón en cada importación o corrida.
+  - Columnas: `user_id`, `source`, `generated_at`, `window_days`, `inbox_count`, `sent_count`,
+    `calendar_count`, `matched_count`, `meetings_matched`, `upcoming_matched`, `unmatched_count`,
+    `unmatched_events`, `import_job_id`, `created_at`.
+  - Índice: UNIQUE (`user_id`, `source`, `generated_at`).
+- Solo se guardan metadatos. Nunca el cuerpo ni los adjuntos.
+

@@ -159,7 +159,14 @@
       "toCollect": "To collect",
       "overdue": "Overdue ({{count}})",
       "incidents": "Open eDo incidents",
-      "ballInWhale": "{{count}} with the ball at Whale"
+      "ballInWhale": "{{count}} with the ball at Whale",
+      "mail30d": "E-mails (30d)",
+      "mailDetail": "{{meetings}} meetings · {{upcoming}} scheduled",
+      "staleOnHold": "Stale / On Hold",
+      "staleOnHoldHint": "topics without movement / paused",
+      "clientHealth": "Health by client",
+      "activeTopics": "Active topics",
+      "noMail": "No mail imported"
     },
     "charts": {
       "pipelineByStage": "Open pipeline by stage (M {{currency}})",
@@ -386,7 +393,38 @@
       "CLOSE_DATE_PASSED": "Close date passed ({{date}})",
       "SLA_OVERDUE": "{{count}} SLA overdue",
       "RISK_HIGH": "High risk",
-      "RISK_MEDIUM": "Medium risk"
+      "RISK_MEDIUM": "Medium risk",
+      "NO_ENGAGEMENT_30D": "No e-mails or meetings in 30 days",
+      "ONE_WAY": "Inbound mail only ({{count}})",
+      "MEETING_30D": "{{count}} meeting(s) in 30 days"
+    },
+    "mail30d": "E-mails 30 d",
+    "meetings30d": "Meetings 30 d",
+    "nextMeeting": "Next meeting {{date}}",
+    "byClient": "Health by client",
+    "opportunities": "Opportunities",
+    "clientLine": "{{active}}/{{total}} topics · {{emails}} e-mails · {{meetings}} meetings",
+    "topic": "Topic",
+    "lastMove": "Last movement",
+    "daysAgo": "{{days}} d ago",
+    "noMail": "No mail imported yet. Import your crm_cache.json from the legacy dashboard.",
+    "mailbox": "Mailbox: {{emails}} e-mails (30 d) · {{meetings}} meetings · {{upcoming}} scheduled · {{unmatched}} unclassified · as of {{date}}",
+    "allMailboxes": "All mailboxes",
+    "topicReason": {
+      "TICKETS_CLOSED": "eDo tickets closed",
+      "TICKETS_RESOLVED": "eDo tickets resolved; waiting for the client to close them",
+      "TICKET_OPEN": "eDo {{number}} open, last movement {{days}} d ago",
+      "TOPIC_CLOSED": "Topic closed",
+      "TOPIC_ON_HOLD": "Topic on hold",
+      "NO_INTERACTION_WINDOW": "No e-mails or meetings in 30 days",
+      "IDLE_DAYS": "Last movement {{days}} days ago (over 14)"
+    },
+    "import": {
+      "button": "Import mail",
+      "title": "Import mail and meetings (crm_cache.json)",
+      "hint": "crm_cache.json file of the legacy dashboard (~/Documents/Dashboards). Only metadata is stored: counts, dates and recent subjects; never the message body. A newer cache replaces the previous one.",
+      "linked": "{{count}} topics linked to opportunities",
+      "replaced": "{{count}} activities of the previous cache replaced"
     }
   },
   "tickets": {

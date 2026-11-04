@@ -30,6 +30,7 @@ import { ExportButtons } from '../../components/ExportButtons';
 import { ProcessKpis } from './ProcessKpis';
 import { EnumBadge, PageHeader } from '../../components/ui';
 import { fmtMoney, fmtNumber, fmtPct } from '../../lib/format';
+import { scoreColor, useEngagement } from '../health/ClientEngagement';
 
 interface Kpi {
   code: string;
@@ -179,6 +180,7 @@ export default function ResumenPage() {
     queryFn: () => api.get<Dashboard>(`/dashboard/kpis?currency=${currency}`),
   });
   const d = q.data;
+  const eng = useEngagement().data;
   return (
     <Stack>
       <PageHeader
@@ -275,6 +277,86 @@ export default function ResumenPage() {
             color="red"
             to="/facturacion"
           />
+        </SimpleGrid>
+      )}
+      {eng && (
+        <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} data-testid="mail-cards">
+          <Paper withBorder p="sm" radius="md">
+            <Text size="xs" c="dimmed">
+              {t('dashboard.cards.activeTopics')}
+            </Text>
+            <Text fz={20} fw={700}>
+              {eng.summary.active}
+            </Text>
+            <Group gap="md">
+              <Text size="xs" c="green" fw={700}>
+                {eng.summary.healthy} {t('dashboard.cards.healthy')}
+              </Text>
+              <Text size="xs" c="yellow.7" fw={700}>
+                {eng.summary.atRisk} {t('dashboard.cards.atRisk')}
+              </Text>
+              <Text size="xs" c="red" fw={700}>
+                {eng.summary.critical} {t('dashboard.cards.critical')}
+              </Text>
+            </Group>
+          </Paper>
+          <Paper withBorder p="sm" radius="md" data-testid="card-mail30d">
+            <Text size="xs" c="dimmed">
+              {t('dashboard.cards.mail30d')}
+            </Text>
+            <Text fz={20} fw={700}>
+              {eng.mailbox ? eng.mailbox.emails : '—'}
+            </Text>
+            <Text size="xs" c="dimmed">
+              {eng.mailbox
+                ? t('dashboard.cards.mailDetail', {
+                    meetings: eng.mailbox.meetings,
+                    upcoming: eng.mailbox.upcoming,
+                  })
+                : t('dashboard.cards.noMail')}
+            </Text>
+          </Paper>
+          <Paper withBorder p="sm" radius="md">
+            <Text size="xs" c="dimmed">
+              {t('dashboard.cards.staleOnHold')}
+            </Text>
+            <Text fz={20} fw={700}>
+              {eng.summary.stale} / {eng.summary.onHold}
+            </Text>
+            <Text size="xs" c="dimmed">
+              {t('dashboard.cards.staleOnHoldHint')}
+            </Text>
+          </Paper>
+          <Link to="/salud" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Paper withBorder p="sm" radius="md" h="100%" data-testid="card-client-health">
+              <Text size="xs" c="dimmed">
+                {t('dashboard.cards.clientHealth')}
+              </Text>
+              {eng.accounts
+                .filter((a) => a.activeCount > 0)
+                .slice(0, 5)
+                .map((a) => (
+                  <Group key={a.accountId} justify="space-between" wrap="nowrap" gap="xs">
+                    <Stack gap={0} style={{ minWidth: 0 }}>
+                      <Text size="sm" fw={600} truncate>
+                        {a.accountName}
+                      </Text>
+                      <Text size="xs" c="dimmed" truncate>
+                        {t('health.clientLine', {
+                          active: a.activeCount,
+                          total: a.totalCount,
+                          emails: a.emails,
+                          meetings: a.meetings,
+                        })}
+                      </Text>
+                    </Stack>
+                    <Text fw={700} c={scoreColor(a.score)}>
+                      {a.score}
+                    </Text>
+                  </Group>
+                ))}
+            </Paper>
+          </Link>
         </SimpleGrid>
       )}
       <Title order={4} mt="sm">

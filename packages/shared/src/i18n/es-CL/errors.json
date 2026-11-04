@@ -16,7 +16,8 @@
     "INVALID_CREDENTIALS": "Correo o contraseña incorrectos.",
     "MFA_INVALID": "Código de verificación incorrecto.",
     "MFA_ALREADY_ENROLLED": "La verificación en dos pasos ya está configurada.",
-    "MFA_NOT_SETUP": "Primero configura la verificación en dos pasos."
+    "MFA_NOT_SETUP": "Primero configura la verificación en dos pasos.",
+    "MAIL_CACHE_OLDER": "Ya importaste un cache de correo más reciente."
   },
   "rules": {
     "PAIN_MISSING": "Falta identificar el dolor del cliente.",
@@ -114,7 +115,10 @@
     "DELEGATION_ROLE_NOT_HELD": "El titular no tiene el rol {{role}}.",
     "DELEGATION_IN_PAST": "La delegación ya terminó.",
     "DELEGATE_NOT_FOUND": "El delegado no existe o está inactivo.",
-    "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar."
+    "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar.",
+    "MAIL_CACHE_OLDER": "El cache ({{received}}) es anterior al último importado ({{latest}}).",
+    "CLIENT_NOT_MAPPED": "El cliente «{{ref}}» no corresponde a ninguna cuenta del CRM ({{projects}} temas, {{emails}} correos, {{meetings}} reuniones). No se importó.",
+    "CLIENT_AMBIGUOUS": "El cliente «{{ref}}» calza con más de una cuenta; indica un alias."
   },
   "validation": {
     "REQUIRED": "Obligatorio",

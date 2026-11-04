@@ -159,7 +159,14 @@
       "toCollect": "待回款",
       "overdue": "逾期（{{count}}）",
       "incidents": "未关闭 eDo 工单",
-      "ballInWhale": "{{count}} 个待浩鲸处理"
+      "ballInWhale": "{{count}} 个待浩鲸处理",
+      "mail30d": "邮件（30 天）",
+      "mailDetail": "{{meetings}} 次会议 · {{upcoming}} 次已安排",
+      "staleOnHold": "停滞 / 暂停",
+      "staleOnHoldHint": "无动态 / 暂停的主题",
+      "clientHealth": "按客户的健康度",
+      "activeTopics": "活跃主题",
+      "noMail": "尚未导入邮件"
     },
     "charts": {
       "pipelineByStage": "各阶段在途管道（百万 {{currency}}）",
@@ -386,7 +393,38 @@
       "CLOSE_DATE_PASSED": "已过预计签约日（{{date}}）",
       "SLA_OVERDUE": "{{count}} 项 SLA 逾期",
       "RISK_HIGH": "高风险",
-      "RISK_MEDIUM": "中风险"
+      "RISK_MEDIUM": "中风险",
+      "NO_ENGAGEMENT_30D": "30 天内没有邮件或会议",
+      "ONE_WAY": "只有收到的邮件（{{count}}）",
+      "MEETING_30D": "30 天内 {{count}} 次会议"
+    },
+    "mail30d": "30 天邮件",
+    "meetings30d": "30 天会议",
+    "nextMeeting": "下次会议 {{date}}",
+    "byClient": "按客户的健康度",
+    "opportunities": "商机",
+    "clientLine": "{{active}}/{{total}} 个主题 · {{emails}} 封邮件 · {{meetings}} 次会议",
+    "topic": "主题",
+    "lastMove": "最近动态",
+    "daysAgo": "{{days}} 天前",
+    "noMail": "尚未导入邮件。请导入旧看板的 crm_cache.json。",
+    "mailbox": "邮箱：{{emails}} 封邮件（30 天）· {{meetings}} 次会议 · {{upcoming}} 次已安排 · {{unmatched}} 未分类 · 截至 {{date}}",
+    "allMailboxes": "所有邮箱",
+    "topicReason": {
+      "TICKETS_CLOSED": "eDo 工单已关闭",
+      "TICKETS_RESOLVED": "eDo 工单已解决，等待客户关闭",
+      "TICKET_OPEN": "eDo {{number}} 未关闭，最近动态 {{days}} 天前",
+      "TOPIC_CLOSED": "主题已关闭",
+      "TOPIC_ON_HOLD": "主题暂停",
+      "NO_INTERACTION_WINDOW": "30 天内没有邮件或会议",
+      "IDLE_DAYS": "最近动态 {{days}} 天前（超过 14 天）"
+    },
+    "import": {
+      "button": "导入邮件",
+      "title": "导入邮件和会议（crm_cache.json）",
+      "hint": "旧看板的 crm_cache.json 文件（~/Documents/Dashboards）。只保存元数据：数量、日期和最近的主题；从不保存邮件正文。较新的缓存会替换之前的缓存。",
+      "linked": "{{count}} 个主题已关联商机",
+      "replaced": "已替换上一个缓存的 {{count}} 条活动"
     }
   },
   "tickets": {

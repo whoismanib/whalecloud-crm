@@ -14,6 +14,19 @@ export interface HealthInput {
   overdueSlaCount: number;
   risk: RiskLevel | null;
   today: string;
+  /**
+   * E-mails and meetings of the last 30 days (ADR 0008). Optional: without it the score only uses
+   * the last activity date, as before the mail import.
+   */
+  engagement?: EngagementCounts;
+}
+
+export interface EngagementCounts {
+  emailsIn: number;
+  emailsOut: number;
+  meetings: number;
+  /** Meetings scheduled in the future. */
+  upcoming: number;
 }
 
 export interface HealthResult {
@@ -70,9 +83,22 @@ export function healthScore(
   }
   if (input.risk === 'HIGH') reasons.push({ code: 'RISK_HIGH', points: -20 });
   else if (input.risk === 'MEDIUM') reasons.push({ code: 'RISK_MEDIUM', points: -10 });
+  const e = input.engagement;
+  if (e) {
+    const mail = e.emailsIn + e.emailsOut;
+    if (mail + e.meetings === 0 && e.upcoming === 0 && input.lastActivityOn) {
+      reasons.push({ code: 'NO_ENGAGEMENT_30D', points: -10 });
+    } else if (e.emailsIn > 0 && e.emailsOut === 0 && e.meetings === 0) {
+      reasons.push({ code: 'ONE_WAY', points: -5, params: { count: e.emailsIn } });
+    }
+    if (e.meetings > 0)
+      reasons.push({ code: 'MEETING_30D', points: 5, params: { count: e.meetings } });
+  }
 
   const score = Math.max(0, Math.min(100, 100 + reasons.reduce((a, r) => a + r.points, 0)));
+  // A meeting on the calendar means the deal is alive (legacy: Stale only with no meeting scheduled).
+  const scheduled = (e?.upcoming ?? 0) > 0;
   const status: HealthStatus =
-    idle > settings['health.staleBusinessDays'] ? 'STALE' : healthBand(score);
+    idle > settings['health.staleBusinessDays'] && !scheduled ? 'STALE' : healthBand(score);
   return { score, status, reasons, idleBusinessDays: idle };
 }

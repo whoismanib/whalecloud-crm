@@ -389,7 +389,12 @@
       "contracts": "合同",
       "milestones": "里程碑",
       "invoices": "发票",
-      "payments": "付款"
+      "payments": "付款",
+      "topics": "主题",
+      "activities": "活动",
+      "emails": "邮件",
+      "meetings": "会议",
+      "snapshots": "邮箱汇总"
     }
   }
 }

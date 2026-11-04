@@ -17,6 +17,7 @@ Documentos hermanos: `DATA-MODEL.md`, `API.md`, `CONVENTIONS.md`, `adr/`.
 | Jobs / SLA | **pg-boss** (cola y cron sobre Postgres; sin Redis) en contenedor `worker` | 0005 |
 | Despliegue | docker-compose: `db`, `migrate`, `api`, `worker`, `web` (nginx: SPA + proxy `/api`), `backup`; VPS/ECS en **Alibaba Cloud Hong Kong** (sin ICP, accesible desde China y Chile) | 0005 |
 | Reglas de negocio | Funciones puras en `packages/shared/src/rules` reutilizadas por web y API | 0006 |
+| Correo y calendario | Solo metadatos por usuario. Fase 0: importar `crm_cache.json` del legado. Fase 1: conector local que envía los metadatos. Fase 2: Graph delegado, si los buzones pasan a Exchange Online | 0008 |
 | Monorepo | npm workspaces: `apps/web`, `apps/api`, `packages/shared` | — |
 | Cero dependencias externas en runtime del navegador | Sin Google Fonts, CDN, captcha, mapas ni analítica de terceros; todo se sirve desde el mismo origen | 0002, 0005 |
 

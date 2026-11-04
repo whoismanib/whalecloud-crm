@@ -16,6 +16,8 @@ export * from './businessCase';
 export * from './priceRequest';
 export * from './stageGates';
 export * from './health';
+export * from './engagement';
+export * from './mailCache';
 export * from './kpis';
 export * from './postsales';
 export * from './channel';

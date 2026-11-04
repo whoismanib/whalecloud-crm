@@ -304,3 +304,51 @@ describe('permissions from RACI (ADM-02)', () => {
     ]);
   });
 });
+
+describe('healthScore with 30-day engagement (ADR 0008)', () => {
+  const S = DEFAULT_SETTINGS;
+  const base = {
+    status: 'OPEN' as const,
+    stage: 3,
+    lastActivityOn: '2026-11-02',
+    lastUpdatedOn: '2026-11-02',
+    expectedCloseDate: null,
+    overdueSlaCount: 0,
+    risk: null,
+    today: '2026-11-03',
+  };
+  const e = (
+    x: Partial<{ emailsIn: number; emailsOut: number; meetings: number; upcoming: number }>,
+  ) => ({
+    emailsIn: 0,
+    emailsOut: 0,
+    meetings: 0,
+    upcoming: 0,
+    ...x,
+  });
+  it('without engagement input the score is unchanged', () => {
+    expect(healthScore(base, CL, S).score).toBe(100);
+  });
+  it('penalises no mail/meetings in 30 days and one-way mail', () => {
+    expect(healthScore({ ...base, engagement: e({}) }, CL, S)).toMatchObject({ score: 90 });
+    const r = healthScore({ ...base, engagement: e({ emailsIn: 4 }) }, CL, S);
+    expect(r.score).toBe(95);
+    expect(r.reasons).toEqual([{ code: 'ONE_WAY', points: -5, params: { count: 4 } }]);
+    expect(
+      healthScore({ ...base, engagement: e({ emailsIn: 2, emailsOut: 1 }) }, CL, S).score,
+    ).toBe(100);
+  });
+  it('a meeting adds points back and an upcoming one avoids STALE', () => {
+    const idle = {
+      ...base,
+      lastActivityOn: '2026-09-01',
+      lastUpdatedOn: '2026-09-01',
+      risk: 'MEDIUM' as const,
+    };
+    expect(healthScore(idle, CL, S).status).toBe('STALE');
+    const r = healthScore({ ...idle, engagement: e({ meetings: 1, upcoming: 1 }) }, CL, S);
+    expect(r.status).not.toBe('STALE');
+    expect(r.reasons.map((x) => x.code)).toEqual(['IDLE', 'RISK_MEDIUM', 'MEETING_30D']);
+    expect(r.score).toBe(55);
+  });
+});
