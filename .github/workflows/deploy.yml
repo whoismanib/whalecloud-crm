@@ -5,6 +5,8 @@
 # - workflow_dispatch: redeploy a given image tag (also used for rollback).
 # Each environment needs secrets SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, SSH_KNOWN_HOSTS and
 # variables APP_DIR (e.g. /opt/whalecloud-crm) and PUBLIC_URL (e.g. https://crm.example.com).
+# workflow_run jobs run with GITHUB_REF = main (even for tags): the environments' deployment
+# branch rule must allow `main`; the tag check is done in `plan` and approval by required reviewers.
 name: deploy
 
 on:
@@ -25,10 +27,6 @@ on:
 
 permissions:
   contents: read
-
-concurrency:
-  group: deploy-${{ github.event.inputs.environment || 'auto' }}
-  cancel-in-progress: false
 
 jobs:
   plan:
@@ -69,6 +67,10 @@ jobs:
     needs: plan
     runs-on: ubuntu-latest
     environment: ${{ needs.plan.outputs.environment }}
+    # One deploy at a time per environment; a production run waiting for approval does not block staging.
+    concurrency:
+      group: deploy-${{ needs.plan.outputs.environment }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
         with:
@@ -102,6 +104,9 @@ jobs:
     name: rollout (${{ needs.plan.outputs.environment }})
     needs: [plan, migrate]
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-${{ needs.plan.outputs.environment }}
+      cancel-in-progress: false
     environment:
       name: ${{ needs.plan.outputs.environment }}
       url: ${{ vars.PUBLIC_URL }}

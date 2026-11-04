@@ -38,7 +38,7 @@ Staging y producción corren igual: `NODE_ENV=production`, `MFA_REQUIRED=true` y
 |---|---|---|---|
 | E1 | Sin defectos Blocker ni Critical abiertos | QA-REPORT §6 | ✅ QA-001 y QA-002 corregidos |
 | E2 | Major QA-003 a QA-008 corregidos | QA-REPORT §6.1 | ✅ corregidos por ingeniería; ⏳ falta la reverificación de QA |
-| E3 | Suite verde en el candidato: lint, typecheck, `npm test`, build, i18n, no-external, e2e | QA-REPORT §2 | ✅ local (ver §7); ⏳ primera corrida de `ci.yml` en GitHub |
+| E3 | Suite verde en el candidato: lint, typecheck, `npm test`, build, i18n, no-external, e2e | QA-REPORT §2 | ✅ local, salvo 1 e2e intermitente (ver §7); ⏳ primera corrida de `ci.yml` en GitHub |
 | E4 | Imágenes sin vulnerabilidades CRITICAL (Trivy) | ADR 0005 | ⏳ primera corrida de `docker.yml` |
 | E5 | Stack de staging arriba con TLS válido y `/api/health` en 200 | RUNBOOK-DEPLOY §7 | ⏳ requiere host y Docker |
 | E6 | Respaldo diario funcionando y un simulacro de restauración aprobado | RUNBOOK-BACKUP-RESTORE §4 | ✅ simulacro local de cifrado y restauración; ⏳ simulacro en staging con OSS |
@@ -109,9 +109,10 @@ Ejecutada por el Release Manager sobre `c02b272` + commits de release, en macOS 
 | `npm ci` | ✅ 788 paquetes |
 | `npm run lint` · `typecheck` · `build` · `i18n:check` · `check:no-external` | ✅ |
 | `npm test` | ✅ shared 139 · api 67 · web 3, contra PostgreSQL **14** local (cluster desechable; CI usa 16) |
-| `npm run test:e2e` | ⚠️ 23/24 en la corrida completa: `approval.spec.ts` "línea al 55 % → Jacky" falló una vez (`req` indefinido) y pasó 3/3 al repetirla sola. Se trata como inestable (*flaky*), con Chromium 1248 local en vez del 1243 fijado; en CI hay 1 reintento |
+| `npm run test:e2e` | ⚠️ **23/24 en 2 de 2 corridas completas**: falla `approval.spec.ts:33` "línea al 55 % → Jacky (VP)". Es el primer test de la suite y falla en la línea 63 (`req` indefinido: `GET /opportunities/:id/approval-requests` vuelve vacío justo después de "Solicitar aprobación"). Corrido solo, pasa 3/3. Es una falla **intermitente y reproducible**, probablemente una carrera entre el test y la creación de la solicitud; falta el triage de QA e ingeniería. Se usó Chromium 1248 local (el fijado es 1243). En CI hay 1 reintento, que podría ocultarla. Bloquea S5 hasta resolverla |
 | `docker compose ... config` | ⏳ **no ejecutado**: Docker no está instalado en el equipo. Se validó el YAML con js-yaml: 6 servicios; healthcheck, límites y `restart` en cada uno (migrate one-shot); las 50 variables existen en `.env.prod.example`; solo `web` expone puertos; red `back` interna. `ci.yml` corre `docker compose config` en cada push |
 | Levantar el stack con TLS autofirmado | ⏳ **no ejecutado** (sin Docker). Reemplazo: API compilada en modo producción contra una BD restaurada → `/readyz` 200, login con cookies `Secure` y `mfaRequired: true`, `/auth/me` sin cookie → 401; con `MFA_REQUIRED=false` la API no arranca |
+| Worker en modo producción | ✅ `dist/worker.js` con `NODE_ENV=production` sobre la BD restaurada: "worker started" con los 8 jobs; el comando de healthcheck del compose (`select 1 from pgboss.version`) termina en 0 |
 | `actionlint` | ⏳ **no ejecutado**: no está instalado y `npx --yes actionlint` no tiene ejecutable. Los 3 workflows se parsearon con js-yaml |
 | Scripts de shell | ✅ `sh -n` sin errores en `deploy.sh`, `backup.sh`, `restore.sh`, `healthcheck.sh` y `entrypoint.sh` |
 | Respaldo → restauración | ✅ `backup.sh` → `restore.sh` sobre `wcrm_e2e`: mismos conteos (11 usuarios, 9 cuentas, 14 oportunidades, 3 facturas, 282 eventos), `audit_log_verify()` sin quiebres, permisos de `wcrm_app` conservados (UPDATE de bitácora denegado); clave errónea → falla clara; se niega a restaurar sobre la BD viva |

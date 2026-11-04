@@ -141,7 +141,11 @@ Guarde `.env.prod`, `APP_ENCRYPTION_KEY` y `BACKUP_ENCRYPTION_KEY` en la bóveda
 ### 7.1 Opción recomendada: por el pipeline
 
 1. GitHub → Settings → Environments: cree `staging` y `production`. En `production` active
-   **Required reviewers** (CM y Release Manager) y limite el despliegue a tags `v*`.
+   **Required reviewers** (CM y Release Manager). En *Deployment branches and tags* permita `main`
+   (y `v*` si quiere lanzar rollbacks manuales desde un tag): los jobs disparados por `workflow_run`
+   corren con la referencia `main` aunque el origen sea un tag, así que restringir solo a `v*`
+   bloquearía el despliegue. El job `plan` solo envía a producción las ejecuciones de tags `v*`, y la
+   aprobación de los revisores es el control.
 2. En cada environment, cargue los secrets `SSH_HOST`, `SSH_USER` (`deploy`), `SSH_PRIVATE_KEY` y
    `SSH_KNOWN_HOSTS` (salida de `ssh-keyscan <host>`), y las variables `APP_DIR`
    (`/opt/whalecloud-crm`) y `PUBLIC_URL` (`https://crm.<dominio>`).
@@ -199,7 +203,9 @@ idempotente: no pisa datos existentes ni vuelve a fijar la contraseña del admin
 2. Administración → **Usuarios y roles** → cree una cuenta nominativa con rol Administrador para cada
    persona que administre (contraseña inicial ≥ 12 caracteres, entregada por un canal separado).
 3. Con la cuenta nominativa ya enrolada, desactive la cuenta inicial (`isActive = false`) o cámbiele la
-   contraseña desde Usuarios. Luego borre `SEED_ADMIN_PASSWORD` de la bóveda: el seed no la vuelve a usar
+   contraseña desde Usuarios. Luego reemplace el valor de `SEED_ADMIN_PASSWORD` en `.env.prod` por uno
+   aleatorio desechable (`openssl rand -hex 24`). **No borre la línea**: el compose la exige
+   (`${SEED_ADMIN_PASSWORD:?}`) y sin ella ningún comando `dc` funciona. El seed no la vuelve a usar
    mientras el usuario exista.
 4. Cree a los usuarios del piloto con sus roles (CM, AM, Ventas China, Finanzas China, Legal China,
    delivery, VP, presidente), su idioma (es-CL, en o zh-CN) y su país. Cada uno enrola TOTP en su
@@ -208,11 +214,12 @@ idempotente: no pisa datos existentes ni vuelve a fijar la contraseña del admin
 ### 8.4 Datos demo en staging (opción B del plan, solo staging)
 
 ```bash
+DEMO_PW=$(openssl rand -hex 12); echo "contraseña demo: $DEMO_PW"
 dc run --rm -e NODE_ENV=development -e MFA_REQUIRED=false \
-  -e SEED_DEMO_PASSWORD="$(openssl rand -base64 18)" migrate node dist/db/seed/seed.js --demo
+  -e SEED_DEMO_PASSWORD="$DEMO_PW" migrate node dist/db/seed/seed.js --demo
 ```
 
-Guarde la contraseña generada y compártala solo con los testers. Nunca lo haga en producción: el seed
+Guarde la contraseña impresa en la bóveda y compártala solo con los testers. Nunca lo haga en producción: el seed
 lo rechaza con `NODE_ENV=production`, y este comando lo salta a propósito.
 
 ## 9. Cargar tipos de cambio y feriados
