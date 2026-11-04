@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
-import { EnumBadge, PageHeader, StageBadge } from '../../components/ui';
+import { EnumBadge, PageHeader, ScrollTable, StageBadge } from '../../components/ui';
 import { fmtMoney } from '../../lib/format';
 
 interface HealthRow {
@@ -70,7 +70,7 @@ export default function HealthPage() {
       {accounts.map((acc) => (
         <Stack key={acc} gap={4}>
           <Text fw={700}>{acc}</Text>
-          <Table striped withTableBorder data-testid="health-table">
+          <ScrollTable striped withTableBorder data-testid="health-table">
             <Table.Thead>
               <Table.Tr>
                 <Table.Th w="30%">{t('fields.name')}</Table.Th>
@@ -134,7 +134,7 @@ export default function HealthPage() {
                   </Table.Tr>
                 ))}
             </Table.Tbody>
-          </Table>
+          </ScrollTable>
         </Stack>
       ))}
     </Stack>

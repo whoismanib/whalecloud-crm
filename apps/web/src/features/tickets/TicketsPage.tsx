@@ -29,7 +29,7 @@ import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { ExportButtons } from '../../components/ExportButtons';
 import { RuleErrors } from '../../components/RuleErrors';
-import { EnumBadge, EnumSelect, PageHeader, useFieldError } from '../../components/ui';
+import { EnumBadge, EnumSelect, PageHeader, ScrollTable, useFieldError } from '../../components/ui';
 import { fmtDate, fmtDateTime, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -193,7 +193,7 @@ export default function TicketsPage() {
           ))}
         </Paper>
       )}
-      <Table striped withTableBorder data-testid="tickets-table">
+      <ScrollTable striped withTableBorder data-testid="tickets-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.number')}</Table.Th>
@@ -265,7 +265,7 @@ export default function TicketsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Modal
         opened={creating}
         onClose={() => setCreating(false)}

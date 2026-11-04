@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { EnumBadge } from '../../components/ui';
+import { EnumBadge, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -159,7 +159,7 @@ export function AccountPlanPanel({ accountId }: { accountId: string }) {
         </SimpleGrid>
       )}
       <Title order={6}>{t('p2:review.title')}</Title>
-      <Table striped>
+      <ScrollTable striped minWidth={0}>
         <Table.Tbody>
           {(reviews.data ?? []).map((r) => (
             <Table.Tr key={r.id}>
@@ -182,7 +182,7 @@ export function AccountPlanPanel({ accountId }: { accountId: string }) {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {canWrite && (
         <SimpleGrid cols={2}>
           <Select

@@ -33,7 +33,14 @@ import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
 import { ExportButtons } from '../../components/ExportButtons';
-import { EnumBadge, EnumSelect, PageHeader, StageBadge, useFieldError } from '../../components/ui';
+import {
+  EnumBadge,
+  EnumSelect,
+  PageHeader,
+  ScrollTable,
+  StageBadge,
+  useFieldError,
+} from '../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -298,7 +305,7 @@ export default function OpportunitiesPage() {
       {view === 'kanban' ? (
         <Kanban rows={rows} />
       ) : (
-        <Table striped highlightOnHover data-testid="opps-table">
+        <ScrollTable striped highlightOnHover data-testid="opps-table">
           <Table.Thead>
             <Table.Tr>
               <Table.Th>{t('fields.code')}</Table.Th>
@@ -342,7 +349,7 @@ export default function OpportunitiesPage() {
               </Table.Tr>
             ))}
           </Table.Tbody>
-        </Table>
+        </ScrollTable>
       )}
       <Modal opened={creating} onClose={() => setCreating(false)} title={t('opps.new')} size="lg">
         <CreateOpportunity onDone={(id) => nav(`/oportunidades/${id}`)} />

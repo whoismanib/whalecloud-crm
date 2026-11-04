@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { canDo, hasAction, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtMoney, fmtPct, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 import { opt, useAccountsLite } from '../p2/lookups';
@@ -127,7 +127,7 @@ function DistributorDetail({ id }: { id: string }) {
       </Text>
       <RuleErrors error={addAg.error ?? addTr.error} />
       <Title order={6}>{t('p2:distributor.agreements')}</Title>
-      <Table striped>
+      <ScrollTable striped minWidth={0}>
         <Table.Tbody>
           {d.agreements.map((a) => (
             <Table.Tr key={a.id}>
@@ -153,7 +153,7 @@ function DistributorDetail({ id }: { id: string }) {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {canDo(me, 'P13', 'approve') && (
         <Paper withBorder p="sm">
           <SimpleGrid cols={3}>
@@ -402,7 +402,7 @@ export default function DistributorsPage() {
         }
       />
       <RuleErrors error={q.error ?? decide.error} />
-      <Table striped highlightOnHover withTableBorder data-testid="distributors-table">
+      <ScrollTable striped highlightOnHover withTableBorder data-testid="distributors-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.name')}</Table.Th>
@@ -432,9 +432,9 @@ export default function DistributorsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Title order={5}>{t('p2:distributor.registrations')}</Title>
-      <Table striped withTableBorder data-testid="registrations-table">
+      <ScrollTable striped withTableBorder data-testid="registrations-table">
         <Table.Tbody>
           {(regs.data ?? []).map((r) => (
             <Table.Tr key={r.id}>
@@ -487,7 +487,7 @@ export default function DistributorsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Drawer
         opened={Boolean(selected)}
         onClose={() => setSelected(null)}

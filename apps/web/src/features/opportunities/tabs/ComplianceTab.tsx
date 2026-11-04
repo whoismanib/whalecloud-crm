@@ -26,6 +26,7 @@ import { RuleErrors } from '../../../components/RuleErrors';
 import { fmtDateTime } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
+import { ScrollTable } from '../../../components/ui';
 
 interface Item {
   section: ComplianceSection;
@@ -162,7 +163,7 @@ export function ComplianceTab({ opp }: TabProps) {
                   {required ? t('p2:compliance.required') : t('p2:compliance.optional')}
                 </Badge>
               </Group>
-              <Table>
+              <ScrollTable>
                 <Table.Tbody>
                   {items.map((i) => (
                     <Table.Tr key={i.itemCode}>
@@ -209,7 +210,7 @@ export function ComplianceTab({ opp }: TabProps) {
                     </Table.Tr>
                   ))}
                 </Table.Tbody>
-              </Table>
+              </ScrollTable>
             </Paper>
           );
         })}

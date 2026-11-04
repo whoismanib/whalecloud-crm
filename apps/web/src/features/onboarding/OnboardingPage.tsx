@@ -24,7 +24,7 @@ import { api } from '../../api/client';
 import { useCatalogs } from '../../api/catalogs';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -180,7 +180,7 @@ export default function OnboardingPage() {
         }
       />
       <RuleErrors error={q.error ?? toggle.error} />
-      <Table striped withTableBorder data-testid="onboarding-table">
+      <ScrollTable striped withTableBorder data-testid="onboarding-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('p2:onboarding.person')}</Table.Th>
@@ -259,7 +259,7 @@ export default function OnboardingPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {canDo(me, 'P15', 'view') && <Kits />}
       <Modal opened={creating} onClose={() => setCreating(false)} title={t('p2:onboarding.new')}>
         <NewOnboarding onDone={() => setCreating(false)} />

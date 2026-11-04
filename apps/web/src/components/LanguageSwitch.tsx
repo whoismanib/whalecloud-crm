@@ -11,7 +11,7 @@ export function LanguageSwitch({ persist = false }: { persist?: boolean }) {
       data={LANGS}
       value={i18n.language}
       allowDeselect={false}
-      w={170}
+      w={{ base: 96, sm: 170 }}
       size="xs"
       onChange={(v) => {
         if (!v) return;

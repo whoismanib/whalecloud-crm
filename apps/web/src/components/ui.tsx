@@ -2,10 +2,12 @@ import {
   Badge,
   Group,
   Select,
+  Table,
   Text,
   Title,
   type BadgeProps,
   type SelectProps,
+  type TableProps,
 } from '@mantine/core';
 import type { ReactNode } from 'react';
 import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form';
@@ -149,4 +151,16 @@ export function useFieldError() {
   const { t } = useTranslation();
   return (e?: { message?: string }) =>
     e?.message ? t(`errors:validation.${e.message}`, { defaultValue: e.message }) : undefined;
+}
+
+/**
+ * Table that scrolls horizontally inside its own container on narrow screens (QA-005), so the
+ * page itself never scrolls sideways. `minWidth` is the width below which the table scrolls.
+ */
+export function ScrollTable({ minWidth = 720, ...props }: TableProps & { minWidth?: number }) {
+  return (
+    <Table.ScrollContainer minWidth={minWidth} type="native">
+      <Table {...props} />
+    </Table.ScrollContainer>
+  );
 }

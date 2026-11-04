@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDateTime } from '../../lib/format';
 import { ChangesCell, type AuditRow } from '../opportunities/tabs/TimelineTab';
 
@@ -78,7 +78,7 @@ export default function AuditPage() {
         </Alert>
       )}
       <RuleErrors error={q.error} />
-      <Table striped withTableBorder data-testid="audit-table">
+      <ScrollTable striped withTableBorder data-testid="audit-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>#</Table.Th>
@@ -118,7 +118,7 @@ export default function AuditPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Group justify="center">
         <Pagination
           total={Math.max(1, Math.ceil((q.data?.meta.total ?? 0) / 50))}

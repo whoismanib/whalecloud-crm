@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader, StageBadge } from '../../components/ui';
+import { PageHeader, ScrollTable, StageBadge } from '../../components/ui';
 import { fmtDate, fmtDateTime, fmtMoney, fmtPct, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -226,7 +226,7 @@ export default function ForecastPage() {
         <Tabs.Panel value="current" pt="md">
           <Stack>
             {cur.data && <TotalsGrid totals={cur.data.totals} testId="forecast-totals" />}
-            <Table striped withTableBorder data-testid="forecast-items">
+            <ScrollTable striped withTableBorder data-testid="forecast-items">
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>{t('fields.name')}</Table.Th>
@@ -278,7 +278,7 @@ export default function ForecastPage() {
                   </Table.Tr>
                 ))}
               </Table.Tbody>
-            </Table>
+            </ScrollTable>
           </Stack>
         </Tabs.Panel>
         <Tabs.Panel value="report" pt="md">
@@ -305,7 +305,7 @@ export default function ForecastPage() {
               </Text>
               <TotalsGrid totals={r.snapshot.totals.quarter} />
               <Title order={6}>{t('p2:forecast.topDeals')}</Title>
-              <Table striped withTableBorder>
+              <ScrollTable striped withTableBorder>
                 <Table.Tbody>
                   {r.topDeals.map((d) => (
                     <Table.Tr key={d.opportunityId}>
@@ -330,7 +330,7 @@ export default function ForecastPage() {
                     </Table.Tr>
                   ))}
                 </Table.Tbody>
-              </Table>
+              </ScrollTable>
               <Title order={6}>{t('p2:forecast.changes')}</Title>
               {r.changes.length === 0 ? (
                 <Text size="sm" c="dimmed">
@@ -395,7 +395,7 @@ export default function ForecastPage() {
                 {t('p2:forecast.accuracyHint')}
               </Text>
             </Paper>
-            <Table striped withTableBorder data-testid="snapshots">
+            <ScrollTable striped withTableBorder data-testid="snapshots">
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>{t('p2:forecast.weekCol')}</Table.Th>
@@ -418,7 +418,7 @@ export default function ForecastPage() {
                   </Table.Tr>
                 ))}
               </Table.Tbody>
-            </Table>
+            </ScrollTable>
           </Stack>
         </Tabs.Panel>
       </Tabs>

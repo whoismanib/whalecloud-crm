@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { api, type ProblemError } from '../../../api/client';
 import { canDo, useMe } from '../../../auth/useMe';
 import { RuleErrors, useRuleMessage } from '../../../components/RuleErrors';
-import { EnumBadge } from '../../../components/ui';
+import { EnumBadge, ScrollTable } from '../../../components/ui';
 import { fmtDate, fmtPct } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
@@ -256,7 +256,7 @@ export function ApprovalTab({ opp }: TabProps) {
                 {p.conditions.map((c) => t(`enums:condition.${c}`)).join(', ')}
               </Text>
             )}
-            <Table mt="sm">
+            <ScrollTable mt="sm" minWidth={0}>
               <Table.Tbody>
                 {p.steps.map((s) => (
                   <Table.Tr key={s.seq}>
@@ -266,7 +266,7 @@ export function ApprovalTab({ opp }: TabProps) {
                   </Table.Tr>
                 ))}
               </Table.Tbody>
-            </Table>
+            </ScrollTable>
             {canDo(me, 'P6', 'write') && !p.blocked && (
               <Stack gap="xs" mt="sm">
                 {p.requiresCompetitiveJustification && (

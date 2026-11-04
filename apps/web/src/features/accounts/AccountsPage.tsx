@@ -35,7 +35,14 @@ import { useCatalogs } from '../../api/catalogs';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
 import { ExportButtons } from '../../components/ExportButtons';
-import { EnumBadge, EnumSelect, PageHeader, StageBadge, useFieldError } from '../../components/ui';
+import {
+  EnumBadge,
+  EnumSelect,
+  PageHeader,
+  ScrollTable,
+  StageBadge,
+  useFieldError,
+} from '../../components/ui';
 import { AccountPlanPanel } from '../renewals/AccountPlanPanel';
 import { fmtMoney } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
@@ -250,7 +257,7 @@ function AccountDetail({ id }: { id: string }) {
     <Stack>
       <Title order={4}>{q.data.name}</Title>
       <Title order={6}>{t('accounts.contacts')}</Title>
-      <Table striped>
+      <ScrollTable striped minWidth={0}>
         <Table.Tbody>
           {q.data.contacts.map((c) => (
             <Table.Tr key={c.id}>
@@ -272,7 +279,7 @@ function AccountDetail({ id }: { id: string }) {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {canDo(me, 'P1', 'write') && <ContactForm accountId={id} />}
       <Title order={6}>{t('opps.title')}</Title>
       {q.data.opportunities.map((o) => (
@@ -320,7 +327,7 @@ export default function AccountsPage() {
         }
       />
       <RuleErrors error={list.error} />
-      <Table striped highlightOnHover data-testid="accounts-table">
+      <ScrollTable striped highlightOnHover data-testid="accounts-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.name')}</Table.Th>
@@ -349,7 +356,7 @@ export default function AccountsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Modal
         opened={creating}
         onClose={() => setCreating(false)}

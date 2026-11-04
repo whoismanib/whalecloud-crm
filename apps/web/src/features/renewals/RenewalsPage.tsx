@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader, StageBadge } from '../../components/ui';
+import { PageHeader, ScrollTable, StageBadge } from '../../components/ui';
 import { fmtDate, fmtMoney } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -51,7 +51,7 @@ export default function RenewalsPage() {
         {t('p2:renewal.hint')}
       </Text>
       <RuleErrors error={q.error ?? create.error} />
-      <Table striped withTableBorder data-testid="renewals-table">
+      <ScrollTable striped withTableBorder data-testid="renewals-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.account')}</Table.Th>
@@ -113,7 +113,7 @@ export default function RenewalsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Paper withBorder p="sm">
         <Title order={5} mb="xs">
           {t('p2:review.overdueTitle')}

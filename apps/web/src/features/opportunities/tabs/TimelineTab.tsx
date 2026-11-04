@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../../api/client';
 import { fmtDateTime } from '../../../lib/format';
 import type { TabProps } from '../types';
+import { ScrollTable } from '../../../components/ui';
 
 export interface AuditRow {
   id: number;
@@ -35,7 +36,7 @@ export function TimelineTab({ opp }: TabProps) {
     queryFn: () => api.get<AuditRow[]>(`/opportunities/${opp.id}/timeline`),
   });
   return (
-    <Table striped data-testid="timeline">
+    <ScrollTable striped data-testid="timeline">
       <Table.Thead>
         <Table.Tr>
           <Table.Th>{t('audit.occurredAt')}</Table.Th>
@@ -67,6 +68,6 @@ export function TimelineTab({ opp }: TabProps) {
           </Table.Tr>
         ))}
       </Table.Tbody>
-    </Table>
+    </ScrollTable>
   );
 }

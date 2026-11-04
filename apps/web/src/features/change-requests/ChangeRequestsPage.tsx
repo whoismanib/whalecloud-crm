@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { canDo, hasAction, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 import { opt, useAccountsLite, useContractsLite } from '../p2/lookups';
@@ -150,7 +150,7 @@ function CrDetail({ id }: { id: string }) {
       <RuleErrors error={err} />
       <Paper withBorder p="sm">
         <Title order={6}>{t('p2:cr.lines')}</Title>
-        <Table>
+        <ScrollTable>
           <Table.Thead>
             <Table.Tr>
               <Table.Th>{t('p2:cr.profile')}</Table.Th>
@@ -211,7 +211,7 @@ function CrDetail({ id }: { id: string }) {
               );
             })}
           </Table.Tbody>
-        </Table>
+        </ScrollTable>
         <Group justify="space-between" mt="xs">
           <Text fw={600}>
             {t('ui.total')}: {fmtMoney(c.amount, c.amountCurrency ?? 'USD')}
@@ -391,7 +391,7 @@ function RateCards() {
   });
   return (
     <Stack>
-      <Table striped withTableBorder data-testid="rate-cards">
+      <ScrollTable striped withTableBorder data-testid="rate-cards">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('p2:cr.scope')}</Table.Th>
@@ -414,7 +414,7 @@ function RateCards() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {canDo(me, 'P11', 'write') && (
         <Paper withBorder p="sm">
           <SimpleGrid cols={{ base: 2, md: 5 }}>
@@ -505,7 +505,7 @@ export default function ChangeRequestsPage() {
           <Tabs.Tab value="rates">{t('p2:cr.rateCards')}</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="list" pt="md">
-          <Table striped highlightOnHover withTableBorder data-testid="crs-table">
+          <ScrollTable striped highlightOnHover withTableBorder data-testid="crs-table">
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>{t('fields.code')}</Table.Th>
@@ -544,7 +544,7 @@ export default function ChangeRequestsPage() {
                 </Table.Tr>
               ))}
             </Table.Tbody>
-          </Table>
+          </ScrollTable>
         </Tabs.Panel>
         <Tabs.Panel value="rates" pt="md">
           <RateCards />

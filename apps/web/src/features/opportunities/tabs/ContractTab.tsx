@@ -27,7 +27,7 @@ import { api } from '../../../api/client';
 import { useCatalogs } from '../../../api/catalogs';
 import { canDo, useMe } from '../../../auth/useMe';
 import { RuleErrors } from '../../../components/RuleErrors';
-import { EnumBadge } from '../../../components/ui';
+import { EnumBadge, ScrollTable } from '../../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
@@ -174,7 +174,7 @@ export function ContractTab({ opp }: TabProps) {
       <Stack>
         <Paper withBorder p="md">
           <Title order={5}>{t('contract.list')}</Title>
-          <Table mt="xs">
+          <ScrollTable mt="xs" minWidth={0}>
             <Table.Tbody>
               {(list.data ?? []).map((c) => (
                 <Table.Tr key={c.id}>
@@ -209,7 +209,7 @@ export function ContractTab({ opp }: TabProps) {
                 </Table.Tr>
               ))}
             </Table.Tbody>
-          </Table>
+          </ScrollTable>
           <RuleErrors error={fromTc.error} />
         </Paper>
         {canWrite && (

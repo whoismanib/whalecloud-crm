@@ -21,7 +21,7 @@ import { api } from '../../api/client';
 import { hasAction, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
 import { ExportButtons } from '../../components/ExportButtons';
-import { EnumBadge, PageHeader } from '../../components/ui';
+import { EnumBadge, PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtMoney } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 import { PaymentModal, type Invoice } from '../opportunities/tabs/MilestonesTab';
@@ -134,7 +134,7 @@ export default function BillingPage() {
         </Paper>
       </SimpleGrid>
       <Title order={4}>{t('billing.invoices')}</Title>
-      <Table striped withTableBorder data-testid="invoices-table">
+      <ScrollTable striped withTableBorder data-testid="invoices-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.number')}</Table.Th>
@@ -203,7 +203,7 @@ export default function BillingPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Group justify="space-between">
         <Title order={4}>{t('billing.actions')}</Title>
         <Checkbox
@@ -212,7 +212,7 @@ export default function BillingPage() {
           onChange={(e) => setOnlyDue(e.currentTarget.checked)}
         />
       </Group>
-      <Table striped withTableBorder data-testid="collection-actions">
+      <ScrollTable striped withTableBorder data-testid="collection-actions">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.date')}</Table.Th>
@@ -250,7 +250,7 @@ export default function BillingPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Modal
         opened={Boolean(payFor)}
         onClose={() => setPayFor(null)}

@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { canDo, hasAction, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtNumber, fmtPct, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 import { useContractsLite } from '../p2/lookups';
@@ -192,7 +192,7 @@ export default function CapacityPage() {
                 {t('p2:capacity.suggestion')}
               </Alert>
             )}
-            <Table mt="xs">
+            <ScrollTable mt="xs" minWidth={0}>
               <Table.Tbody>
                 {p.monthly.map((m) => (
                   <Table.Tr key={m.month}>
@@ -201,7 +201,7 @@ export default function CapacityPage() {
                   </Table.Tr>
                 ))}
               </Table.Tbody>
-            </Table>
+            </ScrollTable>
           </Paper>
         ))}
       </SimpleGrid>

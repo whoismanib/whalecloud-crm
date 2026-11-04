@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../../api/client';
 import { canDo, hasAction, useMe } from '../../../auth/useMe';
 import { RuleErrors } from '../../../components/RuleErrors';
-import { EnumBadge } from '../../../components/ui';
+import { EnumBadge, ScrollTable } from '../../../components/ui';
 import { fmtDate, fmtMoney, todayIso } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
@@ -278,7 +278,7 @@ export function MilestonesTab({ opp }: TabProps) {
   return (
     <Stack>
       <RuleErrors error={err} />
-      <Table striped withTableBorder data-testid="milestones-table">
+      <ScrollTable striped withTableBorder data-testid="milestones-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>#</Table.Th>
@@ -374,7 +374,7 @@ export function MilestonesTab({ opp }: TabProps) {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       {(q.data ?? []).length === 0 && (
         <Paper p="md" withBorder>
           <Text c="dimmed">{t('ui.empty')}</Text>

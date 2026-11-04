@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader, StageBadge } from '../../components/ui';
+import { PageHeader, ScrollTable, StageBadge } from '../../components/ui';
 import { fmtDate, fmtDateTime } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -46,7 +46,7 @@ export default function HandoffsPage() {
         {t('p2:handoff.hint')}
       </Text>
       <RuleErrors error={q.error ?? patch.error} />
-      <Table striped withTableBorder data-testid="handoffs-table">
+      <ScrollTable striped withTableBorder data-testid="handoffs-table">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.account')}</Table.Th>
@@ -131,7 +131,7 @@ export default function HandoffsPage() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
     </Stack>
   );
 }

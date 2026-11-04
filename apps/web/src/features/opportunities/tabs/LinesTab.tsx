@@ -32,7 +32,7 @@ import { api } from '../../../api/client';
 import { usePublicSettings } from '../../../api/settings';
 import { hasAction, useMe } from '../../../auth/useMe';
 import { RuleErrors, useRuleMessage } from '../../../components/RuleErrors';
-import { EnumBadge } from '../../../components/ui';
+import { EnumBadge, ScrollTable } from '../../../components/ui';
 import { fmtMoney, fmtPct } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
@@ -103,7 +103,7 @@ function SheetView({ sheet }: { sheet: Sheet }) {
         <Title order={5}>{t('sheet.current', { label: sheet.versionLabel })}</Title>
         {sheet.proposedBand && <EnumBadge ns="band" value={sheet.proposedBand} />}
       </Group>
-      <Table striped withTableBorder data-testid="sheet-lines">
+      <ScrollTable striped withTableBorder data-testid="sheet-lines">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('sheet.lineNo')}</Table.Th>
@@ -151,7 +151,7 @@ function SheetView({ sheet }: { sheet: Sheet }) {
             <Table.Td colSpan={2} />
           </Table.Tr>
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <SimpleGrid cols={{ base: 1, md: 2 }}>
         <Paper withBorder p="sm">
           <Group justify="space-between">
@@ -290,7 +290,7 @@ function NewVersion({ prId, opp }: { prId: string } & TabProps) {
           onChange={(e) => setUnlimited(e.currentTarget.checked)}
         />
       </Group>
-      <Table>
+      <ScrollTable>
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('sheet.itemType')}</Table.Th>
@@ -347,7 +347,7 @@ function NewVersion({ prId, opp }: { prId: string } & TabProps) {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Button
         size="xs"
         variant="default"

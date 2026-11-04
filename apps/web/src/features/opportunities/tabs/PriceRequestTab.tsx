@@ -36,7 +36,7 @@ import { useTranslation } from 'react-i18next';
 import { api, type ProblemError } from '../../../api/client';
 import { canDo, hasAction, useMe } from '../../../auth/useMe';
 import { RuleErrors, useRuleMessage } from '../../../components/RuleErrors';
-import { EnumBadge, EnumSelect, useFieldError } from '../../../components/ui';
+import { EnumBadge, EnumSelect, ScrollTable, useFieldError } from '../../../components/ui';
 import { fmtDate } from '../../../lib/format';
 import { useAction } from '../../../lib/mutations';
 import type { TabProps } from '../types';
@@ -186,7 +186,7 @@ export function PriceRequestTab({ opp }: TabProps) {
         </Alert>
       )}
       <form onSubmit={form.handleSubmit((v) => save.mutate(v))}>
-        <fieldset disabled={!editable} style={{ border: 0, padding: 0, margin: 0 }}>
+        <fieldset disabled={!editable} style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}>
           <Stack>
             <Paper withBorder p="md">
               <Title order={5} mb="xs">
@@ -297,7 +297,7 @@ export function PriceRequestTab({ opp }: TabProps) {
               <Title order={6} mt="md">
                 {t('pr.expectedMilestones')}
               </Title>
-              <Table>
+              <ScrollTable>
                 <Table.Tbody>
                   {ms.map((m, i) => (
                     <Table.Tr key={i}>
@@ -339,7 +339,7 @@ export function PriceRequestTab({ opp }: TabProps) {
                     </Table.Tr>
                   ))}
                 </Table.Tbody>
-              </Table>
+              </ScrollTable>
               <Group mt="xs">
                 <Button
                   size="xs"

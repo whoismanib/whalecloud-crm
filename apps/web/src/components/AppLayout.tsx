@@ -128,18 +128,21 @@ export function AppLayout() {
     <AppShell
       header={{ height: 56 }}
       navbar={{ width: 240, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-      padding="md"
+      padding={{ base: 'xs', sm: 'md' }}
     >
       <AppShell.Header>
-        <Group h="100%" px="md" justify="space-between">
-          <Group gap="xs">
+        {/* QA-005: one line at any width; the title truncates instead of wrapping */}
+        <Group h="100%" px={{ base: 'xs', sm: 'md' }} justify="space-between" wrap="nowrap">
+          <Group gap="xs" wrap="nowrap" miw={0} style={{ flex: 1 }}>
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Text fw={700}>{t('app.title')}</Text>
-            <Text size="sm" c="dimmed" visibleFrom="md">
+            <Text fw={700} truncate="end">
+              {t('app.title')}
+            </Text>
+            <Text size="sm" c="dimmed" visibleFrom="md" style={{ whiteSpace: 'nowrap' }}>
               · {t('app.office')}
             </Text>
           </Group>
-          <Group gap="xs">
+          <Group gap={6} wrap="nowrap" style={{ flexShrink: 0 }}>
             <NotificationBell />
             <LanguageSwitch persist />
             <Tooltip label={colorScheme === 'dark' ? t('ui.lightMode') : t('ui.darkMode')}>

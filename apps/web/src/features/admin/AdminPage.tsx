@@ -39,7 +39,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import { canDo, useMe } from '../../auth/useMe';
 import { RuleErrors } from '../../components/RuleErrors';
-import { PageHeader } from '../../components/ui';
+import { PageHeader, ScrollTable } from '../../components/ui';
 import { fmtDate, fmtDateTime, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
 
@@ -87,7 +87,7 @@ function Users() {
         </Button>
       </Group>
       <RuleErrors error={q.error ?? update.error} />
-      <Table striped withTableBorder data-testid="admin-users">
+      <ScrollTable striped withTableBorder data-testid="admin-users">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>{t('fields.name')}</Table.Th>
@@ -133,7 +133,7 @@ function Users() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Modal opened={Boolean(edit)} onClose={() => setEdit(null)} title={edit?.fullName}>
         {edit && (
           <Stack>
@@ -250,7 +250,7 @@ function Raci() {
         </Text>
       )}
       <ScrollArea>
-        <Table withTableBorder withColumnBorders data-testid="raci-grid" fz="xs">
+        <ScrollTable withTableBorder withColumnBorders data-testid="raci-grid" fz="xs">
           <Table.Thead>
             <Table.Tr>
               <Table.Th />
@@ -292,7 +292,7 @@ function Raci() {
               </Table.Tr>
             ))}
           </Table.Tbody>
-        </Table>
+        </ScrollTable>
       </ScrollArea>
       <Group align="flex-end">
         <TextInput
@@ -362,7 +362,7 @@ function Settings() {
         value={filter}
         onChange={(e) => setFilter(e.currentTarget.value)}
       />
-      <Table striped withTableBorder data-testid="admin-settings">
+      <ScrollTable striped withTableBorder data-testid="admin-settings">
         <Table.Tbody>
           {rows.map((s) => (
             <Table.Tr key={s.key}>
@@ -391,7 +391,7 @@ function Settings() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <Modal opened={Boolean(edit)} onClose={() => setEdit(null)} title={edit?.key} size="lg">
         {edit && (
           <Stack>
@@ -497,7 +497,7 @@ function Fx() {
         </SimpleGrid>
         <RuleErrors error={m.error} />
       </Paper>
-      <Table striped withTableBorder data-testid="fx-table">
+      <ScrollTable striped withTableBorder data-testid="fx-table">
         <Table.Tbody>
           {(q.data ?? []).map((r) => (
             <Table.Tr key={`${r.month}${r.currency}${r.kind}`}>
@@ -509,7 +509,7 @@ function Fx() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
     </Stack>
   );
 }
@@ -567,7 +567,7 @@ function Calendars() {
         </Button>
       </Group>
       <RuleErrors error={add.error ?? del.error} />
-      <Table striped withTableBorder data-testid="holidays">
+      <ScrollTable striped withTableBorder data-testid="holidays">
         <Table.Tbody>
           {(current?.holidays ?? []).map((x) => (
             <Table.Tr key={x.date}>
@@ -588,7 +588,7 @@ function Calendars() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
     </Stack>
   );
 }
@@ -709,7 +709,7 @@ function Imports() {
         </Alert>
       )}
       <Title order={6}>{t('p2:admin.history')}</Title>
-      <Table striped withTableBorder fz="xs">
+      <ScrollTable striped withTableBorder fz="xs">
         <Table.Tbody>
           {(jobs.data ?? []).map((j) => (
             <Table.Tr key={j.id}>
@@ -722,7 +722,7 @@ function Imports() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
     </Stack>
   );
 }
@@ -743,7 +743,7 @@ function Jobs() {
       <Text size="xs" c="dimmed">
         {t('p2:admin.jobsHint')}
       </Text>
-      <Table striped withTableBorder data-testid="admin-jobs">
+      <ScrollTable striped withTableBorder data-testid="admin-jobs">
         <Table.Tbody>
           {(q.data ?? []).map((j) => (
             <Table.Tr key={j.name}>
@@ -760,7 +760,7 @@ function Jobs() {
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </ScrollTable>
       <RuleErrors error={run.error} />
       {out && (
         <Text size="xs" ff="monospace" style={{ whiteSpace: 'pre-wrap' }} data-testid="job-output">
