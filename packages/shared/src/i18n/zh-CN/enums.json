@@ -337,5 +337,17 @@
     "Preparing RFP": "Preparing RFP",
     "PVB": "PVB",
     "Cancelled": "Cancelled"
+  },
+  "engagement": {
+    "HEALTHY": "健康",
+    "AT_RISK": "有风险",
+    "CRITICAL": "严重",
+    "STALE": "停滞",
+    "DORMANT": "休眠",
+    "SCHEDULED": "已安排",
+    "IN_PROGRESS": "进行中",
+    "ON_HOLD": "暂停",
+    "RESOLVED": "已解决",
+    "CLOSED": "已关闭"
   }
 }

@@ -131,7 +131,8 @@ Ver `ARCHITECTURE.md` §6 (RBAC) y `DATA-MODEL.md`.
 | GET / POST | `/accounts/:id/contacts` | P1:view / P1:R | |
 | PATCH | `/contacts/:id` | P1:R | |
 | POST | `/contacts/:id/anonymize` | P14:A o ADM:R | P14-04 |
-| GET / POST | `/activities` | P1:view / P1:R | `?accountId&opportunityId` P1-03 |
+| GET / POST | `/activities` | P1:view / P1:R | `?accountId&opportunityId` P1-03. Cada fila trae `source`, `direction`, `itemCount` y `topicId` (ADR 0008) |
+| POST | `/mail/legacy-cache` | P1:R (`userId` de otro usuario: ADM:R) | ADR 0008, fase 0: `{data: crm_cache.json, dryRun, aliases?, userId?}`. Cada importación reemplaza las actividades de resumen de ese buzón; el mismo archivo dos veces deja el mismo resultado. Si el cache es más antiguo que el último, responde 409 `MAIL_CACHE_OLDER`. Los clientes sin cuenta vuelven como `CLIENT_NOT_MAPPED` y no se crean cuentas |
 
 ## 6. Oportunidades (P1, P2, P4, P12)
 
@@ -333,6 +334,8 @@ Ver `ARCHITECTURE.md` §6 (RBAC) y `DATA-MODEL.md`.
 | GET | `/dashboard/kpis/:code/drilldown` | DASH:view + visibilidad de registros | DASH-04, paginado |
 | GET | `/dashboard/funnel` | DASH:view | firmado → aceptado → facturado → cobrado (DASH-02) |
 | GET | `/dashboard/process-kpis` | DASH:view | KPIs P1–P16 (DASH-05) |
+| GET | `/dashboard/engagement` | DASH:view | Salud por cliente (ADR 0008): `?scope=mine\|all`; `all` es para CM, presidente LatAm y administrador. Devuelve `{mailbox, summary, accounts[{score, activeCount, totalCount, emails, meetings, topics[]}]}` |
+| GET | `/dashboard/health` | DASH:view | Salud por oportunidad, con `emails30d`, `meetings30d`, `upcomingMeetings` y `nextMeetingAt` |
 | GET | `/dashboard/concentration` | DASH:view | DASH-06 |
 | GET | `/dashboard/export?format=pdf\|xlsx` | DASH:view (rate 10/h) | DASH-08, bitácora `EXPORT` |
 | GET | `/reports/sales-by-owner?year=` | P12:A, VP, LATAM_PRESIDENT | PRD Q8 |

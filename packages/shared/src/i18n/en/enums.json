@@ -337,5 +337,17 @@
     "Preparing RFP": "Preparing RFP",
     "PVB": "PVB",
     "Cancelled": "Cancelled"
+  },
+  "engagement": {
+    "HEALTHY": "Healthy",
+    "AT_RISK": "At risk",
+    "CRITICAL": "Critical",
+    "STALE": "Stale",
+    "DORMANT": "Dormant",
+    "SCHEDULED": "Scheduled",
+    "IN_PROGRESS": "In progress",
+    "ON_HOLD": "On hold",
+    "RESOLVED": "Resolved",
+    "CLOSED": "Closed"
   }
 }

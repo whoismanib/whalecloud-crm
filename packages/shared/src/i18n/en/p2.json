@@ -391,7 +391,12 @@
       "milestones": "Milestones",
       "invoices": "Invoices",
       "payments": "Payments",
-      "tickets": "Tickets"
+      "tickets": "Tickets",
+      "topics": "Topics",
+      "activities": "Activities",
+      "emails": "E-mails",
+      "meetings": "Meetings",
+      "snapshots": "Mailbox snapshots"
     },
     "edoHint": "edo_incidents.json file from the legacy dashboard. Each ticket is matched by its eDo id (issueId): existing tickets are updated, unchanged ones are skipped. CRM notes are never touched.",
     "account": "Account",

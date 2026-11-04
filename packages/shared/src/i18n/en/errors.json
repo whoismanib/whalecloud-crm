@@ -16,7 +16,8 @@
     "INVALID_CREDENTIALS": "Wrong email or password.",
     "MFA_INVALID": "Wrong verification code.",
     "MFA_ALREADY_ENROLLED": "Two-step verification is already set up.",
-    "MFA_NOT_SETUP": "Set up two-step verification first."
+    "MFA_NOT_SETUP": "Set up two-step verification first.",
+    "MAIL_CACHE_OLDER": "You already imported a newer mail cache."
   },
   "rules": {
     "PAIN_MISSING": "Customer pain not identified.",
@@ -119,7 +120,10 @@
     "EDO_CREATED_MISSING": "Ticket {{number}} has no valid creation date.",
     "EDO_STATUS_UNKNOWN": "Ticket {{number}}: unknown eDo status ({{status}}).",
     "EDO_STATUS_ASSUMED": "Ticket {{number}}: status \"{{status}}\" not recognized; imported as {{as}}.",
-    "EDO_PRIORITY_ASSUMED": "Ticket {{number}}: priority \"{{priority}}\" not recognized; imported as {{as}}."
+    "EDO_PRIORITY_ASSUMED": "Ticket {{number}}: priority \"{{priority}}\" not recognized; imported as {{as}}.",
+    "MAIL_CACHE_OLDER": "The cache ({{received}}) is older than the last one imported ({{latest}}).",
+    "CLIENT_NOT_MAPPED": "Client \"{{ref}}\" matches no CRM account ({{projects}} topics, {{emails}} e-mails, {{meetings}} meetings). Not imported.",
+    "CLIENT_AMBIGUOUS": "Client \"{{ref}}\" matches more than one account; provide an alias."
   },
   "validation": {
     "REQUIRED": "Required",

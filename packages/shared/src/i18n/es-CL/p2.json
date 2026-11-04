@@ -391,7 +391,12 @@
       "milestones": "Hitos",
       "invoices": "Facturas",
       "payments": "Pagos",
-      "tickets": "Tickets"
+      "tickets": "Tickets",
+      "topics": "Temas",
+      "activities": "Actividades",
+      "emails": "Correos",
+      "meetings": "Reuniones",
+      "snapshots": "Resúmenes de buzón"
     },
     "edoHint": "Archivo edo_incidents.json del tablero legado. Cada ticket se identifica por su id de eDo (issueId): si ya existe se actualiza, si no cambió se omite. Las notas del CRM no se tocan.",
     "account": "Cuenta",

@@ -4,6 +4,7 @@ import {
   char,
   check,
   index,
+  integer,
   pgTable,
   text,
   timestamp,
@@ -11,7 +12,15 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { base } from './columns';
-import { activityType, contactRole, currencyCode, customerType, vertical } from './enums';
+import {
+  activitySource,
+  activityType,
+  contactRole,
+  currencyCode,
+  customerType,
+  topicState,
+  vertical,
+} from './enums';
 import { billingEntities, citext, countries, users } from './identity';
 
 export const accounts = pgTable(
@@ -108,9 +117,86 @@ export const activities = pgTable(
       .notNull()
       .default(sql`'{}'`),
     outcome: text(),
+    // ---- mail / calendar sync (ADR 0008) ----
+    source: activitySource().notNull().default('MANUAL'),
+    /** Idempotency key of synced/imported rows (message id, or owner|topic|kind for digests). */
+    externalKey: text(),
+    direction: text(),
+    /** Messages summarised by the row (1 for a single e-mail or meeting). */
+    itemCount: integer().notNull().default(1),
+    topicId: uuid().references(() => engagementTopics.id, { onDelete: 'set null' }),
   },
   (t) => [
     index('activities_opportunity_id_occurred_at_idx').on(t.opportunityId, t.occurredAt),
     index('activities_account_id_occurred_at_idx').on(t.accountId, t.occurredAt),
+    index('activities_topic_id_idx').on(t.topicId),
+    uniqueIndex('activities_source_external_key_uq')
+      .on(t.source, t.externalKey)
+      .where(sql`external_key IS NOT NULL`),
+    check(
+      'activities_direction_check',
+      sql`${t.direction} IS NULL OR ${t.direction} IN ('IN','OUT')`,
+    ),
+    check('activities_item_count_check', sql`${t.itemCount} >= 1`),
   ],
+);
+
+/**
+ * Engagement topics ("temas de seguimiento", ADR 0008): one per legacy taxonomy project or mail
+ * matching rule of a mailbox owner. The unit of the legacy "Salud CRM" score.
+ */
+export const engagementTopics = pgTable(
+  'engagement_topics',
+  {
+    ...base(),
+    ownerUserId: uuid()
+      .notNull()
+      .references(() => users.id),
+    source: activitySource().notNull(),
+    externalKey: text().notNull(),
+    accountId: uuid()
+      .notNull()
+      .references(() => accounts.id),
+    opportunityId: uuid(),
+    clientLabel: text().notNull(),
+    section: text().notNull().default(''),
+    name: text().notNull(),
+    state: topicState().notNull().default('ACTIVE'),
+    stateReason: text(),
+    edoRefs: text()
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    edoLastUpdateAt: timestamp({ withTimezone: true }),
+    lastSeenAt: timestamp({ withTimezone: true }),
+  },
+  (t) => [
+    uniqueIndex('engagement_topics_owner_key_uq').on(t.ownerUserId, t.source, t.externalKey),
+    index('engagement_topics_account_idx').on(t.accountId),
+  ],
+);
+
+/** Mailbox totals per sync run ("Correos (30d)" card), including mail that matched no topic. */
+export const mailSnapshots = pgTable(
+  'mail_snapshots',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    userId: uuid()
+      .notNull()
+      .references(() => users.id),
+    source: activitySource().notNull(),
+    generatedAt: timestamp({ withTimezone: true }).notNull(),
+    windowDays: integer().notNull(),
+    inboxCount: integer().notNull(),
+    sentCount: integer().notNull(),
+    calendarCount: integer().notNull(),
+    matchedCount: integer().notNull(),
+    meetingsMatched: integer().notNull(),
+    upcomingMatched: integer().notNull(),
+    unmatchedCount: integer().notNull(),
+    unmatchedEvents: integer().notNull(),
+    importJobId: uuid(),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex('mail_snapshots_user_generated_uq').on(t.userId, t.source, t.generatedAt)],
 );

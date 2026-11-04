@@ -22,6 +22,7 @@ import { contractRoutes } from './modules/contracts/routes';
 import { billingRoutes } from './modules/milestones/routes';
 import { ticketRoutes } from './modules/tickets/routes';
 import { dashboardRoutes } from './modules/dashboard/routes';
+import { mailRoutes } from './modules/mail/routes';
 import { auditRoutes } from './modules/audit/routes';
 import { postsaleRoutes } from './modules/accounts/postsale.routes';
 import { changeRequestRoutes } from './modules/change-requests/routes';
@@ -209,6 +210,7 @@ export async function buildApp(opts: BuildOptions = {}): Promise<FastifyInstance
       await billingRoutes(api);
       await ticketRoutes(api);
       await dashboardRoutes(api);
+      await mailRoutes(api);
       await auditRoutes(api);
       await postsaleRoutes(api);
       await changeRequestRoutes(api);

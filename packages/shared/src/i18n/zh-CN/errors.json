@@ -16,7 +16,8 @@
     "INVALID_CREDENTIALS": "邮箱或密码错误。",
     "MFA_INVALID": "验证码错误。",
     "MFA_ALREADY_ENROLLED": "已配置两步验证。",
-    "MFA_NOT_SETUP": "请先配置两步验证。"
+    "MFA_NOT_SETUP": "请先配置两步验证。",
+    "MAIL_CACHE_OLDER": "你已经导入了更新的邮件缓存。"
   },
   "rules": {
     "PAIN_MISSING": "未识别客户痛点。",
@@ -119,7 +120,10 @@
     "EDO_CREATED_MISSING": "工单 {{number}} 缺少有效的创建日期。",
     "EDO_STATUS_UNKNOWN": "工单 {{number}}：未知的 eDo 状态（{{status}}）。",
     "EDO_STATUS_ASSUMED": "工单 {{number}}：无法识别状态“{{status}}”，按 {{as}} 导入。",
-    "EDO_PRIORITY_ASSUMED": "工单 {{number}}：无法识别优先级“{{priority}}”，按 {{as}} 导入。"
+    "EDO_PRIORITY_ASSUMED": "工单 {{number}}：无法识别优先级“{{priority}}”，按 {{as}} 导入。",
+    "MAIL_CACHE_OLDER": "该缓存（{{received}}）早于上次导入的缓存（{{latest}}）。",
+    "CLIENT_NOT_MAPPED": "客户「{{ref}}」没有对应的 CRM 账户（{{projects}} 个主题、{{emails}} 封邮件、{{meetings}} 次会议），未导入。",
+    "CLIENT_AMBIGUOUS": "客户「{{ref}}」对应多个账户，请提供别名。"
   },
   "validation": {
     "REQUIRED": "必填",
