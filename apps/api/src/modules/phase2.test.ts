@@ -780,6 +780,59 @@ describe('imports and exports', () => {
     expect(again.skipped).toBeGreaterThanOrEqual(4);
   });
 
+  it('legacy tracker re-import follows the billing row: not invoiced → invoiced → paid', async () => {
+    const tag = uniq('');
+    const wom = [{ status: 'PO', po: `46${tag}`, name: `CR Reimport ${tag}`, expected: 1000 }];
+    const row = (extra: Record<string, unknown>) => ({
+      data: { wom, billing: [{ name: `CR Reimport ${tag}`, usd: 1000, ...extra }] },
+    });
+    await okData(cm.post('/imports/legacy-tracker', row({ status: 'Not yet invoiced' })));
+    const invoiced = await okData(
+      cm.post(
+        '/imports/legacy-tracker',
+        row({
+          status: 'Pending',
+          invoice_no: `R-${tag}`,
+          invoice_date: '2026-11-04',
+          due: '2026-12-19',
+        }),
+      ),
+    );
+    expect(invoiced.created).toMatchObject({ milestonesInvoiced: 1, invoices: 1 });
+    expect(invoiced.created.milestones ?? 0).toBe(0);
+    const paid = await okData(
+      cm.post(
+        '/imports/legacy-tracker',
+        row({
+          status: 'Paid',
+          invoice_no: `R-${tag}`,
+          invoice_date: '2026-11-04',
+          due: '2026-12-19',
+        }),
+      ),
+    );
+    expect(paid.updated).toMatchObject({ invoicesPaid: 1 });
+    const again = await okData(
+      cm.post(
+        '/imports/legacy-tracker',
+        row({
+          status: 'Paid',
+          invoice_no: `R-${tag}`,
+          invoice_date: '2026-11-04',
+          due: '2026-12-19',
+        }),
+      ),
+    );
+    expect(again.updated?.invoicesPaid ?? 0).toBe(0);
+    const n = await app.ctx.pool.query(
+      `SELECT m.status, i.balance, (SELECT count(*) FROM payments p WHERE p.invoice_id = i.id)::int AS pays
+         FROM milestones m JOIN opportunities o ON o.id = m.opportunity_id
+         LEFT JOIN invoices i ON i.milestone_id = m.id WHERE o.name = $1`,
+      [`CR Reimport ${tag}`],
+    );
+    expect(n.rows).toEqual([{ status: 'PAID', balance: '0.00', pays: 1 }]);
+  });
+
   it('exports CSV and XLSX (audited)', async () => {
     const csv = await cm.get('/exports/opportunities?format=csv');
     expect(csv.headers['content-type']).toMatch(/text\/csv/);

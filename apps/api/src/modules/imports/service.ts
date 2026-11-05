@@ -291,6 +291,8 @@ export async function persistInvoice(
     dueOn: string | null;
     paidAmount?: string | null;
     paidOn?: string | null;
+    /** A milestone imported earlier as "not invoiced yet" that this row now invoices. */
+    existingMilestoneId?: string | null;
   },
   report: ImportReport,
 ) {
@@ -306,41 +308,65 @@ export async function persistInvoice(
   const date = p.issuedOn ?? p.receptionOn ?? opp.expectedCloseDate;
   const invoiced = Boolean(p.number && p.issuedOn);
   const paid = invoiced && p.paidAmount && D(p.paidAmount).gte(D(p.amount));
-  const [ms] = await db
-    .insert(milestones)
-    .values({
-      contractId: contract.id,
-      opportunityId: opp.id,
-      seq: seq + 1,
-      name: p.milestoneName,
-      ...moneyColumns('amount', p.amount, p.currency, date, ctx.fx),
-      billingEngine: opp.billingEngine,
-      receptionAt: p.receptionOn,
-      recognizedOn: p.receptionOn,
-      readyAt: p.receptionOn ? new Date(`${p.receptionOn}T12:00:00Z`) : null,
-      status: !invoiced
-        ? p.receptionOn
-          ? 'ACCEPTED'
-          : 'READY'
-        : paid
-          ? 'PAID'
-          : p.paidAmount
-            ? 'PARTIALLY_PAID'
-            : 'INVOICED',
-      createdBy: actor.userId,
-    })
-    .returning();
-  bump(report, 'milestones');
-  const [line] = await db
-    .insert(milestoneBillingLines)
-    .values({
-      milestoneId: ms!.id,
-      lineNo: 1,
-      billingEntityId: contract.billingEntityId,
-      description: p.milestoneName,
-      ...moneyColumns('amount', p.amount, p.currency, date, ctx.fx),
-    })
-    .returning();
+  const status = !invoiced
+    ? p.receptionOn
+      ? 'ACCEPTED'
+      : 'READY'
+    : paid
+      ? 'PAID'
+      : p.paidAmount
+        ? 'PARTIALLY_PAID'
+        : 'INVOICED';
+  let ms: typeof milestones.$inferSelect | undefined;
+  let line: typeof milestoneBillingLines.$inferSelect | undefined;
+  if (p.existingMilestoneId) {
+    [ms] = await db
+      .update(milestones)
+      .set({
+        status,
+        receptionAt: p.receptionOn,
+        recognizedOn: p.receptionOn,
+        readyAt: p.receptionOn ? new Date(`${p.receptionOn}T12:00:00Z`) : undefined,
+        updatedAt: new Date(),
+      })
+      .where(eq(milestones.id, p.existingMilestoneId))
+      .returning();
+    [line] = await db
+      .select()
+      .from(milestoneBillingLines)
+      .where(eq(milestoneBillingLines.milestoneId, p.existingMilestoneId))
+      .orderBy(milestoneBillingLines.lineNo)
+      .limit(1);
+    bump(report, 'milestonesInvoiced');
+  } else {
+    [ms] = await db
+      .insert(milestones)
+      .values({
+        contractId: contract.id,
+        opportunityId: opp.id,
+        seq: seq + 1,
+        name: p.milestoneName,
+        ...moneyColumns('amount', p.amount, p.currency, date, ctx.fx),
+        billingEngine: opp.billingEngine,
+        receptionAt: p.receptionOn,
+        recognizedOn: p.receptionOn,
+        readyAt: p.receptionOn ? new Date(`${p.receptionOn}T12:00:00Z`) : null,
+        status,
+        createdBy: actor.userId,
+      })
+      .returning();
+    bump(report, 'milestones');
+    [line] = await db
+      .insert(milestoneBillingLines)
+      .values({
+        milestoneId: ms!.id,
+        lineNo: 1,
+        billingEntityId: contract.billingEntityId,
+        description: p.milestoneName,
+        ...moneyColumns('amount', p.amount, p.currency, date, ctx.fx),
+      })
+      .returning();
+  }
   if (!invoiced) return;
   const term = ctx.settings['invoices.defaultPaymentTermDays'];
   const dueOn = p.dueOn ?? addDays(p.issuedOn!, term);
@@ -395,6 +421,41 @@ export async function persistInvoice(
         .onConflictDoNothing();
     }
   }
+}
+
+/** Pays the open balance of an imported invoice (legacy row now "Paid"). */
+async function settleImportedInvoice(
+  db: DbOrTx,
+  ctx: RulesContext,
+  actor: Actor,
+  inv: typeof invoices.$inferSelect,
+  paidOn: string,
+) {
+  await db.insert(payments).values({
+    invoiceId: inv.id,
+    paidOn,
+    ...moneyColumns('amount', inv.balance, inv.amountCurrency, paidOn, ctx.fx),
+    reference: 'IMPORT',
+    createdBy: actor.userId,
+  });
+  await db
+    .update(invoices)
+    .set({ balance: '0.00', status: 'PAID', updatedAt: new Date() })
+    .where(eq(invoices.id, inv.id));
+  // Same as registering a full payment by hand (milestones/routes.ts).
+  await db
+    .update(collectionActions)
+    .set({ status: 'CANCELLED', outcome: 'PAID', updatedAt: new Date() })
+    .where(and(eq(collectionActions.invoiceId, inv.id), eq(collectionActions.status, 'PENDING')));
+  const others = await db
+    .select({ balance: invoices.balance })
+    .from(invoices)
+    .where(and(eq(invoices.milestoneId, inv.milestoneId), sql`${invoices.id} <> ${inv.id}`));
+  if (others.every((o) => D(o.balance).lte(0)))
+    await db
+      .update(milestones)
+      .set({ status: 'PAID', updatedAt: new Date() })
+      .where(eq(milestones.id, inv.milestoneId));
 }
 
 /** Runs `fn` in a transaction; dry runs roll back and still return the report. */
@@ -733,15 +794,37 @@ export async function importLegacyTracker(
       continue;
     }
     const opp = hit.opp;
+    let existingMilestoneId: string | null = null;
     if (inv.invoiceNumber) {
-      const [dup] = await db
-        .select({ id: invoices.id })
-        .from(invoices)
-        .where(eq(invoices.number, inv.invoiceNumber));
+      const [dup] = await db.select().from(invoices).where(eq(invoices.number, inv.invoiceNumber));
       if (dup) {
-        report.skipped++;
+        // Paid since the last import: register the payment once.
+        if (inv.payStatus === 'PAID' && D(dup.balance).gt(0)) {
+          await settleImportedInvoice(db, ctx, actor, dup, inv.dueOn ?? today);
+          bump(report, 'payments');
+          report.updated = {
+            ...report.updated,
+            invoicesPaid: (report.updated?.invoicesPaid ?? 0) + 1,
+          };
+          report.rowsOk++;
+        } else report.skipped++;
         continue;
       }
+      // Imported earlier as "not invoiced yet": invoice that milestone instead of adding one.
+      const [pending] = await db
+        .select({ id: milestones.id })
+        .from(milestones)
+        .leftJoin(invoices, eq(invoices.milestoneId, milestones.id))
+        .where(
+          and(
+            eq(milestones.opportunityId, opp.id),
+            eq(milestones.name, inv.projectName),
+            sql`${milestones.status} IN ('PLANNED','READY','ACCEPTED','SENT_TO_FINANCE')`,
+            sql`${invoices.id} IS NULL`,
+          ),
+        )
+        .limit(1);
+      existingMilestoneId = pending?.id ?? null;
     } else {
       // Not invoiced yet: idempotent on (opportunity, milestone name).
       const [dup] = await db
@@ -768,6 +851,7 @@ export async function importLegacyTracker(
         dueOn: inv.dueOn,
         paidAmount: inv.payStatus === 'PAID' ? inv.amountUsd : null,
         paidOn: inv.payStatus === 'PAID' ? inv.dueOn : null,
+        existingMilestoneId,
       },
       report,
     );
