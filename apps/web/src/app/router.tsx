@@ -1,5 +1,5 @@
 import { Center, Loader } from '@mantine/core';
-import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { LoginPage } from '../auth/LoginPage';
 import { applyUserLocale } from './i18n';
@@ -34,11 +34,11 @@ const page = (el: ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>
 
 function RequireAuth() {
   const { data: me, isLoading } = useMe();
-  useEffect(() => {
-    if (me?.mfaVerified) applyUserLocale(me.id, me.locale);
-  }, [me?.id, me?.mfaVerified, me?.locale]);
   if (isLoading) return <Loading />;
   if (!me || !me.mfaVerified) return <LoginPage />;
+  // QA-003: apply the profile language before the layout renders. Applying it in an effect left
+  // the already-rendered sidebar and language selector in the previous language.
+  applyUserLocale(me.id, me.locale);
   return <AppLayout />;
 }
 
