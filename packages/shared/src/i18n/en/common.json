@@ -181,7 +181,31 @@
       "INVOICED": "Invoiced",
       "COLLECTED": "Collected"
     },
-    "tracking": "Tracking"
+    "tracking": "Tracking",
+    "sec": {
+      "goal": "1. {{year}} goal",
+      "goalTarget": "Office target (S&S signed): {{usd}} · {{cny}} MM CNY",
+      "ofGoal": "of the goal closed",
+      "closedYear": "Closed {{year}} (PO + voucher)",
+      "inFlight": "In progress (no PO)",
+      "gap": "Gap to goal",
+      "ifAllCloses": "If everything in progress closes",
+      "ifAllClosesHint": "of the goal",
+      "pipeline": "2. Pipeline",
+      "deals": "{{count}} deals",
+      "lostThisYear": "Lost or discarded {{year}}",
+      "billing": "3. Billing and collections {{year}}",
+      "invoiced": "Invoiced {{year}}",
+      "collected": "Collected {{year}}",
+      "dueSoon": "Due in 45 d ({{count}})",
+      "toInvoice": "With PO, not invoiced",
+      "incidents": "4. eDo incidents",
+      "edoData": "eDo data: {{when}}",
+      "pushHint": "Whale tickets that need a push",
+      "health": "5. Health by client",
+      "seeDetail": "See detail"
+    },
+    "kpisHint": "Office indicators (the 10 KPIs of the process document), in millions of the chosen currency."
   },
   "accounts": {
     "title": "Accounts",
@@ -377,7 +401,9 @@
     "notify": "Notify",
     "complete": "Record outcome",
     "outcome": "Outcome",
-    "onlyDue": "Only due as of today"
+    "onlyDue": "Only due as of today",
+    "byYear": "Summary by year",
+    "goalYear": "goal"
   },
   "health": {
     "title": "CRM health",
@@ -442,7 +468,8 @@
     "reminder": "Hi, could you help us with the status of incident {{number}} “{{title}}”? No news for {{days}} days.",
     "openedOn": "Opened on",
     "days": "{{count}} days",
-    "onlyOpen": "Open only"
+    "onlyOpen": "Open only",
+    "manualTitle": "Tickets logged in the CRM"
   },
   "audit": {
     "title": "Immutable audit log",
@@ -455,5 +482,86 @@
     "entity": "Object",
     "changes": "Changes",
     "occurredAt": "Date"
+  },
+  "edo": {
+    "title": "eDo incidents",
+    "subtitle": "WOM Chile · eDo data: {{when}} ({{ago}}) · Chile time · open, resolved and closed in the last {{days}} days ({{shown}} of {{total}} tickets)",
+    "agoMin": "{{count}} min ago",
+    "agoHours": "{{count}} h ago",
+    "agoDays": "{{count}} d ago",
+    "refresh": "Refresh",
+    "progress": "Downloading from eDo: page {{done}}/{{total}} ({{label}})",
+    "notConfigured": "eDo connection not set up: start the CRM passing your EDO_ACCESS_TOKEN (see README, \"eDo incidents\").",
+    "emptyTitle": "No eDo incidents yet",
+    "emptyBody": "Press Refresh to download them from eDo, or import them in Admin → Import → eDo incidents.",
+    "kpi": {
+      "open": "Open",
+      "backlog12": "backlog, 12 weeks",
+      "whaleWom": "With Whale / with WOM",
+      "p12": "Open P1/P2",
+      "p1Whale": "{{count}} P1 with Whale",
+      "sla": "SLA breached / at risk",
+      "breached": "breached {{count}}",
+      "atRisk": "at risk {{count}}",
+      "noFirst": "No first response",
+      "whaleSide": "Whale side",
+      "resp30": "Median 1st response (30d)",
+      "closed": "Closed 7d / 30d",
+      "see7": "see 7 d",
+      "see30": "see 30 d",
+      "oldest": "Oldest open"
+    },
+    "pushTitle": "Who to push today",
+    "pushCount": "{{tickets}} tickets · {{people}} people",
+    "pushNone": "Nobody to push: no Whale ticket is breached, stale or unanswered.",
+    "ticketsN": "{{count}} tickets",
+    "breachedN": "{{count}} breached",
+    "copyGroup": "Copy group summary",
+    "copyReminder": "Copy reminder",
+    "copied": "Copied",
+    "openInEdo": "Open in eDo",
+    "womTitle": "Waiting on WOM (stale)",
+    "tableTitle": "Tickets",
+    "clearFilter": "Clear filter",
+    "viewOpen": "Open",
+    "viewAll": "All ({{days}} d)",
+    "search": "Search no., title, person…",
+    "truncated": "Showing 300 of {{count}}; use search to narrow down.",
+    "ageOpen": "open {{count}} d",
+    "noActivity": "{{days}} d idle",
+    "coord": "coord.",
+    "stale": "Stale",
+    "sla": {
+      "BREACHED": "Breached",
+      "AT_RISK": "At risk",
+      "OK": "OK"
+    },
+    "ball": {
+      "CLOSED": "Closed",
+      "WOM_VALIDATE": "Validate/close (WOM)",
+      "NO_FIRST_RESPONSE": "No first response",
+      "WHALE_WORKING": "Whale working",
+      "WAITING_WOM": "Waiting on WOM"
+    },
+    "filter": {
+      "open": "Open",
+      "whale": "Open with Whale",
+      "wom": "Open with WOM",
+      "p12": "Open P1/P2",
+      "breached": "SLA breached",
+      "risk": "SLA at risk",
+      "nofirst": "No first response (Whale)",
+      "closed7": "Closed last 7 d",
+      "closed30": "Closed last 30 d"
+    },
+    "col": {
+      "ticket": "Ticket",
+      "state": "State",
+      "holder": "Team",
+      "assignee": "Assignee",
+      "age": "Age",
+      "idle": "Idle",
+      "updated": "Last update"
+    }
   }
 }

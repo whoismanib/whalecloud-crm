@@ -116,6 +116,8 @@
     "DELEGATION_IN_PAST": "La delegación ya terminó.",
     "DELEGATE_NOT_FOUND": "El delegado no existe o está inactivo.",
     "COST_ESTIMATE_EMPTY": "Registra los meses-persona antes de firmar.",
+    "EDO_SYNC_BUSY": "Ya hay una actualización desde eDo en curso; espera a que termine.",
+    "EDO_SYNC_NOT_CONFIGURED": "La conexión con eDo no está configurada: falta EDO_ACCESS_TOKEN en el servidor.",
     "EDO_ID_MISSING": "Fila sin id de eDo (issueId); no se puede importar.",
     "EDO_CREATED_MISSING": "Ticket {{number}} sin fecha de creación válida.",
     "EDO_STATUS_UNKNOWN": "Ticket {{number}}: estado de eDo desconocido ({{status}}).",

@@ -1,5 +1,5 @@
 import { daysBetween, TicketCreateSchema, TicketUpdateSchema } from '@wcrm/shared';
-import { asc, desc, eq, sql } from 'drizzle-orm';
+import { asc, desc, eq, isNull, sql } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { diffFields, recordAudit } from '../../audit/record';
@@ -26,22 +26,27 @@ export async function ticketRoutes(app: FastifyInstance) {
   const idParam = z.object({ id: z.string().uuid() });
 
   app.get('/tickets', { config: { guard: { process: 'P10', action: 'view' } } }, async (req) => {
+    // `?manual=1`: only tickets typed in the CRM (eDo tickets are served by /tickets/edo).
+    const manual = (req.query as { manual?: string } | undefined)?.manual === '1';
     const rows = await db
       .select({ t: tickets, accountName: accounts.name })
       .from(tickets)
       .innerJoin(accounts, eq(accounts.id, tickets.accountId))
+      .where(manual ? isNull(tickets.externalSource) : undefined)
       .orderBy(asc(tickets.status), asc(tickets.priority), desc(tickets.lastUpdateAt));
     return ok(
       rows.map((r) => {
-        const open = OPEN.includes(r.t.status);
-        const lastUpdate = r.t.lastUpdateAt.toISOString().slice(0, 10);
+        // The stored eDo record is large (comment, SLA instants…) and only used by /tickets/edo.
+        const { edo: _edo, ...t } = r.t;
+        const open = OPEN.includes(t.status);
+        const lastUpdate = t.lastUpdateAt.toISOString().slice(0, 10);
         return {
-          ...r.t,
+          ...t,
           accountName: r.accountName,
           isOpen: open,
-          agingDays: daysBetween(r.t.openedOn, r.t.closedOn ?? req.today),
+          agingDays: daysBetween(t.openedOn, t.closedOn ?? req.today),
           daysSinceUpdate: daysBetween(lastUpdate, req.today),
-          slaOverdue: open && r.t.slaDueOn !== null && r.t.slaDueOn < req.today,
+          slaOverdue: open && t.slaDueOn !== null && t.slaDueOn < req.today,
           // "A quién presionar hoy": open, idle ≥ 3 days
           pushToday: open && daysBetween(lastUpdate, req.today) >= 3,
         };

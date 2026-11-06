@@ -154,6 +154,8 @@ export interface LegacyInvoiceDraft {
   payStatus: 'NOT_INVOICED' | 'PENDING' | 'PAID';
   /** Year used to pick between projects with the same name (BSS Support L3 2026 vs 2027). */
   yearHint: number | null;
+  /** Legacy `bill_year`: the year a not-yet-invoiced row is planned to be billed. */
+  billYear: number | null;
 }
 
 const str = (v: unknown): string | null =>
@@ -397,6 +399,7 @@ export function mapLegacyTracker(
       issuedOn: parseLooseDate(str(r.invoice_date)),
       dueOn: parseLooseDate(str(r.due)),
       payStatus: s === 'paid' ? 'PAID' : s === 'pending' ? 'PENDING' : 'NOT_INVOICED',
+      billYear: yearOf(r.bill_year),
       yearHint:
         yearsIn(name).at(-1) ??
         (str(r.invoice_no) ? yearOf(r.invoice_date) : null) ??

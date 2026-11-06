@@ -8,8 +8,10 @@ import { testConfig } from './config';
 export const PASSWORD = 'Test-Password-2026!';
 export const TODAY = '2026-11-04';
 
-export async function createTestApp(): Promise<FastifyInstance> {
-  const config = testConfig();
+export async function createTestApp(
+  overrides: Partial<Record<string, string>> = {},
+): Promise<FastifyInstance> {
+  const config = testConfig(overrides);
   const app = await buildApp({ config, logger: false, allowTodayOverride: true });
   await app.ready();
   return app;

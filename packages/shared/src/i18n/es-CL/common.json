@@ -181,7 +181,31 @@
       "INVOICED": "Facturado",
       "COLLECTED": "Cobrado"
     },
-    "tracking": "Seguimiento"
+    "tracking": "Seguimiento",
+    "sec": {
+      "goal": "1. Meta {{year}}",
+      "goalTarget": "Meta de la oficina (S&S firmado): {{usd}} · {{cny}} MM CNY",
+      "ofGoal": "de la meta cerrado",
+      "closedYear": "Cerrado {{year}} (OC + Voucher)",
+      "inFlight": "En curso (sin OC)",
+      "gap": "Brecha a la meta",
+      "ifAllCloses": "Si cierra todo lo en curso",
+      "ifAllClosesHint": "de la meta",
+      "pipeline": "2. Pipeline",
+      "deals": "{{count}} oportunidades",
+      "lostThisYear": "Perdidas o descartadas {{year}}",
+      "billing": "3. Facturación y cobranza {{year}}",
+      "invoiced": "Facturado {{year}}",
+      "collected": "Cobrado {{year}}",
+      "dueSoon": "Vence en 45 d ({{count}})",
+      "toInvoice": "Con OC, sin facturar",
+      "incidents": "4. Incidentes eDo",
+      "edoData": "Datos de eDo: {{when}}",
+      "pushHint": "tickets en Whale que necesitan empuje",
+      "health": "5. Salud por cliente",
+      "seeDetail": "Ver detalle"
+    },
+    "kpisHint": "Indicadores de la oficina (10 KPIs del documento de procesos), en millones de la moneda elegida."
   },
   "accounts": {
     "title": "Cuentas",
@@ -377,7 +401,9 @@
     "notify": "Notificar",
     "complete": "Registrar resultado",
     "outcome": "Resultado",
-    "onlyDue": "Solo vencidas a hoy"
+    "onlyDue": "Solo vencidas a hoy",
+    "byYear": "Resumen por año",
+    "goalYear": "meta"
   },
   "health": {
     "title": "Salud CRM",
@@ -442,7 +468,8 @@
     "reminder": "Hola, ¿nos ayudas con el estado del incidente {{number}} «{{title}}»? Lleva {{days}} días sin novedades.",
     "openedOn": "Abierto el",
     "days": "{{count}} días",
-    "onlyOpen": "Solo abiertos"
+    "onlyOpen": "Solo abiertos",
+    "manualTitle": "Tickets registrados en el CRM"
   },
   "audit": {
     "title": "Bitácora inmutable",
@@ -455,5 +482,86 @@
     "entity": "Objeto",
     "changes": "Cambios",
     "occurredAt": "Fecha"
+  },
+  "edo": {
+    "title": "Incidentes eDo",
+    "subtitle": "WOM Chile · Datos de eDo: {{when}} ({{ago}}) · hora Chile · abiertos, resueltos y cerrados de los últimos {{days}} días ({{shown}} de {{total}} tickets)",
+    "agoMin": "hace {{count}} min",
+    "agoHours": "hace {{count}} h",
+    "agoDays": "hace {{count}} d",
+    "refresh": "Actualizar",
+    "progress": "Descargando de eDo: página {{done}}/{{total}} ({{label}})",
+    "notConfigured": "Conexión con eDo sin configurar: levanta el CRM pasando tu EDO_ACCESS_TOKEN (ver README, «Incidentes eDo»).",
+    "emptyTitle": "Aún no hay incidentes de eDo",
+    "emptyBody": "Pulsa Actualizar para descargarlos de eDo, o impórtalos desde Admin → Importar → Incidentes eDo.",
+    "kpi": {
+      "open": "Abiertos",
+      "backlog12": "backlog 12 semanas",
+      "whaleWom": "En Whale / En WOM",
+      "p12": "P1/P2 abiertos",
+      "p1Whale": "{{count}} P1 en Whale",
+      "sla": "SLA vencido / en riesgo",
+      "breached": "vencidos {{count}}",
+      "atRisk": "en riesgo {{count}}",
+      "noFirst": "Sin 1ª respuesta",
+      "whaleSide": "lado Whale",
+      "resp30": "Mediana 1ª resp. (30d)",
+      "closed": "Cerrados 7d / 30d",
+      "see7": "ver 7 d",
+      "see30": "ver 30 d",
+      "oldest": "Más antiguo abierto"
+    },
+    "pushTitle": "A quién presionar hoy",
+    "pushCount": "{{tickets}} tickets · {{people}} responsables",
+    "pushNone": "Nadie que presionar: ningún ticket en Whale está vencido, estancado o sin respuesta.",
+    "ticketsN": "{{count}} tickets",
+    "breachedN": "{{count}} vencidos",
+    "copyGroup": "Copiar resumen del grupo",
+    "copyReminder": "Copiar recordatorio",
+    "copied": "Copiado",
+    "openInEdo": "Abrir en eDo",
+    "womTitle": "Esperando a WOM (estancados)",
+    "tableTitle": "Tickets",
+    "clearFilter": "Quitar filtro",
+    "viewOpen": "Abiertos",
+    "viewAll": "Todos ({{days}} d)",
+    "search": "Buscar n.º, título, persona…",
+    "truncated": "Se muestran 300 de {{count}}; usa el buscador para acotar.",
+    "ageOpen": "{{count}} d abierto",
+    "noActivity": "{{days}} d sin act.",
+    "coord": "coord.",
+    "stale": "Estancado",
+    "sla": {
+      "BREACHED": "Vencido",
+      "AT_RISK": "En riesgo",
+      "OK": "OK"
+    },
+    "ball": {
+      "CLOSED": "Cerrado",
+      "WOM_VALIDATE": "Validar/cerrar (WOM)",
+      "NO_FIRST_RESPONSE": "Sin 1ª respuesta",
+      "WHALE_WORKING": "Whale trabajando",
+      "WAITING_WOM": "Esperando a WOM"
+    },
+    "filter": {
+      "open": "Abiertos",
+      "whale": "Abiertos en Whale",
+      "wom": "Abiertos en WOM",
+      "p12": "P1/P2 abiertos",
+      "breached": "SLA vencido",
+      "risk": "SLA en riesgo",
+      "nofirst": "Sin primera respuesta (Whale)",
+      "closed7": "Cerrados últ. 7 d",
+      "closed30": "Cerrados últ. 30 d"
+    },
+    "col": {
+      "ticket": "Ticket",
+      "state": "Estado",
+      "holder": "Equipo",
+      "assignee": "Responsable",
+      "age": "Antigüedad",
+      "idle": "Sin act.",
+      "updated": "Últ. actualización"
+    }
   }
 }

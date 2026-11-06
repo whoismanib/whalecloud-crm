@@ -245,6 +245,7 @@ export async function computeDashboard(
         acSignedAt: milestones.acSignedAt,
         receptionAt: milestones.receptionAt,
         recognizedOn: milestones.recognizedOn,
+        plannedDate: milestones.plannedDate,
         amount: sql<string>`coalesce(${milestones}.${sql.raw(`amount_${c.toLowerCase()}`)}, 0)::text`,
       })
       .from(milestones),
@@ -272,6 +273,7 @@ export async function computeDashboard(
         amount: sql<string>`coalesce(${opportunities}.${sql.raw(`amount_${c.toLowerCase()}`)}, 0)::text`,
         amountUsd: opportunities.amountUsd,
         wonAt: opportunities.wonAt,
+        closedAt: opportunities.closedAt,
         customerType: accounts.customerType,
       })
       .from(opportunities)
@@ -533,6 +535,53 @@ export async function computeDashboard(
       dueSoonCount++;
     }
   }
+  // ---- Billing by year (legacy "Facturación": invoices by issue year, to invoice by planned year) ----
+  const years = [year - 1, year, year + 1];
+  const byYear = new Map(
+    years.map((y) => [
+      y,
+      {
+        year: y,
+        invoiced: new Decimal(0),
+        invoicedCount: 0,
+        paid: new Decimal(0),
+        pending: new Decimal(0),
+        toInvoice: new Decimal(0),
+        toInvoiceCount: 0,
+      },
+    ]),
+  );
+  for (const i of invRows) {
+    const b = byYear.get(Number(i.issuedOn.slice(0, 4)));
+    if (!b) continue;
+    const bal = D(toDisplay(ctx, i.balance, i.currency, i.issuedOn, cur));
+    const amt = D(i.amount);
+    b.invoiced = b.invoiced.plus(amt);
+    b.invoicedCount++;
+    b.pending = b.pending.plus(bal.gt(0) ? bal : 0);
+    b.paid = b.paid.plus(bal.gt(0) ? amt.minus(bal) : amt);
+  }
+  for (const m of msRows) {
+    if (!['PLANNED', 'READY', 'ACCEPTED', 'SENT_TO_FINANCE'].includes(m.status)) continue;
+    if (m.status === 'PLANNED' && !m.plannedDate) continue;
+    const b = byYear.get(m.plannedDate ? Number(m.plannedDate.slice(0, 4)) : year);
+    if (!b) continue;
+    b.toInvoice = b.toInvoice.plus(D(m.amount));
+    b.toInvoiceCount++;
+  }
+  // ---- Pipeline: open deals by stage (USD) and deals lost/discarded this year ----
+  const inFlightByStage = [3, 4, 5, 6].map((stage) => {
+    const rows = oppRows.filter((o) => o.status === 'OPEN' && o.stage === stage);
+    return {
+      stage,
+      count: rows.length,
+      amountUsd: money(rows.reduce((a, o) => a.plus(D(o.amountUsd)), new Decimal(0))),
+    };
+  });
+  const lostRows = oppRows.filter(
+    (o) =>
+      o.status !== 'OPEN' && o.closedAt && o.closedAt.toISOString().slice(0, 4) === String(year),
+  );
   const openTickets = ticketRows.filter((t) =>
     ['OPEN', 'IN_PROGRESS', 'PENDING_CLIENT'].includes(t.status),
   );
@@ -574,6 +623,8 @@ export async function computeDashboard(
         closedUsd: money(closedUsd),
         inFlightUsd: money(inFlightUsd),
         goalUsd,
+        /** Office S&S target as configured (MM CNY), shown next to its USD equivalent. */
+        goalMmCny: target('SS_SIGNED'),
         pct: goalUsd ? closedUsd.div(goalUsd).toDecimalPlaces(4).toNumber() : null,
         pctPotential: goalUsd
           ? closedUsd.plus(inFlightUsd).div(goalUsd).toDecimalPlaces(4).toNumber()
@@ -582,6 +633,24 @@ export async function computeDashboard(
       newPipelineUsd: money(newPipelineUsd),
       toInvoice: money(toInvoice),
       toCollect: money(toCollect),
+      billing: {
+        byYear: [...byYear.values()].map((b) => ({
+          year: b.year,
+          invoiced: money(b.invoiced),
+          invoicedCount: b.invoicedCount,
+          paid: money(b.paid),
+          pending: money(b.pending),
+          toInvoice: money(b.toInvoice),
+          toInvoiceCount: b.toInvoiceCount,
+        })),
+      },
+      pipeline: {
+        inFlightByStage,
+        lostThisYear: {
+          count: lostRows.length,
+          amountUsd: money(lostRows.reduce((a, o) => a.plus(D(o.amountUsd)), new Decimal(0))),
+        },
+      },
       overdue: { amount: money(overdueAll), count: overdueAllCount },
       dueSoon: { amount: money(dueSoon), count: dueSoonCount },
       openIncidents: openTickets.length,

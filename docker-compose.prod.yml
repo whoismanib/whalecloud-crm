@@ -25,6 +25,8 @@ x-app-env: &app_env
   LOG_LEVEL: ${LOG_LEVEL:-info}
   TZ: UTC
   APP_TIMEZONE: ${APP_TIMEZONE:-America/Santiago}
+  # eDo sync (ADR 0007): read-only token, from the deploy secret store (never in the repo).
+  EDO_ACCESS_TOKEN: ${EDO_ACCESS_TOKEN:-}
   API_HOST: 0.0.0.0
   API_PORT: '3000'
   TRUST_PROXY: 'true'

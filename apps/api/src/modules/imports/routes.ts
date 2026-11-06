@@ -184,6 +184,8 @@ export async function importExportRoutes(app: FastifyInstance) {
       assertImporter(req, ctx.raci);
       const actor = actorOf(req);
       let dryRun = false;
+      /** When the source data was produced (eDo file `generated_at`), shown as data freshness. */
+      let generatedAt: string | null = null;
       let run: (tx: Parameters<typeof importAccounts>[0]) => Promise<ImportReport>;
       if (kind === 'legacy-tracker') {
         const body = parse(LegacyImportSchema, req.body);
@@ -192,6 +194,8 @@ export async function importExportRoutes(app: FastifyInstance) {
       } else if (kind === 'edo-incidents') {
         const body = parse(EdoImportSchema, req.body);
         dryRun = body.dryRun;
+        const g = (body.data as { generated_at?: unknown }).generated_at;
+        generatedAt = typeof g === 'string' && !Number.isNaN(Date.parse(g)) ? g : null;
         run = (tx) =>
           importEdoIncidents(tx, actor, body.data, {
             accountId: body.accountId,
@@ -219,6 +223,7 @@ export async function importExportRoutes(app: FastifyInstance) {
           rowsOk: report.rowsOk,
           rowsError: report.errors.length,
           report: {
+            ...(generatedAt && { source: 'file', generatedAt }),
             created: report.created,
             updated: report.updated,
             skipped: report.skipped,

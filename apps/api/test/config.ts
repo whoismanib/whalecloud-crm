@@ -1,7 +1,7 @@
 import { loadConfig } from '../src/config';
 
 /** Test config: real Postgres (DATABASE_URL_TEST), cheap argon2, no login rate limit. */
-export function testConfig() {
+export function testConfig(overrides: Partial<Record<string, string>> = {}) {
   const base = loadConfig({ NODE_ENV: 'test' });
   return loadConfig({
     NODE_ENV: 'test',
@@ -14,5 +14,6 @@ export function testConfig() {
     LOG_LEVEL: 'silent',
     CORS_ORIGINS: '',
     APP_ENCRYPTION_KEY: Buffer.alloc(32, 7).toString('base64'),
+    ...overrides,
   });
 }

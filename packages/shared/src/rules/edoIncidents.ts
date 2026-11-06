@@ -1,5 +1,6 @@
 import type { BallIn, TicketPriority, TicketStatus } from '../enums';
 import { TICKET_PRIORITIES } from '../enums';
+import { EDO_RECORD_FIELDS, edoRecordOf, type EdoRecord } from './edoLogic';
 
 /**
  * eDo incidents → CRM tickets (legacy "Incidentes eDo", P10-02).
@@ -24,24 +25,7 @@ export const EDO_STATUS_MAP: Record<number, TicketStatus> = {
 };
 
 /** Fields of the legacy row the importer reads; the web client sends only these. */
-export const EDO_IMPORT_FIELDS = [
-  'id',
-  'no',
-  'title',
-  'priority',
-  'status',
-  'statusName',
-  'open',
-  'org',
-  'side',
-  'assignee',
-  'created',
-  'updated',
-  'resolved',
-  'closed',
-  'resSlaLimit',
-  'link',
-] as const;
+export const EDO_IMPORT_FIELDS = EDO_RECORD_FIELDS;
 
 export const EDO_TICKET_URL = 'https://edo.iwhalecloud.com?issueId=';
 
@@ -60,6 +44,8 @@ export interface EdoTicketDraft {
   lastUpdateAt: string;
   closedOn: string | null;
   externalUrl: string;
+  /** Normalized eDo row (SLA limits, first response, assignee…) for the legacy KPIs. */
+  edo: EdoRecord;
 }
 
 export interface EdoMapIssue {
@@ -203,6 +189,7 @@ export function mapEdoIncident(
       externalUrl: link.startsWith(EDO_TICKET_URL)
         ? link
         : `${EDO_TICKET_URL}${encodeURIComponent(externalId)}`,
+      edo: edoRecordOf(r),
     },
   };
 }
@@ -245,7 +232,20 @@ export const EDO_SYNCED_FIELDS = [
   'lastUpdateAt',
   'closedOn',
   'externalUrl',
+  'edo',
 ] as const;
+
+/** JSON with sorted keys: Postgres jsonb does not keep the key order. */
+function stableJson(v: unknown): string {
+  if (v === null || typeof v !== 'object') return JSON.stringify(v ?? null);
+  if (Array.isArray(v)) return `[${v.map(stableJson).join(',')}]`;
+  const o = v as Record<string, unknown>;
+  return `{${Object.keys(o)
+    .filter((k) => o[k] !== undefined)
+    .sort()
+    .map((k) => `${JSON.stringify(k)}:${stableJson(o[k])}`)
+    .join(',')}}`;
+}
 
 /** Synced fields that differ between the stored ticket and the eDo draft. */
 export function edoChangedFields(
@@ -255,6 +255,7 @@ export function edoChangedFields(
   const norm = (k: string, v: unknown) => {
     if (v === undefined || v === null) return null;
     if (k === 'lastUpdateAt') return new Date(v as string | Date).toISOString();
+    if (k === 'edo') return stableJson(v);
     return String(v);
   };
   return EDO_SYNCED_FIELDS.filter((k) => norm(k, current[k]) !== norm(k, draft[k]));
@@ -262,9 +263,7 @@ export function edoChangedFields(
 
 /** Keeps only the fields the importer reads (shrinks the 4 MB file before upload). */
 export function slimEdoIncidents(rows: readonly Record<string, unknown>[]) {
-  return rows.map((r) =>
-    Object.fromEntries(EDO_IMPORT_FIELDS.filter((k) => k in r).map((k) => [k, r[k]])),
-  );
+  return rows.map((r) => edoRecordOf(r) as unknown as Record<string, unknown>);
 }
 
 /** Accepts the legacy file (`{ incidents: [...] }`) or a bare array. */

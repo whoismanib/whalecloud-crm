@@ -57,6 +57,9 @@ test('Resumen KPIs match the seeded data (CNY)', async ({ page }) => {
 
   await login(page, 'cm');
   await expect(page.getByTestId('kpi-grid')).toBeVisible();
+  // The Resumen opens in USD (like the legacy dashboard); the office KPIs are checked in CNY.
+  await expect(page.getByTestId('sec-goal')).toBeVisible();
+  await page.getByText('CNY', { exact: true }).first().click();
   await expect(page.getByTestId('kpi-SS_SIGNED')).toContainText(`${mm(ss)}MM CNY`);
   await expect(page.getByTestId('kpi-SS_SIGNED')).toContainText('Meta: 200');
   await expect(page.getByTestId('kpi-PAYMENTS')).toContainText(`${mm(payments)}MM CNY`);
@@ -66,7 +69,7 @@ test('Resumen KPIs match the seeded data (CNY)', async ({ page }) => {
     `Monto ${mm(overdue.amt)} MM`,
   );
   await expect(page.getByTestId('kpi-PROFIT')).toContainText('según China');
-  const cards = page.getByTestId('legacy-cards');
+  const cards = page.getByTestId('sec-billing');
   const clp = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(
     Math.round(toCollect),
   );

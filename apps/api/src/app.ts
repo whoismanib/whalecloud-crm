@@ -20,6 +20,7 @@ import { priceRequestRoutes } from './modules/price-requests/routes';
 import { approvalRoutes } from './modules/approvals/routes';
 import { contractRoutes } from './modules/contracts/routes';
 import { billingRoutes } from './modules/milestones/routes';
+import { edoRoutes } from './modules/tickets/edo';
 import { ticketRoutes } from './modules/tickets/routes';
 import { dashboardRoutes } from './modules/dashboard/routes';
 import { mailRoutes } from './modules/mail/routes';
@@ -209,6 +210,7 @@ export async function buildApp(opts: BuildOptions = {}): Promise<FastifyInstance
       await contractRoutes(api);
       await billingRoutes(api);
       await ticketRoutes(api);
+      await edoRoutes(api);
       await dashboardRoutes(api);
       await mailRoutes(api);
       await auditRoutes(api);

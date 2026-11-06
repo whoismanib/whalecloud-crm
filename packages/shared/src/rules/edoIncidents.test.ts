@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import sample from './__fixtures__/edo_incidents.sample.json';
+import { edoRecordOf } from './edoLogic';
 import {
   dateInZone,
   edoBallIn,
@@ -46,6 +47,7 @@ describe('eDo incidents → tickets (legacy edo_incidents.json)', () => {
     const m = draftOf(byNo('WOM_IS3700'));
     expect(m.warnings).toEqual([]);
     expect(m.draft).toEqual<EdoTicketDraft>({
+      edo: edoRecordOf(byNo('WOM_IS3700')),
       externalId: 'IS2637002051802512',
       number: 'WOM_IS3700',
       title: 'Portabilidad rechazada sin motivo (3700)',
@@ -214,7 +216,19 @@ describe('eDo incidents → tickets (legacy edo_incidents.json)', () => {
     expect(edoIncidentRows([{ id: 'a' }, null, 3])).toEqual([{ id: 'a' }]);
     expect(edoIncidentRows({ wom: [] })).toBeNull();
     expect(edoIncidentRows(null)).toBeNull();
-    const slim = slimEdoIncidents([{ id: 'a', comment: 'largo', assigneeRaw: '[x]1', no: 'N' }]);
-    expect(slim).toEqual([{ id: 'a', no: 'N' }]);
+    const slim = slimEdoIncidents([
+      { id: 'a', comment: 'x'.repeat(400), assigneeRaw: '[x]1', aging: 3, no: 'N' },
+    ]);
+    // Keeps the KPI fields (comment trimmed to 300 chars) and drops the rest.
+    expect(slim).toEqual([{ id: 'a', comment: 'x'.repeat(300), no: 'N' }]);
+  });
+});
+
+describe('eDo record comparison', () => {
+  it('ignores the key order Postgres gives back for the stored record', () => {
+    const d = mapEdoIncidents(rows.slice(0, 1), { timeZone: 'America/Santiago' }).tickets[0]!;
+    const reordered = Object.fromEntries(Object.entries(d.edo).reverse());
+    expect(edoChangedFields({ ...d, edo: reordered }, d)).toEqual([]);
+    expect(edoChangedFields({ ...d, edo: { ...d.edo, title: 'otro' } }, d)).toEqual(['edo']);
   });
 });

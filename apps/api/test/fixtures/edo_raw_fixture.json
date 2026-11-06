@@ -1,0 +1,3341 @@
+{
+  "resultCode": "0",
+  "resultDesc": "Success",
+  "resultData": {
+    "total": 62,
+    "list": [
+      {
+        "issueId": "IS2637002051802512",
+        "issueNo": "WOM_IS3700",
+        "title": "Portabilidad rechazada sin motivo (3700)",
+        "priorityValue": "P1",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 20:27:04",
+        "happenTime": "2026-10-28 20:56:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "updateTime": "2026-10-29 01:04:56",
+        "comment": "<p>[2026-10-28] <b>Wang Fang</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-28 21:27:04",
+        "responseSlaLimitAlarm": "2026-10-28 21:15:04",
+        "resolutionSlaLimitTime": "2026-10-29 20:27:04",
+        "resolutionSlaLimitAlarm": "2026-10-29 15:27:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "0"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637017635473142",
+        "issueNo": "WOM_IS3701",
+        "title": "Lentitud en CRM modulo ordenes (3701)",
+        "priorityValue": "P1",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-21 13:49:04",
+        "happenTime": "2026-09-21 13:19:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "",
+        "firstOprTime": "2026-09-21 14:05:04",
+        "updateTime": "2026-10-19 12:18:19",
+        "comment": "<div>Sin fecha al inicio &lt;script&gt;alert(1)&lt;/script&gt;</div>",
+        "responseSlaLimitTime": "2026-09-21 14:49:04",
+        "responseSlaLimitAlarm": "2026-09-21 14:37:04",
+        "resolutionSlaLimitTime": "2026-09-22 13:49:04",
+        "resolutionSlaLimitAlarm": "2026-09-22 09:01:04",
+        "dayOfOver": 36.5,
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 14:05:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "7298"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637027887950851",
+        "issueNo": "WOM_IS3702",
+        "title": "Error en activacion de linea prepago (3702)",
+        "priorityValue": "P2",
+        "issueStatus": 0,
+        "issueStatusValue": "New",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-20 18:21:04",
+        "happenTime": "2026-10-20 17:51:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-21 00:58:04",
+        "updateTime": "2026-10-22 03:44:49",
+        "comment": "<p>[2026-10-20] <b>Carlos Rojas</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-20 22:21:04",
+        "responseSlaLimitAlarm": "2026-10-20 21:33:04",
+        "resolutionSlaLimitTime": "2026-10-23 18:21:04",
+        "resolutionSlaLimitAlarm": "2026-10-23 03:57:04",
+        "dayOfOver": 5.3,
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "8"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-21 00:58:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "3603"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637034673561638",
+        "issueNo": "WOM_IS3703",
+        "title": "Factura duplicada en ciclo 15 (3703)",
+        "priorityValue": "P2",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-27 19:38:04",
+        "happenTime": "2026-10-27 19:08:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-10-28 00:32:04",
+        "updateTime": "2026-10-28 10:11:47",
+        "comment": "<p>[2026-10-28] <b>Carlos Rojas</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-27 23:38:04",
+        "responseSlaLimitAlarm": "2026-10-27 22:50:04",
+        "resolutionSlaLimitTime": "2026-10-30 19:38:04",
+        "resolutionSlaLimitAlarm": "2026-10-30 05:14:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 00:32:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "5279"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637045996775663",
+        "issueNo": "WOM_IS3704",
+        "title": "Cambio de plan no se refleja (3704)",
+        "priorityValue": "P3",
+        "issueStatus": 2,
+        "issueStatusValue": "Diagnosing",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 05:53:04",
+        "happenTime": "2026-10-28 05:23:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-10-28 16:58:04",
+        "updateTime": "2026-10-28 19:34:59",
+        "comment": "<p>[2026-10-28] <b>Li Wei</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 16:58:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "26890"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637052351531223",
+        "issueNo": "WOM_IS3705",
+        "title": "Reporte OSS sin datos de ayer (3705)",
+        "priorityValue": "P3",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 21:14:04",
+        "happenTime": "2026-10-28 20:44:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "updateTime": "2026-10-28 23:41:04",
+        "comment": "<p>[2026-10-28] <b>Carlos Rojas</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "0"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637061470939445",
+        "issueNo": "WOM_IS3706",
+        "title": "Reporte OSS sin datos de ayer (3706)",
+        "priorityValue": "P3",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-27 20:19:04",
+        "happenTime": "2026-10-27 19:49:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-28 03:03:04",
+        "updateTime": "2026-10-28 09:02:56",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 03:03:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "8107"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637072461042543",
+        "issueNo": "WOM_IS3707",
+        "title": "Recarga no aplicada al saldo (3707)",
+        "priorityValue": "P2",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-21 13:39:04",
+        "happenTime": "2026-09-21 13:09:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027022222",
+        "assigneeName": "[Zhang Min]0027022222",
+        "firstOprTime": "2026-09-21 21:33:04",
+        "updateTime": "2026-09-25 10:08:01",
+        "comment": "<p>[2026-09-23] <b>Carlos Rojas</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 21:33:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "20158"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Zhang Min]0027022222"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637084944899549",
+        "issueNo": "WOM_IS3708",
+        "title": "Bolsa de datos no se descuenta (3708)",
+        "priorityValue": "P2",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-21 13:49:04",
+        "happenTime": "2026-09-21 13:19:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-09-21 22:19:04",
+        "updateTime": "2026-09-25 22:43:03",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 22:19:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "16292"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637099957813353",
+        "issueNo": "WOM_IS3709",
+        "title": "Error 500 en API de consulta de saldo (3709)",
+        "priorityValue": "P3",
+        "issueStatus": 0,
+        "issueStatusValue": "New",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-27 19:31:04",
+        "happenTime": "2026-10-27 19:01:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-10-28 04:46:04",
+        "updateTime": "2026-10-28 18:02:47",
+        "comment": "<p>[2026-10-27] <b>Zhang Min</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 04:46:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "14480"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637108086172302",
+        "issueNo": "WOM_IS3710",
+        "title": "Error 500 en API de consulta de saldo (3710)",
+        "priorityValue": "P2",
+        "issueStatus": 2,
+        "issueStatusValue": "Diagnosing",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-27 19:42:04",
+        "happenTime": "2026-10-27 19:12:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-27 21:55:04",
+        "updateTime": "2026-10-28 05:01:22",
+        "comment": "<p>[2026-10-28] <b>Zhang Min</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-27 23:42:04",
+        "responseSlaLimitAlarm": "2026-10-27 22:54:04",
+        "resolutionSlaLimitTime": "2026-10-30 19:42:04",
+        "resolutionSlaLimitAlarm": "2026-10-30 05:18:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-27 21:55:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "4458"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637119894264595",
+        "issueNo": "WOM_IS3711",
+        "title": "Lentitud en CRM modulo ordenes (3711)",
+        "priorityValue": "P1",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 20:30:04",
+        "happenTime": "2026-10-28 20:00:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "updateTime": "2026-10-28 21:33:48",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "0"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637121405126228",
+        "issueNo": "WOM_IS3712",
+        "title": "Reporte OSS sin datos de ayer (3712)",
+        "priorityValue": "P3",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-12 09:36:04",
+        "happenTime": "2026-10-12 09:06:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-10-12 15:48:04",
+        "updateTime": "2026-10-20 01:37:04",
+        "comment": "<p>[2026-10-18] <b>Li Wei</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "17"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-12 15:48:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "4572"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637132067970820",
+        "issueNo": "WOM_IS3713",
+        "title": "Lentitud en CRM modulo ordenes (3713)",
+        "priorityValue": "P4",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-24 21:36:04",
+        "happenTime": "2026-10-24 21:06:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-25 05:25:04",
+        "updateTime": "2026-10-25 19:31:00",
+        "comment": "<p>[2026-10-24] <b>Zhang Min</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "4"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-25 05:25:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "3915"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637144645120421",
+        "issueNo": "WOM_IS3714",
+        "title": "Portabilidad rechazada sin motivo (3714)",
+        "priorityValue": "P1",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-21 13:34:04",
+        "happenTime": "2026-09-21 13:04:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-09-21 22:01:04",
+        "updateTime": "2026-10-10 15:48:25",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 22:01:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "25436"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637156520103410",
+        "issueNo": "WOM_IS3715",
+        "title": "Alarma de CPU en nodo billing (3715)",
+        "priorityValue": "P4",
+        "issueStatus": 0,
+        "issueStatusValue": "New",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-20 18:11:04",
+        "happenTime": "2026-10-20 17:41:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "updateTime": "2026-10-23 16:37:29",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "8"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637163281169403",
+        "issueNo": "WOM_IS3716",
+        "title": "Error en activacion de linea prepago (3716)",
+        "priorityValue": "P1",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-24 22:24:04",
+        "happenTime": "2026-10-24 21:54:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-10-25 01:44:04",
+        "updateTime": "2026-10-25 14:13:31",
+        "comment": "<p>[2026-10-24] <b>Wang Fang</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "4"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-25 01:44:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "38540"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637172119980130",
+        "issueNo": "WOM_IS3717",
+        "title": "Reporte OSS sin datos de ayer (3717)",
+        "priorityValue": "P1",
+        "issueStatus": 2,
+        "issueStatusValue": "Diagnosing",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 23:48:04",
+        "happenTime": "2026-10-28 23:18:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "updateTime": "2026-10-29 00:27:09",
+        "comment": "<p>[2026-10-28] <b>Carlos Rojas</b>: Se escala a R&D China &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-29 00:48:04",
+        "responseSlaLimitAlarm": "2026-10-29 00:36:04",
+        "resolutionSlaLimitTime": "2026-10-29 23:48:04",
+        "resolutionSlaLimitAlarm": "2026-10-29 19:00:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "0"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637189904586976",
+        "issueNo": "WOM_IS3718",
+        "title": "Lentitud en CRM modulo ordenes (3718)",
+        "priorityValue": "P3",
+        "issueStatus": 0,
+        "issueStatusValue": "New",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-12 09:48:04",
+        "happenTime": "2026-10-12 09:18:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-12 14:29:04",
+        "updateTime": "2026-10-15 22:50:11",
+        "comment": "<p>[2026-10-15] <b>Zhang Min</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-12 17:48:04",
+        "responseSlaLimitAlarm": "2026-10-12 16:12:04",
+        "resolutionSlaLimitTime": "2026-10-22 09:48:04",
+        "resolutionSlaLimitAlarm": "2026-10-20 09:48:04",
+        "dayOfOver": 6.7,
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "17"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-12 14:29:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "36200"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637193271782991",
+        "issueNo": "WOM_IS3719",
+        "title": "Reporte OSS sin datos de ayer (3719)",
+        "priorityValue": "P4",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-26 13:48:04",
+        "happenTime": "2026-10-26 13:18:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-10-27 01:17:04",
+        "updateTime": "2026-10-27 01:05:02",
+        "responseSlaLimitTime": "2026-10-27 13:48:04",
+        "responseSlaLimitAlarm": "2026-10-27 09:00:04",
+        "resolutionSlaLimitTime": "2026-11-15 13:48:04",
+        "resolutionSlaLimitAlarm": "2026-11-11 13:48:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "2"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-27 01:17:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "36856"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637208377088167",
+        "issueNo": "WOM_IS3720",
+        "title": "Lentitud en CRM modulo ordenes (3720)",
+        "priorityValue": "P3",
+        "issueStatus": 1,
+        "issueStatusValue": "Assigned",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-26 14:09:04",
+        "happenTime": "2026-10-26 13:39:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-27 01:08:04",
+        "updateTime": "2026-10-28 15:38:59",
+        "comment": "<p>[2026-10-27] <b>Li Wei</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "2"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-27 01:08:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "3489"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637219503167458",
+        "issueNo": "WOM_IS3721",
+        "title": "Portabilidad rechazada sin motivo (3721)",
+        "priorityValue": "P2",
+        "issueStatus": 0,
+        "issueStatusValue": "New",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-24 21:38:04",
+        "happenTime": "2026-10-24 21:08:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-25 05:05:04",
+        "updateTime": "2026-10-27 07:18:41",
+        "comment": "<p>[2026-10-25] <b>Zhang Min</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "responseSlaLimitTime": "2026-10-25 01:38:04",
+        "responseSlaLimitAlarm": "2026-10-25 00:50:04",
+        "resolutionSlaLimitTime": "2026-10-27 21:38:04",
+        "resolutionSlaLimitAlarm": "2026-10-27 07:14:04",
+        "dayOfOver": 1.2,
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "4"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-25 05:05:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "38775"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637226618926823",
+        "issueNo": "WOM_IS3722",
+        "title": "Error en activacion de linea prepago (3722)",
+        "priorityValue": "P2",
+        "issueStatus": 2,
+        "issueStatusValue": "Diagnosing",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 06:00:04",
+        "happenTime": "2026-10-28 05:30:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-10-28 09:45:04",
+        "updateTime": "2026-10-28 19:35:46",
+        "comment": "<p>[2026-10-28] <b>Wang Fang</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 09:45:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "11249"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637239265609985",
+        "issueNo": "WOM_IS3723",
+        "title": "Cambio de plan no se refleja (3723)",
+        "priorityValue": "P3",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-28 05:31:04",
+        "happenTime": "2026-10-28 05:01:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-28 09:55:04",
+        "updateTime": "2026-10-28 12:03:12",
+        "comment": "<p>[2026-10-28] <b>Wang Fang</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "1"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-28 09:55:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "13679"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637241957449367",
+        "issueNo": "WOM_IS3724",
+        "title": "Reporte OSS sin datos de ayer (3724)",
+        "priorityValue": "P2",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-12 10:05:04",
+        "happenTime": "2026-10-12 09:35:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-10-12 17:03:04",
+        "updateTime": "2026-10-18 17:41:36",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "17"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-12 17:03:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "23612"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637251118543408",
+        "issueNo": "WOM_IS3725",
+        "title": "Recarga no aplicada al saldo (3725)",
+        "priorityValue": "P3",
+        "issueStatus": 3,
+        "issueStatusValue": "In Progress",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-21 14:02:04",
+        "happenTime": "2026-09-21 13:32:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-09-21 14:51:04",
+        "updateTime": "2026-09-28 18:57:44",
+        "comment": "<p>[2026-09-26] <b>Carlos Rojas</b>: Se escala a R&D China &amp; se informa a WOM.</p>",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 14:51:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "25844"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637268339176912",
+        "issueNo": "WOM_IS3726",
+        "title": "Error en activacion de linea prepago (3726)",
+        "priorityValue": "P2",
+        "issueStatus": 4,
+        "issueStatusValue": "Resloved",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-16 14:15:04",
+        "happenTime": "2026-10-16 13:45:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-16 23:36:04",
+        "updateTime": "2026-10-25 03:23:59",
+        "resolutionTime": "2026-10-24 14:55:04",
+        "resolveByName": "[Zhang Min]0027000000",
+        "responseSlaLimitTime": "2026-10-16 18:15:04",
+        "responseSlaLimitAlarm": "2026-10-16 17:27:04",
+        "resolutionSlaLimitTime": "2026-10-19 14:15:04",
+        "resolutionSlaLimitAlarm": "2026-10-18 23:51:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "12"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-16 23:36:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "22239"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637277049001493",
+        "issueNo": "WOM_IS3727",
+        "title": "Cambio de plan no se refleja (3727)",
+        "priorityValue": "P3",
+        "issueStatus": 4,
+        "issueStatusValue": "Resloved",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-16 14:07:04",
+        "happenTime": "2026-10-16 13:37:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-16 19:19:04",
+        "updateTime": "2026-10-23 17:29:34",
+        "comment": "<p>[2026-10-21] <b>Wang Fang</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-24 16:46:55",
+        "resolveByName": "[Zhang Min]0027000000",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "12"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-16 19:19:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "27212"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637282232285036",
+        "issueNo": "WOM_IS3728",
+        "title": "Cambio de plan no se refleja (3728)",
+        "priorityValue": "P1",
+        "issueStatus": 4,
+        "issueStatusValue": "Resloved",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-16 13:34:04",
+        "happenTime": "2026-10-16 13:04:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-17 00:05:04",
+        "updateTime": "2026-10-24 18:31:04",
+        "comment": "<p>[2026-10-23] <b>Zhang Min</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-22 14:44:28",
+        "resolveByName": "[Zhang Min]0027000000",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "12"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-17 00:05:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "34380"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637292333241445",
+        "issueNo": "WOM_IS3729",
+        "title": "Lentitud en CRM modulo ordenes (3729)",
+        "priorityValue": "P3",
+        "issueStatus": 4,
+        "issueStatusValue": "Resloved",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-16 13:47:04",
+        "happenTime": "2026-10-16 13:17:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-10-16 14:22:04",
+        "updateTime": "2026-10-18 07:34:08",
+        "resolutionTime": "2026-10-23 15:48:49",
+        "resolveByName": "[Li Wei]0027000000",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "12"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-16 14:22:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "25764"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637302825989011",
+        "issueNo": "WOM_IS3730",
+        "title": "Portabilidad rechazada sin motivo (3730)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-15 16:02:04",
+        "happenTime": "2026-09-15 15:32:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-09-15 17:03:04",
+        "updateTime": "2026-09-30 01:18:28",
+        "resolutionTime": "2026-09-27 12:18:28",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-09-30 01:18:28",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "43"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-15 17:03:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "29604"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637318995059760",
+        "issueNo": "WOM_IS3731",
+        "title": "Error 500 en API de consulta de saldo (3731)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-05 13:35:04",
+        "happenTime": "2026-09-05 13:05:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-09-06 00:37:04",
+        "updateTime": "2026-10-01 17:15:44",
+        "comment": "<p>[2026-09-22] <b>Zhang Min</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-30 09:15:44",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-01 17:15:44",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-09-05 21:35:04",
+        "responseSlaLimitAlarm": "2026-09-05 19:59:04",
+        "resolutionSlaLimitTime": "2026-09-15 13:35:04",
+        "resolutionSlaLimitAlarm": "2026-09-13 13:35:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "54"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-06 00:37:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "35999"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637321918920620",
+        "issueNo": "WOM_IS3732",
+        "title": "Cambio de plan no se refleja (3732)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-20 23:19:04",
+        "happenTime": "2026-10-20 22:49:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-21 06:34:04",
+        "updateTime": "2026-10-26 09:49:20",
+        "comment": "<p>[2026-10-21] <b>Li Wei</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-24 10:49:20",
+        "resolveByName": "[Li Wei]0027000000",
+        "closedDate": "2026-10-26 09:49:20",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-10-21 03:19:04",
+        "responseSlaLimitAlarm": "2026-10-21 02:31:04",
+        "resolutionSlaLimitTime": "2026-10-23 23:19:04",
+        "resolutionSlaLimitAlarm": "2026-10-23 08:55:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "8"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-21 06:34:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "28060"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637334856070374",
+        "issueNo": "WOM_IS3733",
+        "title": "Error 500 en API de consulta de saldo (3733)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-11 21:40:04",
+        "happenTime": "2026-09-11 21:10:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-09-12 06:07:04",
+        "updateTime": "2026-09-26 18:09:58",
+        "comment": "<p>[2026-09-15] <b>Wang Fang</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-26 00:09:58",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-26 18:09:58",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "47"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-12 06:07:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "26422"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637349950486177",
+        "issueNo": "WOM_IS3734",
+        "title": "Cambio de plan no se refleja (3734)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-07 07:51:04",
+        "happenTime": "2026-09-07 07:21:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027022222",
+        "assigneeName": "[Zhang Min]0027022222",
+        "firstOprTime": "2026-09-07 08:52:04",
+        "updateTime": "2026-10-12 20:31:10",
+        "comment": "<p>[2026-09-22] <b>Carlos Rojas</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-11 07:31:10",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-12 20:31:10",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "52"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-07 08:52:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "17132"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Zhang Min]0027022222"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637359383431259",
+        "issueNo": "WOM_IS3735",
+        "title": "Lentitud en CRM modulo ordenes (3735)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-17 15:22:04",
+        "happenTime": "2026-08-17 14:52:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-08-18 02:39:04",
+        "updateTime": "2026-09-28 21:28:10",
+        "comment": "<p>[2026-08-26] <b>Zhang Min</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-28 03:28:10",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-09-28 21:28:10",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "72"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-18 02:39:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "37560"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637362584392711",
+        "issueNo": "WOM_IS3736",
+        "title": "Bolsa de datos no se descuenta (3736)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-07 23:14:04",
+        "happenTime": "2026-08-07 22:44:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-08-08 02:11:04",
+        "updateTime": "2026-09-28 22:27:55",
+        "comment": "<p>[2026-10-22] <b>Carlos Rojas</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-26 18:27:55",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-28 22:27:55",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "82"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-08 02:11:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "5580"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637372043030161",
+        "issueNo": "WOM_IS3737",
+        "title": "Alarma de CPU en nodo billing (3737)",
+        "priorityValue": "P4",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-07 07:43:04",
+        "happenTime": "2026-09-07 07:13:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-09-07 17:32:04",
+        "updateTime": "2026-10-03 12:09:35",
+        "comment": "<p>[2026-10-15] <b>Carlos Rojas</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-03 09:09:35",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-03 12:09:35",
+        "closerName": "[Diego Munoz]dmunoz",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "52"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-07 17:32:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "7516"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637384037867512",
+        "issueNo": "WOM_IS3738",
+        "title": "Cambio de plan no se refleja (3738)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-20 21:04:04",
+        "happenTime": "2026-09-20 20:34:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-09-21 07:44:04",
+        "updateTime": "2026-10-19 05:47:13",
+        "comment": "<p>[2026-10-19] <b>Wang Fang</b>: Se escala a R&D China &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-17 10:47:13",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-19 05:47:13",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "38"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-21 07:44:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "18879"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637398164814926",
+        "issueNo": "WOM_IS3739",
+        "title": "Fallo en job nocturno de mediacion (3739)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-13 14:59:04",
+        "happenTime": "2026-08-13 14:29:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-08-13 18:15:04",
+        "updateTime": "2026-10-08 10:13:00",
+        "comment": "<p>[2026-09-21] <b>Carlos Rojas</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-08 07:13:00",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-08 10:13:00",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "76"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-13 18:15:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "6210"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637408352307139",
+        "issueNo": "WOM_IS3740",
+        "title": "Error 500 en API de consulta de saldo (3740)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-07 05:41:04",
+        "happenTime": "2026-10-07 05:11:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-10-07 10:52:04",
+        "updateTime": "2026-10-21 04:29:47",
+        "comment": "<p>[2026-10-12] <b>Carlos Rojas</b>: Se escala a R&D China &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-18 20:29:47",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-21 04:29:47",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "22"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-07 10:52:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "23656"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637412079770569",
+        "issueNo": "WOM_IS3741",
+        "title": "Factura duplicada en ciclo 15 (3741)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-28 20:58:04",
+        "happenTime": "2026-08-28 20:28:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-08-29 02:31:04",
+        "updateTime": "2026-09-19 14:29:21",
+        "comment": "<p>[2026-09-08] <b>Zhang Min</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-18 01:29:21",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-19 14:29:21",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "61"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-29 02:31:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "7188"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637422549972386",
+        "issueNo": "WOM_IS3742",
+        "title": "Recarga no aplicada al saldo (3742)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-17 19:15:04",
+        "happenTime": "2026-08-17 18:45:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027022222",
+        "assigneeName": "[Zhang Min]0027022222",
+        "firstOprTime": "2026-08-18 00:05:04",
+        "updateTime": "2026-10-09 13:19:09",
+        "comment": "<p>[2026-08-27] <b>Zhang Min</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-08 22:19:09",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-09 13:19:09",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "72"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-18 00:05:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "31362"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Zhang Min]0027022222"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637435146780827",
+        "issueNo": "WOM_IS3743",
+        "title": "Recarga no aplicada al saldo (3743)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-16 23:59:04",
+        "happenTime": "2026-09-16 23:29:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-09-17 01:15:04",
+        "updateTime": "2026-09-29 16:23:53",
+        "comment": "<p>[2026-10-03] <b>Li Wei</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-29 04:23:53",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-09-29 16:23:53",
+        "closerName": "[Diego Munoz]dmunoz",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "42"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-17 01:15:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "37173"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637447539399243",
+        "issueNo": "WOM_IS3744",
+        "title": "Error 500 en API de consulta de saldo (3744)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-23 15:01:04",
+        "happenTime": "2026-08-23 14:31:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-08-23 20:23:04",
+        "updateTime": "2026-10-01 08:38:08",
+        "comment": "<p>[2026-09-29] <b>Li Wei</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-30 20:38:08",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-01 08:38:08",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-08-23 23:01:04",
+        "responseSlaLimitAlarm": "2026-08-23 21:25:04",
+        "resolutionSlaLimitTime": "2026-09-02 15:01:04",
+        "resolutionSlaLimitAlarm": "2026-08-31 15:01:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "66"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-23 20:23:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "36775"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637457845366946",
+        "issueNo": "WOM_IS3745",
+        "title": "Recarga no aplicada al saldo (3745)",
+        "priorityValue": "P1",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-21 11:17:04",
+        "happenTime": "2026-10-21 10:47:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-10-21 16:22:04",
+        "updateTime": "2026-10-25 04:30:52",
+        "comment": "<p>[2026-10-25] <b>Li Wei</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-24 01:30:52",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-25 04:30:52",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "8"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-21 16:22:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "10364"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637461306702926",
+        "issueNo": "WOM_IS3746",
+        "title": "Portabilidad rechazada sin motivo (3746)",
+        "priorityValue": "P4",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-11 08:10:04",
+        "happenTime": "2026-08-11 07:40:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-08-11 15:49:04",
+        "updateTime": "2026-09-22 03:42:11",
+        "comment": "<p>[2026-08-25] <b>Wang Fang</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-19 17:42:11",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-22 03:42:11",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-08-12 08:10:04",
+        "responseSlaLimitAlarm": "2026-08-12 03:22:04",
+        "resolutionSlaLimitTime": "2026-08-31 08:10:04",
+        "resolutionSlaLimitAlarm": "2026-08-27 08:10:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "79"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-11 15:49:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "28913"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637471111088881",
+        "issueNo": "WOM_IS3747",
+        "title": "Lentitud en CRM modulo ordenes (3747)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-26 04:07:04",
+        "happenTime": "2026-08-26 03:37:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-08-26 15:45:04",
+        "updateTime": "2026-09-29 09:34:19",
+        "comment": "<p>[2026-10-14] <b>Zhang Min</b>: Se escala a R&D China &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-27 20:34:19",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-29 09:34:19",
+        "closerName": "[Camila Rios]crios",
+        "responseSlaLimitTime": "2026-08-26 12:07:04",
+        "responseSlaLimitAlarm": "2026-08-26 10:31:04",
+        "resolutionSlaLimitTime": "2026-09-05 04:07:04",
+        "resolutionSlaLimitAlarm": "2026-09-03 04:07:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "64"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-26 15:45:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "32825"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637487048809022",
+        "issueNo": "WOM_IS3748",
+        "title": "Fallo en job nocturno de mediacion (3748)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-06 04:22:04",
+        "happenTime": "2026-08-06 03:52:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-08-06 07:16:04",
+        "updateTime": "2026-08-26 13:30:45",
+        "comment": "<p>[2026-09-06] <b>Wang Fang</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-08-24 19:30:45",
+        "resolveByName": "[Li Wei]0027000000",
+        "closedDate": "2026-08-26 13:30:45",
+        "closerName": "[Camila Rios]crios",
+        "responseSlaLimitTime": "2026-08-06 12:22:04",
+        "responseSlaLimitAlarm": "2026-08-06 10:46:04",
+        "resolutionSlaLimitTime": "2026-08-16 04:22:04",
+        "resolutionSlaLimitAlarm": "2026-08-14 04:22:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "84"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-06 07:16:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "27088"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637497625389037",
+        "issueNo": "WOM_IS3749",
+        "title": "Cambio de plan no se refleja (3749)",
+        "priorityValue": "P4",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-15 00:55:04",
+        "happenTime": "2026-08-15 00:25:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-08-15 09:55:04",
+        "updateTime": "2026-09-09 19:04:58",
+        "comment": "<p>[2026-09-12] <b>Wang Fang</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-08 05:04:58",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-09-09 19:04:58",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "75"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-15 09:55:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "8557"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637504048494026",
+        "issueNo": "WOM_IS3750",
+        "title": "Recarga no aplicada al saldo (3750)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-25 08:47:04",
+        "happenTime": "2026-10-25 08:17:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-25 18:22:04",
+        "updateTime": "2026-10-29 01:27:04",
+        "comment": "<p>[2026-10-26] <b>Wang Fang</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-27 13:10:19",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-10-29 01:27:04",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "4"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-25 18:22:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "33949"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637519505085936",
+        "issueNo": "WOM_IS3751",
+        "title": "Lentitud en CRM modulo ordenes (3751)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-28 16:10:04",
+        "happenTime": "2026-08-28 15:40:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027022222",
+        "assigneeName": "[Zhang Min]0027022222",
+        "firstOprTime": "2026-08-28 22:52:04",
+        "updateTime": "2026-09-22 00:16:51",
+        "comment": "<p>[2026-09-11] <b>Zhang Min</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-20 03:16:51",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-22 00:16:51",
+        "closerName": "[Diego Munoz]dmunoz",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "61"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-28 22:52:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "768"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Zhang Min]0027022222"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637528129391249",
+        "issueNo": "WOM_IS3752",
+        "title": "Portabilidad rechazada sin motivo (3752)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-03 16:41:04",
+        "happenTime": "2026-10-03 16:11:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027044444",
+        "assigneeName": "[Wang Fang]0027044444",
+        "firstOprTime": "2026-10-03 22:44:04",
+        "updateTime": "2026-10-24 03:14:13",
+        "comment": "<p>[2026-10-12] <b>Wang Fang</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-22 00:14:13",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-10-24 03:14:13",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-10-03 20:41:04",
+        "responseSlaLimitAlarm": "2026-10-03 19:53:04",
+        "resolutionSlaLimitTime": "2026-10-06 16:41:04",
+        "resolutionSlaLimitAlarm": "2026-10-06 02:17:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "25"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-03 22:44:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "3460"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Wang Fang]0027044444"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637536932342612",
+        "issueNo": "WOM_IS3753",
+        "title": "Reporte OSS sin datos de ayer (3753)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Camila Rios]crios",
+        "reporterName": "[Camila Rios]crios",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-30 16:40:04",
+        "happenTime": "2026-09-30 16:10:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "crios",
+        "assigneeName": "[Camila Rios]crios",
+        "firstOprTime": "2026-10-01 01:17:04",
+        "updateTime": "2026-10-21 20:03:43",
+        "comment": "<p>[2026-10-25] <b>Carlos Rojas</b>: Se solicita log adicional al cliente &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-21 06:03:43",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-21 20:03:43",
+        "closerName": "[Camila Rios]crios",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "28"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-01 01:17:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "1605"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Camila Rios]crios"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637545165932723",
+        "issueNo": "WOM_IS3754",
+        "title": "Factura duplicada en ciclo 15 (3754)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-27 05:18:04",
+        "happenTime": "2026-08-27 04:48:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-08-27 16:06:04",
+        "updateTime": "2026-10-05 09:36:18",
+        "comment": "<p>[2026-10-08] <b>Wang Fang</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-02 10:36:18",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-05 09:36:18",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-08-27 13:18:04",
+        "responseSlaLimitAlarm": "2026-08-27 11:42:04",
+        "resolutionSlaLimitTime": "2026-09-06 05:18:04",
+        "resolutionSlaLimitAlarm": "2026-09-04 05:18:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "63"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-27 16:06:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "15985"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637554207337120",
+        "issueNo": "WOM_IS3755",
+        "title": "Cambio de plan no se refleja (3755)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-03 23:44:04",
+        "happenTime": "2026-09-03 23:14:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-09-04 07:28:04",
+        "updateTime": "2026-10-13 06:38:07",
+        "comment": "<p>[2026-09-17] <b>Li Wei</b>: Parche aplicado en QA, pendiente validacion WOM &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-11 07:38:07",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-10-13 06:38:07",
+        "closerName": "[Paula Soto]psoto",
+        "responseSlaLimitTime": "2026-09-04 03:44:04",
+        "responseSlaLimitAlarm": "2026-09-04 02:56:04",
+        "resolutionSlaLimitTime": "2026-09-06 23:44:04",
+        "resolutionSlaLimitAlarm": "2026-09-06 09:20:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "55"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-04 07:28:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "16603"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637564403845222",
+        "issueNo": "WOM_IS3756",
+        "title": "Portabilidad rechazada sin motivo (3756)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-12 13:01:04",
+        "happenTime": "2026-09-12 12:31:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "psoto",
+        "assigneeName": "[Paula Soto]psoto",
+        "firstOprTime": "2026-09-12 23:35:04",
+        "updateTime": "2026-09-27 06:20:07",
+        "comment": "<p>[2026-10-21] <b>Wang Fang</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-25 20:20:07",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-09-27 06:20:07",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "47"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-12 23:35:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "31090"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Paula Soto]psoto"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637571678500147",
+        "issueNo": "WOM_IS3757",
+        "title": "Error 500 en API de consulta de saldo (3757)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-11 23:09:04",
+        "happenTime": "2026-08-11 22:39:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027033333",
+        "assigneeName": "[Carlos Rojas]0027033333",
+        "firstOprTime": "2026-08-12 10:13:04",
+        "updateTime": "2026-10-14 01:26:47",
+        "comment": "<p>[2026-10-21] <b>Carlos Rojas</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-13 10:26:47",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-14 01:26:47",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-08-12 07:09:04",
+        "responseSlaLimitAlarm": "2026-08-12 05:33:04",
+        "resolutionSlaLimitTime": "2026-08-21 23:09:04",
+        "resolutionSlaLimitAlarm": "2026-08-19 23:09:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "78"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-12 10:13:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "38270"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Carlos Rojas]0027033333"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637588122042835",
+        "issueNo": "WOM_IS3758",
+        "title": "Recarga no aplicada al saldo (3758)",
+        "priorityValue": "P2",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-02 14:43:04",
+        "happenTime": "2026-10-02 14:13:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-10-03 01:13:04",
+        "updateTime": "2026-10-21 17:15:14",
+        "comment": "<p>[2026-10-21] <b>Zhang Min</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-20 15:15:14",
+        "resolveByName": "[Zhang Min]0027000000",
+        "closedDate": "2026-10-21 17:15:14",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "26"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-03 01:13:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "6967"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637592893321208",
+        "issueNo": "WOM_IS3759",
+        "title": "Bolsa de datos no se descuenta (3759)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-08-11 17:47:04",
+        "happenTime": "2026-08-11 17:17:04",
+        "orgId": "188258",
+        "orgIdName": "WHNOC OSS Team",
+        "assignee": "0027022222",
+        "assigneeName": "[Zhang Min]0027022222",
+        "firstOprTime": "2026-08-11 19:29:04",
+        "updateTime": "2026-09-05 11:51:38",
+        "comment": "<p>[2026-10-18] <b>Zhang Min</b>: Analizando en ambiente de pruebas &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-09-02 14:51:38",
+        "resolveByName": "[Carlos Rojas]0027000000",
+        "closedDate": "2026-09-05 11:51:38",
+        "closerName": "[Diego Munoz]dmunoz",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "78"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Liu Yang]0027066666"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-08-11 19:29:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "11383"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Zhang Min]0027022222"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WHNOC OSS Team"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637609033293776",
+        "issueNo": "WOM_IS3760",
+        "title": "Factura duplicada en ciclo 15 (3760)",
+        "priorityValue": "P4",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Diego Munoz]dmunoz",
+        "reporterName": "[Diego Munoz]dmunoz",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-10-05 21:29:04",
+        "happenTime": "2026-10-05 20:59:04",
+        "orgId": "50",
+        "orgIdName": "WOM",
+        "assignee": "dmunoz",
+        "assigneeName": "[Diego Munoz]dmunoz",
+        "firstOprTime": "2026-10-06 00:03:04",
+        "updateTime": "2026-10-15 17:42:25",
+        "comment": "<p>[2026-10-21] <b>Wang Fang</b>: WOM confirma que el problema persiste &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-15 14:42:25",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-15 17:42:25",
+        "closerName": "[Diego Munoz]dmunoz",
+        "responseSlaLimitTime": "2026-10-06 21:29:04",
+        "responseSlaLimitAlarm": "2026-10-06 16:41:04",
+        "resolutionSlaLimitTime": "2026-10-25 21:29:04",
+        "resolutionSlaLimitAlarm": "2026-10-21 21:29:04",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "23"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-10-06 00:03:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "30404"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Diego Munoz]dmunoz"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WOM"
+          }
+        ],
+        "authority": true
+      },
+      {
+        "issueId": "IS2637612595467139",
+        "issueNo": "WOM_IS3761",
+        "title": "Reporte OSS sin datos de ayer (3761)",
+        "priorityValue": "P3",
+        "issueStatus": 5,
+        "issueStatusValue": "Closed",
+        "projectId": "PMP202007281519402",
+        "projectName": "Chile WOM_BSS Program_Delivery",
+        "creatorName": "[Paula Soto]psoto",
+        "reporterName": "[Paula Soto]psoto",
+        "creatorOrgName": "WOM",
+        "createDate": "2026-09-26 09:44:04",
+        "happenTime": "2026-09-26 09:14:04",
+        "orgId": "52",
+        "orgIdName": "WhaleCloudSupport",
+        "assignee": "0027011111",
+        "assigneeName": "[Li Wei]0027011111",
+        "firstOprTime": "2026-09-26 20:28:04",
+        "updateTime": "2026-10-05 20:16:18",
+        "comment": "<p>[2026-10-22] <b>Zhang Min</b>: Esperando ventana de mantenimiento &amp; se informa a WOM.</p>",
+        "resolutionTime": "2026-10-04 04:16:18",
+        "resolveByName": "[Wang Fang]0027000000",
+        "closedDate": "2026-10-05 20:16:18",
+        "closerName": "[Paula Soto]psoto",
+        "extensionFieldList": [
+          {
+            "fieldCode": "aging",
+            "fieldName": "Aging",
+            "fieldValue": "33"
+          },
+          {
+            "fieldCode": "Coordinator",
+            "fieldName": "Coordinator",
+            "fieldValue": "[Ana Perez]0027055555"
+          },
+          {
+            "fieldCode": "MSPFirstOprTime",
+            "fieldValue": "2026-09-26 20:28:04"
+          },
+          {
+            "fieldCode": "responseDuration",
+            "fieldValue": "9760"
+          },
+          {
+            "fieldCode": "latestVender",
+            "fieldValue": "[Li Wei]0027011111"
+          },
+          {
+            "fieldCode": "latestVenderOrg",
+            "fieldValue": "WhaleCloudSupport"
+          }
+        ],
+        "authority": true
+      }
+    ],
+    "hasNextPage": false
+  }
+}

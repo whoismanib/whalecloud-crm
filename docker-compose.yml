@@ -40,6 +40,9 @@ services:
     environment:
       <<: *dbenv
       CORS_ORIGINS: ''
+      # eDo sync (ADR 0007): pass the token from the shell, never write it to a file, e.g.
+      #   EDO_ACCESS_TOKEN="$(security find-generic-password -a <user> -s edo-access-token -w)" docker compose up -d
+      EDO_ACCESS_TOKEN: ${EDO_ACCESS_TOKEN:-}
     depends_on:
       migrate: { condition: service_completed_successfully }
     healthcheck:

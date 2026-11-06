@@ -32,6 +32,7 @@ import { RuleErrors } from '../../components/RuleErrors';
 import { EnumBadge, EnumSelect, PageHeader, ScrollTable, useFieldError } from '../../components/ui';
 import { fmtDate, fmtDateTime, todayIso } from '../../lib/format';
 import { useAction } from '../../lib/mutations';
+import { EdoPanel } from './EdoPanel';
 
 interface Ticket {
   id: string;
@@ -51,6 +52,7 @@ interface Ticket {
   daysSinceUpdate: number;
   slaOverdue: boolean;
   pushToday: boolean;
+  externalSource: string | null;
 }
 
 function NewTicket({ onDone }: { onDone: () => void }) {
@@ -128,7 +130,10 @@ export default function TicketsPage() {
   const { data: me } = useMe();
   const [onlyOpen, setOnlyOpen] = useState(true);
   const [creating, setCreating] = useState(false);
-  const q = useQuery({ queryKey: ['tickets'], queryFn: () => api.get<Ticket[]>('/tickets') });
+  const q = useQuery({
+    queryKey: ['tickets'],
+    queryFn: () => api.get<Ticket[]>('/tickets?manual=1'),
+  });
   const update = useAction(
     ({ id, patch }: { id: string; patch: Record<string, string> }) =>
       api.patch(`/tickets/${id}`, patch),
@@ -137,12 +142,15 @@ export default function TicketsPage() {
     },
   );
   const canWrite = canDo(me, 'P10', 'write');
-  const rows = (q.data ?? []).filter((r) => !onlyOpen || r.isOpen);
-  const push = (q.data ?? []).filter((r) => r.pushToday);
+  // eDo tickets live in the panel above; this list keeps the tickets typed in the CRM.
+  const manual = (q.data ?? []).filter((r) => !r.externalSource);
+  const rows = manual.filter((r) => !onlyOpen || r.isOpen);
+  const push = manual.filter((r) => r.pushToday);
   return (
     <Stack>
+      <EdoPanel />
       <PageHeader
-        title={t('tickets.title')}
+        title={t('tickets.manualTitle')}
         right={
           <>
             <ExportButtons entity="tickets" />

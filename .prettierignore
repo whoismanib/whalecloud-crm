@@ -6,3 +6,4 @@ apps/api/drizzle
 package-lock.json
 *.md
 .data
+.claude

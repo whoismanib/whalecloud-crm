@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Card,
   Group,
   Paper,
@@ -29,7 +30,7 @@ import { RuleErrors } from '../../components/RuleErrors';
 import { ExportButtons } from '../../components/ExportButtons';
 import { ProcessKpis } from './ProcessKpis';
 import { EnumBadge, PageHeader } from '../../components/ui';
-import { fmtMoney, fmtNumber, fmtPct } from '../../lib/format';
+import { fmtDateTime, fmtMoney, fmtNumber, fmtPct } from '../../lib/format';
 import { scoreColor, useEngagement } from '../health/ClientEngagement';
 
 interface Kpi {
@@ -51,6 +52,7 @@ interface Dashboard {
       closedUsd: string;
       inFlightUsd: string;
       goalUsd: number | null;
+      goalMmCny: number | null;
       pct: number | null;
       pctPotential: number | null;
     };
@@ -61,6 +63,21 @@ interface Dashboard {
     dueSoon: { amount: string; count: number };
     openIncidents: number;
     incidentsBallInWhale: number;
+    billing: {
+      byYear: {
+        year: number;
+        invoiced: string;
+        invoicedCount: number;
+        paid: string;
+        pending: string;
+        toInvoice: string;
+        toInvoiceCount: number;
+      }[];
+    };
+    pipeline: {
+      inFlightByStage: { stage: number; count: number; amountUsd: string }[];
+      lostThisYear: { count: number; amountUsd: string };
+    };
   };
   charts: {
     pipelineByStage: { stage: number; count: number; amountMm: number }[];
@@ -145,22 +162,31 @@ function KpiCard({ k, currency }: { k: Kpi; currency: string }) {
 function Stat({
   label,
   value,
+  sub,
   color,
   to,
+  testId,
 }: {
   label: string;
   value: string;
+  sub?: string;
   color?: string;
   to?: string;
+  testId?: string;
 }) {
   const inner = (
-    <Paper withBorder p="sm" radius="md" h="100%">
+    <Paper withBorder p="sm" radius="md" h="100%" data-testid={testId}>
       <Text size="xs" c="dimmed">
         {label}
       </Text>
       <Text fz={20} fw={700} c={color}>
         {value}
       </Text>
+      {sub && (
+        <Text size="xs" c="dimmed">
+          {sub}
+        </Text>
+      )}
     </Paper>
   );
   return to ? (
@@ -172,9 +198,195 @@ function Stat({
   );
 }
 
+/** A numbered block of the summary with a link to the page that holds the detail. */
+function Section({
+  title,
+  to,
+  testId,
+  right,
+  children,
+}: {
+  title: string;
+  to?: string;
+  testId?: string;
+  right?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const { t } = useTranslation();
+  return (
+    <Paper withBorder radius="md" p="md" data-testid={testId}>
+      <Group justify="space-between" mb="sm">
+        <Title order={4}>{title}</Title>
+        <Group gap="sm">
+          {right}
+          {to && (
+            <Anchor component={Link} to={to} size="sm">
+              {t('dashboard.sec.seeDetail')} →
+            </Anchor>
+          )}
+        </Group>
+      </Group>
+      {children}
+    </Paper>
+  );
+}
+
+function GoalSection({ d }: { d: Dashboard }) {
+  const { t } = useTranslation();
+  const g = d.legacy.goal;
+  const pct = (g.pct ?? 0) * 100;
+  const potential = (g.pctPotential ?? 0) * 100;
+  const gap = g.goalUsd === null ? null : Math.max(0, g.goalUsd - Number(g.closedUsd));
+  return (
+    <Section
+      title={t('dashboard.sec.goal', { year: d.year })}
+      to="/oportunidades"
+      testId="sec-goal"
+      right={
+        g.goalUsd !== null && (
+          <Text size="sm" c="dimmed">
+            {t('dashboard.sec.goalTarget', {
+              usd: fmtMoney(String(g.goalUsd)),
+              cny: fmtNumber(g.goalMmCny, 0),
+            })}
+          </Text>
+        )
+      }
+    >
+      <Group align="baseline" gap="md" mb={6}>
+        <Text fz={34} fw={700} c="green">
+          {fmtPct(pct / 100, 1)}
+        </Text>
+        <Text c="dimmed">{t('dashboard.sec.ofGoal')}</Text>
+      </Group>
+      <Progress.Root size={18} radius="sm">
+        <Progress.Section value={pct} color="green" />
+        <Progress.Section value={Math.max(0, potential - pct)} color="blue" />
+      </Progress.Root>
+      <SimpleGrid cols={{ base: 2, sm: 4 }} mt="md">
+        <Stat
+          label={t('dashboard.sec.closedYear', { year: d.year })}
+          value={fmtMoney(g.closedUsd)}
+          color="green"
+        />
+        <Stat label={t('dashboard.sec.inFlight')} value={fmtMoney(g.inFlightUsd)} color="blue" />
+        <Stat
+          label={t('dashboard.sec.gap')}
+          value={gap === null ? '—' : fmtMoney(String(gap))}
+          color="red"
+        />
+        <Stat
+          label={t('dashboard.sec.ifAllCloses')}
+          value={fmtPct(potential / 100, 1)}
+          sub={t('dashboard.sec.ifAllClosesHint')}
+        />
+      </SimpleGrid>
+    </Section>
+  );
+}
+
+function BillingSection({ d, currency }: { d: Dashboard; currency: string }) {
+  const { t } = useTranslation();
+  const l = d.legacy;
+  const y = l.billing.byYear.find((b) => b.year === d.year);
+  return (
+    <Section
+      title={t('dashboard.sec.billing', { year: d.year })}
+      to="/facturacion"
+      testId="sec-billing"
+    >
+      <SimpleGrid cols={{ base: 2, sm: 3, lg: 6 }}>
+        <Stat
+          label={t('dashboard.sec.invoiced', { year: d.year })}
+          value={fmtMoney(y?.invoiced, currency)}
+        />
+        <Stat
+          label={t('dashboard.sec.collected', { year: d.year })}
+          value={fmtMoney(y?.paid, currency)}
+          color="green"
+        />
+        <Stat
+          label={t('dashboard.cards.toCollect')}
+          value={fmtMoney(l.toCollect, currency)}
+          color="orange"
+        />
+        <Stat
+          label={t('dashboard.cards.overdue', { count: l.overdue.count })}
+          value={fmtMoney(l.overdue.amount, currency)}
+          color={Number(l.overdue.amount) > 0 ? 'red' : 'green'}
+        />
+        <Stat
+          label={t('dashboard.sec.dueSoon', { count: l.dueSoon.count })}
+          value={fmtMoney(l.dueSoon.amount, currency)}
+          color="blue"
+        />
+        <Stat label={t('dashboard.sec.toInvoice')} value={fmtMoney(l.toInvoice, currency)} />
+      </SimpleGrid>
+    </Section>
+  );
+}
+
+interface EdoKpis {
+  meta: { lastSyncAt: string | null; totalInCrm: number };
+  kpis: {
+    open: number;
+    whale: number;
+    wom: number;
+    p12: number;
+    breached: number;
+    risk: number;
+    nofirst: number;
+    oldest: { no: string; days: number } | null;
+  };
+  groups: { ids: string[] }[];
+}
+
+function IncidentsSection() {
+  const { t } = useTranslation();
+  const q = useQuery({ queryKey: ['edo-panel'], queryFn: () => api.get<EdoKpis>('/tickets/edo') });
+  const p = q.data;
+  if (!p || !p.meta.totalInCrm) return null;
+  const k = p.kpis;
+  const push = p.groups.reduce((a, g) => a + g.ids.length, 0);
+  return (
+    <Section
+      title={t('dashboard.sec.incidents')}
+      to="/incidentes"
+      testId="sec-incidents"
+      right={
+        <Text size="sm" c="dimmed">
+          {t('dashboard.sec.edoData', { when: fmtDateTime(p.meta.lastSyncAt) })}
+        </Text>
+      }
+    >
+      <SimpleGrid cols={{ base: 2, sm: 3, lg: 6 }}>
+        <Stat label={t('edo.kpi.open')} value={String(k.open)} color="blue" />
+        <Stat label={t('edo.kpi.whaleWom')} value={`${k.whale} / ${k.wom}`} />
+        <Stat label={t('edo.kpi.p12')} value={String(k.p12)} color={k.p12 ? 'red' : undefined} />
+        <Stat
+          label={t('edo.kpi.sla')}
+          value={`${k.breached} / ${k.risk}`}
+          color={k.breached ? 'red' : undefined}
+        />
+        <Stat
+          label={t('edo.pushTitle')}
+          value={String(push)}
+          color={push ? 'orange' : undefined}
+          sub={t('dashboard.sec.pushHint')}
+        />
+        <Stat
+          label={t('edo.kpi.oldest')}
+          value={k.oldest ? `${Math.floor(k.oldest.days)} d` : '—'}
+          sub={k.oldest?.no}
+        />
+      </SimpleGrid>
+    </Section>
+  );
+}
+
 export default function ResumenPage() {
   const { t } = useTranslation();
-  const [currency, setCurrency] = useState('CNY');
+  const [currency, setCurrency] = useState('USD');
   const q = useQuery({
     queryKey: ['dashboard', currency],
     queryFn: () => api.get<Dashboard>(`/dashboard/kpis?currency=${currency}`),
@@ -199,135 +411,64 @@ export default function ResumenPage() {
         }
       />
       <RuleErrors error={q.error} />
-      <Title order={4}>{t('dashboard.legacyTitle')}</Title>
       {!d ? (
-        <Skeleton h={120} />
+        <Skeleton h={160} />
       ) : (
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} data-testid="legacy-cards">
-          <Paper withBorder p="sm" radius="md">
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.projects')}
-            </Text>
-            <Group gap="md" mt={4}>
-              <Link to="/salud?status=HEALTHY" style={{ textDecoration: 'none' }}>
-                <Text c="green" fw={700}>
-                  {d.legacy.projectsHealth.HEALTHY} {t('dashboard.cards.healthy')}
-                </Text>
-              </Link>
-              <Text c="yellow.7" fw={700}>
-                {d.legacy.projectsHealth.AT_RISK} {t('dashboard.cards.atRisk')}
-              </Text>
-              <Text c="red" fw={700}>
-                {d.legacy.projectsHealth.CRITICAL} {t('dashboard.cards.critical')}
-              </Text>
-              <Text c="dimmed" fw={700}>
-                {d.legacy.projectsHealth.STALE} {t('dashboard.cards.stale')}
-              </Text>
-            </Group>
-          </Paper>
-          <Paper withBorder p="sm" radius="md">
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.goal')}
-            </Text>
-            <Progress.Root size="lg" mt={6}>
-              <Progress.Section value={(d.legacy.goal.pct ?? 0) * 100} color="green" />
-              <Progress.Section
-                value={Math.max(
-                  0,
-                  ((d.legacy.goal.pctPotential ?? 0) - (d.legacy.goal.pct ?? 0)) * 100,
-                )}
-                color="blue"
+        <>
+          <GoalSection d={d} />
+          <Section title={t('dashboard.sec.pipeline')} to="/oportunidades" testId="sec-pipeline">
+            <SimpleGrid cols={{ base: 2, sm: 3, lg: 6 }}>
+              {d.legacy.pipeline.inFlightByStage.map((s) => (
+                <Stat
+                  key={s.stage}
+                  label={t(`enums:stage.${s.stage}`)}
+                  value={fmtMoney(s.amountUsd)}
+                  sub={t('dashboard.sec.deals', { count: s.count })}
+                />
+              ))}
+              <Stat
+                label={t('dashboard.cards.newPipeline')}
+                value={fmtMoney(d.legacy.newPipelineUsd)}
+                color="yellow.7"
               />
-            </Progress.Root>
-            <Text size="xs" mt={4}>
-              {t('dashboard.cards.closed')} {fmtMoney(d.legacy.goal.closedUsd)} ·{' '}
-              {t('dashboard.cards.inFlight')} {fmtMoney(d.legacy.goal.inFlightUsd)}
-            </Text>
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.goalPct', { value: fmtNumber((d.legacy.goal.pct ?? 0) * 100) })} ·{' '}
-              {t('dashboard.cards.goalPotential', {
-                value: fmtNumber((d.legacy.goal.pctPotential ?? 0) * 100),
-              })}
-            </Text>
-          </Paper>
-          <Stat
-            label={t('dashboard.cards.newPipeline')}
-            value={fmtMoney(d.legacy.newPipelineUsd)}
-            color="yellow.7"
-            to="/oportunidades"
-          />
-          <Stat
-            label={`${t('dashboard.cards.incidents')} · ${t('dashboard.cards.ballInWhale', { count: d.legacy.incidentsBallInWhale })}`}
-            value={String(d.legacy.openIncidents)}
-            to="/incidentes"
-          />
-          <Stat
-            label={t('dashboard.cards.toInvoice')}
-            value={fmtMoney(d.legacy.toInvoice, currency)}
-            to="/facturacion"
-          />
-          <Stat
-            label={t('dashboard.cards.toCollect')}
-            value={fmtMoney(d.legacy.toCollect, currency)}
-            to="/facturacion"
-          />
-          <Stat
-            label={t('dashboard.cards.overdue', { count: d.legacy.overdue.count })}
-            value={fmtMoney(d.legacy.overdue.amount, currency)}
-            color="red"
-            to="/facturacion"
-          />
-        </SimpleGrid>
+              <Stat
+                label={t('dashboard.sec.lostThisYear', { year: d.year })}
+                value={fmtMoney(d.legacy.pipeline.lostThisYear.amountUsd)}
+                sub={t('dashboard.sec.deals', { count: d.legacy.pipeline.lostThisYear.count })}
+                color="dimmed"
+              />
+            </SimpleGrid>
+          </Section>
+          <BillingSection d={d} currency={currency} />
+        </>
       )}
+      <IncidentsSection />
       {eng && (
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} data-testid="mail-cards">
-          <Paper withBorder p="sm" radius="md">
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.activeTopics')}
-            </Text>
-            <Text fz={20} fw={700}>
-              {eng.summary.active}
-            </Text>
-            <Group gap="md">
-              <Text size="xs" c="green" fw={700}>
-                {eng.summary.healthy} {t('dashboard.cards.healthy')}
-              </Text>
-              <Text size="xs" c="yellow.7" fw={700}>
-                {eng.summary.atRisk} {t('dashboard.cards.atRisk')}
-              </Text>
-              <Text size="xs" c="red" fw={700}>
-                {eng.summary.critical} {t('dashboard.cards.critical')}
-              </Text>
-            </Group>
-          </Paper>
-          <Paper withBorder p="sm" radius="md" data-testid="card-mail30d">
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.mail30d')}
-            </Text>
-            <Text fz={20} fw={700}>
-              {eng.mailbox ? eng.mailbox.emails : '—'}
-            </Text>
-            <Text size="xs" c="dimmed">
-              {eng.mailbox
-                ? t('dashboard.cards.mailDetail', {
-                    meetings: eng.mailbox.meetings,
-                    upcoming: eng.mailbox.upcoming,
-                  })
-                : t('dashboard.cards.noMail')}
-            </Text>
-          </Paper>
-          <Paper withBorder p="sm" radius="md">
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.staleOnHold')}
-            </Text>
-            <Text fz={20} fw={700}>
-              {eng.summary.stale} / {eng.summary.onHold}
-            </Text>
-            <Text size="xs" c="dimmed">
-              {t('dashboard.cards.staleOnHoldHint')}
-            </Text>
-          </Paper>
-          <Link to="/salud" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Section title={t('dashboard.sec.health')} to="/salud" testId="sec-health">
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
+            <Stat
+              label={t('dashboard.cards.activeTopics')}
+              value={String(eng.summary.active)}
+              sub={`${eng.summary.healthy} ${t('dashboard.cards.healthy')} · ${eng.summary.atRisk} ${t('dashboard.cards.atRisk')} · ${eng.summary.critical} ${t('dashboard.cards.critical')}`}
+            />
+            <Stat
+              label={t('dashboard.cards.mail30d')}
+              value={eng.mailbox ? String(eng.mailbox.emails) : '—'}
+              sub={
+                eng.mailbox
+                  ? t('dashboard.cards.mailDetail', {
+                      meetings: eng.mailbox.meetings,
+                      upcoming: eng.mailbox.upcoming,
+                    })
+                  : t('dashboard.cards.noMail')
+              }
+              testId="card-mail30d"
+            />
+            <Stat
+              label={t('dashboard.cards.staleOnHold')}
+              value={`${eng.summary.stale} / ${eng.summary.onHold}`}
+              sub={t('dashboard.cards.staleOnHoldHint')}
+            />
             <Paper withBorder p="sm" radius="md" h="100%" data-testid="card-client-health">
               <Text size="xs" c="dimmed">
                 {t('dashboard.cards.clientHealth')}
@@ -356,12 +497,15 @@ export default function ResumenPage() {
                   </Group>
                 ))}
             </Paper>
-          </Link>
-        </SimpleGrid>
+          </SimpleGrid>
+        </Section>
       )}
-      <Title order={4} mt="sm">
+      <Title order={4} mt="md">
         {t('dashboard.kpisTitle')}
       </Title>
+      <Text size="sm" c="dimmed" mt={-8}>
+        {t('dashboard.kpisHint')}
+      </Text>
       {!d ? (
         <Skeleton h={300} />
       ) : (

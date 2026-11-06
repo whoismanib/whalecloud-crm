@@ -54,6 +54,127 @@ interface ActionRow {
   due: boolean;
 }
 
+interface BillingYear {
+  year: number;
+  invoiced: string;
+  invoicedCount: number;
+  paid: string;
+  pending: string;
+  toInvoice: string;
+  toInvoiceCount: number;
+}
+interface BillingSummaryData {
+  year: number;
+  legacy: {
+    toInvoice: string;
+    toCollect: string;
+    overdue: { amount: string; count: number };
+    dueSoon: { amount: string; count: number };
+    billing: { byYear: BillingYear[] };
+  };
+}
+
+/** Same definitions as the legacy "Facturación" tab: invoices by issue year, USD. */
+function BillingSummary() {
+  const { t } = useTranslation();
+  const q = useQuery({
+    queryKey: ['dashboard', 'USD'],
+    queryFn: () => api.get<BillingSummaryData>('/dashboard/kpis?currency=USD'),
+  });
+  const d = q.data;
+  if (!d) return null;
+  const l = d.legacy;
+  const y = l.billing.byYear.find((b) => b.year === d.year);
+  const card = (label: string, value: string, color?: string) => (
+    <Paper withBorder p="sm">
+      <Text size="xs" c="dimmed">
+        {label}
+      </Text>
+      <Text fw={700} fz="lg" c={color}>
+        {value}
+      </Text>
+    </Paper>
+  );
+  const dash = (v: string, n?: number) =>
+    Number(v) ? `${fmtMoney(v)}${n !== undefined ? ` · ${n}` : ''}` : '—';
+  return (
+    <Stack gap="sm" data-testid="billing-summary">
+      <SimpleGrid cols={{ base: 2, md: 3, lg: 6 }}>
+        {card(t('dashboard.sec.invoiced', { year: d.year }), fmtMoney(y?.invoiced))}
+        {card(t('dashboard.sec.collected', { year: d.year }), fmtMoney(y?.paid), 'green')}
+        {card(t('billing.pending'), fmtMoney(l.toCollect), 'yellow.7')}
+        {card(
+          `${t('billing.overdue')} (${l.overdue.count})`,
+          fmtMoney(l.overdue.amount),
+          Number(l.overdue.amount) > 0 ? 'red' : 'green',
+        )}
+        {card(
+          t('dashboard.sec.dueSoon', { count: l.dueSoon.count }),
+          fmtMoney(l.dueSoon.amount),
+          'blue',
+        )}
+        {card(t('dashboard.sec.toInvoice'), fmtMoney(l.toInvoice), 'dimmed')}
+      </SimpleGrid>
+      <Paper withBorder p="sm">
+        <Text fw={600} mb="xs">
+          {t('billing.byYear')}
+        </Text>
+        <ScrollTable minWidth={560} data-testid="billing-by-year">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th />
+              {l.billing.byYear.map((b) => (
+                <Table.Th
+                  key={b.year}
+                  ta="right"
+                  bg={b.year === d.year ? 'var(--mantine-color-blue-light)' : undefined}
+                >
+                  {b.year}
+                  {b.year === d.year ? ` · ${t('billing.goalYear')}` : ''}
+                </Table.Th>
+              ))}
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            <Table.Tr>
+              <Table.Td fw={600}>{t('billing.invoiced')}</Table.Td>
+              {l.billing.byYear.map((b) => (
+                <Table.Td key={b.year} ta="right">
+                  {dash(b.invoiced, b.invoicedCount)}
+                </Table.Td>
+              ))}
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td pl="lg">· {t('billing.paid')}</Table.Td>
+              {l.billing.byYear.map((b) => (
+                <Table.Td key={b.year} ta="right">
+                  {dash(b.paid)}
+                </Table.Td>
+              ))}
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td pl="lg">· {t('billing.pending')}</Table.Td>
+              {l.billing.byYear.map((b) => (
+                <Table.Td key={b.year} ta="right">
+                  {dash(b.pending)}
+                </Table.Td>
+              ))}
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td fw={600}>{t('dashboard.sec.toInvoice')}</Table.Td>
+              {l.billing.byYear.map((b) => (
+                <Table.Td key={b.year} ta="right">
+                  {dash(b.toInvoice, b.toInvoiceCount)}
+                </Table.Td>
+              ))}
+            </Table.Tr>
+          </Table.Tbody>
+        </ScrollTable>
+      </Paper>
+    </Stack>
+  );
+}
+
 export default function BillingPage() {
   const { t } = useTranslation();
   const { data: me } = useMe();
@@ -81,58 +202,12 @@ export default function BillingPage() {
     },
   );
   const rows = invs.data ?? [];
-  const sum = (f: (r: InvoiceRow) => boolean, v: (r: InvoiceRow) => number) =>
-    rows.filter(f).reduce((a, r) => a + v(r), 0);
-  const invoicedUsd = sum(
-    (r) => r.amountCurrency === 'USD',
-    (r) => Number(r.amount),
-  );
-  const pendingUsd = sum(
-    (r) => r.amountCurrency === 'USD',
-    (r) => Number(r.balance),
-  );
-  const overdue = rows.filter((r) => Number(r.balance) > 0 && r.escalation.daysOverdue > 0);
   const roles = me?.roles ?? [];
   return (
     <Stack>
       <PageHeader title={t('billing.title')} right={<ExportButtons entity="invoices" />} />
       <RuleErrors error={invs.error ?? actions.error} />
-      <SimpleGrid cols={{ base: 2, md: 4 }}>
-        <Paper withBorder p="sm">
-          <Text size="xs" c="dimmed">
-            {t('billing.invoiced')}
-          </Text>
-          <Text fw={700}>{fmtMoney(invoicedUsd)}</Text>
-        </Paper>
-        <Paper withBorder p="sm">
-          <Text size="xs" c="dimmed">
-            {t('billing.paid')}
-          </Text>
-          <Text fw={700} c="green">
-            {fmtMoney(invoicedUsd - pendingUsd)}
-          </Text>
-        </Paper>
-        <Paper withBorder p="sm">
-          <Text size="xs" c="dimmed">
-            {t('billing.pending')}
-          </Text>
-          <Text fw={700} c="yellow.7">
-            {fmtMoney(pendingUsd)}
-          </Text>
-        </Paper>
-        <Paper withBorder p="sm">
-          <Text size="xs" c="dimmed">
-            {t('billing.overdue')} ({overdue.length})
-          </Text>
-          <Text fw={700} c="red">
-            {fmtMoney(
-              overdue
-                .filter((r) => r.amountCurrency === 'USD')
-                .reduce((a, r) => a + Number(r.balance), 0),
-            )}
-          </Text>
-        </Paper>
-      </SimpleGrid>
+      <BillingSummary />
       <Title order={4}>{t('billing.invoices')}</Title>
       <ScrollTable striped withTableBorder data-testid="invoices-table">
         <Table.Thead>

@@ -116,6 +116,8 @@
     "DELEGATION_IN_PAST": "该委托已结束。",
     "DELEGATE_NOT_FOUND": "受托人不存在或已停用。",
     "COST_ESTIMATE_EMPTY": "签字前请填写人月。",
+    "EDO_SYNC_BUSY": "已有 eDo 更新正在进行，请等待完成。",
+    "EDO_SYNC_NOT_CONFIGURED": "尚未配置 eDo 连接：服务器缺少 EDO_ACCESS_TOKEN。",
     "EDO_ID_MISSING": "该行缺少 eDo 编号（issueId），无法导入。",
     "EDO_CREATED_MISSING": "工单 {{number}} 缺少有效的创建日期。",
     "EDO_STATUS_UNKNOWN": "工单 {{number}}：未知的 eDo 状态（{{status}}）。",

@@ -293,6 +293,8 @@ export async function persistInvoice(
     paidOn?: string | null;
     /** A milestone imported earlier as "not invoiced yet" that this row now invoices. */
     existingMilestoneId?: string | null;
+    /** Planned billing date of a not-yet-invoiced row (legacy `bill_year`). */
+    plannedDate?: string | null;
   },
   report: ImportReport,
 ) {
@@ -351,6 +353,7 @@ export async function persistInvoice(
         receptionAt: p.receptionOn,
         recognizedOn: p.receptionOn,
         readyAt: p.receptionOn ? new Date(`${p.receptionOn}T12:00:00Z`) : null,
+        plannedDate: p.plannedDate ?? null,
         status,
         createdBy: actor.userId,
       })
@@ -828,10 +831,16 @@ export async function importLegacyTracker(
     } else {
       // Not invoiced yet: idempotent on (opportunity, milestone name).
       const [dup] = await db
-        .select({ id: milestones.id })
+        .select({ id: milestones.id, plannedDate: milestones.plannedDate })
         .from(milestones)
         .where(and(eq(milestones.opportunityId, opp.id), eq(milestones.name, inv.projectName)));
       if (dup) {
+        const planned = inv.billYear ? `${inv.billYear}-12-31` : null;
+        if (planned && dup.plannedDate !== planned)
+          await db
+            .update(milestones)
+            .set({ plannedDate: planned, updatedAt: new Date() })
+            .where(eq(milestones.id, dup.id));
         report.skipped++;
         continue;
       }
@@ -852,6 +861,7 @@ export async function importLegacyTracker(
         paidAmount: inv.payStatus === 'PAID' ? inv.amountUsd : null,
         paidOn: inv.payStatus === 'PAID' ? inv.dueOn : null,
         existingMilestoneId,
+        plannedDate: inv.invoiceNumber || !inv.billYear ? null : `${inv.billYear}-12-31`,
       },
       report,
     );
@@ -926,6 +936,7 @@ export async function importEdoIncidents(
     closedOn: tickets.closedOn,
     externalUrl: tickets.externalUrl,
     externalId: tickets.externalId,
+    edo: tickets.edo,
   };
   const byExternal = new Map(
     (await db.select(cols).from(tickets).where(eq(tickets.externalSource, EDO))).map((t) => [
@@ -954,6 +965,7 @@ export async function importEdoIncidents(
     lastUpdateAt: new Date(d.lastUpdateAt),
     closedOn: d.closedOn,
     externalUrl: d.externalUrl,
+    edo: d.edo,
   });
   const inserts: (typeof tickets.$inferInsert)[] = [];
   for (const d of mapped.tickets) {

@@ -73,6 +73,24 @@ Importación (Administración → Importación): CSV de cuentas, oportunidades y
 descargables) y el `tracker_data.json` legado, con modo simulación. Exportación CSV/XLSX en
 Cuentas, Oportunidades, Facturación, Incidentes y Resumen.
 
+## Incidentes eDo (botón Actualizar)
+
+La página **Incidentes** calcula los mismos KPIs que la pestaña eDo del tablero legado: SLA,
+estancados, "a quién presionar hoy" y tendencias de 12 semanas. El botón **Actualizar** descarga los
+tickets directo desde la eDo Open API (solo lectura, ADR 0007).
+
+El token de eDo **no se guarda en ningún archivo del repo ni en la base de datos**. Pásalo al
+levantar el stack, leyéndolo del llavero de macOS, donde ya lo tiene el tablero legado:
+
+```bash
+EDO_ACCESS_TOKEN="$(security find-generic-password -a <tu-usuario-eDo> -s edo-access-token -w)" docker compose up -d
+```
+
+Sin token, el botón queda deshabilitado y explica cómo activarlo. También se puede seguir
+importando el `edo_incidents.json` del tablero legado desde Admin → Importar → Incidentes eDo.
+La primera descarga es completa, unas 35 páginas. Las siguientes bajan los abiertos y resueltos
+completos y solo los cerrados de los últimos 100 días.
+
 ## Scripts
 
 | Script | Qué hace |

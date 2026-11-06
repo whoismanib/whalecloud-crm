@@ -181,7 +181,31 @@
       "INVOICED": "已开票",
       "COLLECTED": "已回款"
     },
-    "tracking": "跟踪"
+    "tracking": "跟踪",
+    "sec": {
+      "goal": "1. {{year}} 年目标",
+      "goalTarget": "办公室目标（S&S 签约）：{{usd}} · {{cny}} 百万人民币",
+      "ofGoal": "目标已完成",
+      "closedYear": "{{year}} 已成交（PO + 凭证）",
+      "inFlight": "进行中（无 PO）",
+      "gap": "距目标差额",
+      "ifAllCloses": "若进行中全部成交",
+      "ifAllClosesHint": "的目标",
+      "pipeline": "2. 商机管道",
+      "deals": "{{count}} 个商机",
+      "lostThisYear": "{{year}} 丢单或放弃",
+      "billing": "3. {{year}} 开票与回款",
+      "invoiced": "{{year}} 已开票",
+      "collected": "{{year}} 已回款",
+      "dueSoon": "45 天内到期（{{count}}）",
+      "toInvoice": "有 PO 未开票",
+      "incidents": "4. eDo 工单",
+      "edoData": "eDo 数据：{{when}}",
+      "pushHint": "需要催办的 Whale 工单",
+      "health": "5. 客户健康度",
+      "seeDetail": "查看详情"
+    },
+    "kpisHint": "办公室指标（流程文件中的 10 个 KPI），以所选币种的百万为单位。"
   },
   "accounts": {
     "title": "客户",
@@ -377,7 +401,9 @@
     "notify": "知会",
     "complete": "登记结果",
     "outcome": "结果",
-    "onlyDue": "仅显示今日到期"
+    "onlyDue": "仅显示今日到期",
+    "byYear": "按年汇总",
+    "goalYear": "目标"
   },
   "health": {
     "title": "CRM 健康度",
@@ -442,7 +468,8 @@
     "reminder": "您好，能否告知工单 {{number}}“{{title}}”的进展？已 {{days}} 天无更新。",
     "openedOn": "开单日期",
     "days": "{{count}} 天",
-    "onlyOpen": "仅未关闭"
+    "onlyOpen": "仅未关闭",
+    "manualTitle": "CRM 中登记的工单"
   },
   "audit": {
     "title": "不可篡改修改记录",
@@ -455,5 +482,86 @@
     "entity": "对象",
     "changes": "变更",
     "occurredAt": "时间"
+  },
+  "edo": {
+    "title": "eDo 工单",
+    "subtitle": "WOM 智利 · eDo 数据：{{when}}（{{ago}}）· 智利时间 · 最近 {{days}} 天内的未结、已解决和已关闭工单（{{total}} 个中的 {{shown}} 个）",
+    "agoMin": "{{count}} 分钟前",
+    "agoHours": "{{count}} 小时前",
+    "agoDays": "{{count}} 天前",
+    "refresh": "更新",
+    "progress": "正在从 eDo 下载：第 {{done}}/{{total}} 页（{{label}}）",
+    "notConfigured": "尚未配置 eDo 连接：启动 CRM 时传入 EDO_ACCESS_TOKEN（见 README「eDo 工单」）。",
+    "emptyTitle": "还没有 eDo 工单",
+    "emptyBody": "点击「更新」从 eDo 下载，或在 管理 → 导入 → eDo 工单 中导入。",
+    "kpi": {
+      "open": "未结",
+      "backlog12": "12 周积压",
+      "whaleWom": "Whale / WOM 处理中",
+      "p12": "未结 P1/P2",
+      "p1Whale": "Whale 侧 {{count}} 个 P1",
+      "sla": "SLA 超时 / 有风险",
+      "breached": "超时 {{count}}",
+      "atRisk": "有风险 {{count}}",
+      "noFirst": "无首次响应",
+      "whaleSide": "Whale 侧",
+      "resp30": "首次响应中位数（30 天）",
+      "closed": "关闭 7 天 / 30 天",
+      "see7": "看 7 天",
+      "see30": "看 30 天",
+      "oldest": "最久未结"
+    },
+    "pushTitle": "今天要催谁",
+    "pushCount": "{{tickets}} 个工单 · {{people}} 位负责人",
+    "pushNone": "无需催办：Whale 侧没有超时、停滞或未响应的工单。",
+    "ticketsN": "{{count}} 个工单",
+    "breachedN": "{{count}} 个超时",
+    "copyGroup": "复制小组汇总",
+    "copyReminder": "复制提醒",
+    "copied": "已复制",
+    "openInEdo": "在 eDo 打开",
+    "womTitle": "等待 WOM（停滞）",
+    "tableTitle": "工单",
+    "clearFilter": "清除筛选",
+    "viewOpen": "未结",
+    "viewAll": "全部（{{days}} 天）",
+    "search": "搜索编号、标题、人员…",
+    "truncated": "显示 {{count}} 个中的 300 个；请用搜索缩小范围。",
+    "ageOpen": "已开 {{count}} 天",
+    "noActivity": "{{days}} 天无更新",
+    "coord": "协调人",
+    "stale": "停滞",
+    "sla": {
+      "BREACHED": "超时",
+      "AT_RISK": "有风险",
+      "OK": "正常"
+    },
+    "ball": {
+      "CLOSED": "已关闭",
+      "WOM_VALIDATE": "待 WOM 验证/关闭",
+      "NO_FIRST_RESPONSE": "无首次响应",
+      "WHALE_WORKING": "Whale 处理中",
+      "WAITING_WOM": "等待 WOM"
+    },
+    "filter": {
+      "open": "未结",
+      "whale": "Whale 侧未结",
+      "wom": "WOM 侧未结",
+      "p12": "未结 P1/P2",
+      "breached": "SLA 超时",
+      "risk": "SLA 有风险",
+      "nofirst": "无首次响应（Whale）",
+      "closed7": "最近 7 天关闭",
+      "closed30": "最近 30 天关闭"
+    },
+    "col": {
+      "ticket": "工单",
+      "state": "状态",
+      "holder": "团队",
+      "assignee": "负责人",
+      "age": "时长",
+      "idle": "无更新",
+      "updated": "最后更新"
+    }
   }
 }

@@ -1,5 +1,14 @@
 import { sql } from 'drizzle-orm';
-import { date, index, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import {
+  date,
+  index,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from 'drizzle-orm/pg-core';
 import { base } from './columns';
 import { ballIn, ticketPriority, ticketStatus } from './enums';
 import { accounts } from './accounts';
@@ -34,6 +43,8 @@ export const tickets = pgTable(
     /** Stable id in the source (eDo `issueId`). eDo reuses ticket numbers, so this is the key. */
     externalId: text(),
     externalUrl: text(),
+    /** Normalized eDo row (`EdoRecord`) used for the legacy incident KPIs; null for manual tickets. */
+    edo: jsonb(),
   },
   (t) => [
     // Manual tickets: one number per account. Imported ones are keyed by source + external id.

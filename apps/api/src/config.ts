@@ -47,6 +47,18 @@ const ConfigSchema = z
     ARGON2_MEMORY_KIB: z.coerce.number().int().default(19456),
     ARGON2_TIME_COST: z.coerce.number().int().default(2),
     MAIL_DRIVER: z.enum(['console', 'none']).default('console'),
+    /**
+     * eDo Open API (read-only incident sync, ADR 0007). The token is never stored in the DB or
+     * logged; pass it in the environment, e.g. from the macOS Keychain when starting compose.
+     */
+    EDO_ACCESS_TOKEN: z.string().optional(),
+    EDO_BASE_URL: z.string().url().default('https://edo.iwhalecloud.com'),
+    EDO_PROJECT_ID: z.string().default('PMP202007281519402'),
+    EDO_ISSUE_TYPE: z.string().default('10001'),
+    /** Account that owns the synced tickets. */
+    EDO_ACCOUNT_NAME: z.string().default('WOM'),
+    /** Tests/demo: path of a raw eDo response (list of items) used instead of the network. */
+    EDO_FIXTURE: z.string().optional(),
     /** Unset = enabled; `false` keeps the worker process idle (e.g. a second replica). */
     WORKER_ENABLED: z
       .string()
